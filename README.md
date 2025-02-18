@@ -13,4 +13,4 @@ Our team sets to do this by completing these key tasks:
 Once all key tasks have been completed, the end result is to have a functional, secure, user-friendly database for WW1 research, for it to be accessible to library members and general public.
 Hopefully this database will support the WW1 research of the men and women who served in the military and other war occupations from Bradford and surrounding areas, whilst preserving historical accuracy and data integrity and accessibility.     
 
-To Be Completed
+
