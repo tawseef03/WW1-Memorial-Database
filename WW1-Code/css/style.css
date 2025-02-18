@@ -56,4 +56,50 @@ body {
     color: #ffd700;
 }
 
-.main
+.Main-Page {
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.welcomeText-container {
+    text-align: center;
+    margin-top: 50px
+    height: 100px;
+}
+
+.welcome-Text {
+    font-size: 3em;
+    color: #004d99;
+    animation: fadeout 3s forwards;
+    margin 0;
+}
+
+.subtitle {
+    font-size: 2em;
+    color: #00264d;
+    animation: fadeIn 1s 3s forwards;
+    opacity 0;
+}
+
+.sections-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+.section-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.section-box:hover {
+    transform: translateY(-5px);
+    
