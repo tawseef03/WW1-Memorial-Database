@@ -44,5 +44,16 @@ body {
 
 .nav-links a:hover {
     color: #cce6ff;
-    text-decoration: underline;
+    transform: translateY(-2px);
 }
+
+.nav-links a.active {
+    border-bottom 2px solid #ffd700;
+}
+
+.user {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.main
