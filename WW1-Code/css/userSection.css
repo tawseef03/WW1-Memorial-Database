@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #923e3e;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.navbar .logo img {
+    height: 80px;
+}
+
+.navbar .title {
+    color: white;
+    font-size: 35px;
+    margin-left: 55px;
+}
+
+.navbar .navbuttons {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar .navbuttons button {
+    padding: 10px 20px;
+    background-color: #780909;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.navbar .navbuttons button:hover {
+    background-color: #d41d1d;
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 80px;
+    gap: 40px;
+    max-width: 100%;
+}
+
+.sections1 {
+    display: flex;
+    justify-content: space-evenly;
+    width: auto;
+    height: auto;
+    gap: 105px;
+}
+
+.sections2 {
+    display: flex;
+    justify-content: space-evenly;
+    width: auto;
+    height: auto;
+    gap: 120px;
+}
+
+.section {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: #ddd;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 300px;
+    height: 250px;
+    border-radius: 5px;
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}
