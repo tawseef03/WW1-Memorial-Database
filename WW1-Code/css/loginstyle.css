@@ -12,6 +12,7 @@ body{ /* this is for the login and register page and this time uses a image a ba
     padding-bottom: 250px;
     min-height: 100vh;
     background: url(images/background.jpg) no-repeat;
+    background: url(../rsc/background.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
