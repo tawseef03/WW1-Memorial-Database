@@ -95,6 +95,14 @@ body {
     border-style: solid;
     background-size: cover;
 }
+.section:hover {
+    transition: transform 0.5s;
+    transform: translate(0px,-10px);
+}
+.section:not(:hover) {
+    transition: transform 0.5s;
+    transform: translate(0px,10px);
+}
 .section:nth-of-type(1) { background-image: url('../rsc/township.jpg'); }
 .section:nth-of-type(2) { background-image: url('../rsc/memorial.jpg'); }
 .section:nth-of-type(3) { background-image: url('../rsc/buried.jpg'); }
