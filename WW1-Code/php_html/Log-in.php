@@ -2,6 +2,7 @@
 // 在使用 $is_invalid 之前先定义它
 $is_invalid = false;
 
+//检查请求方法是否为post，即表单是否已提交
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 处理表单提交逻辑
     // 如果登录失败，将 $is_invalid 设置为 true
@@ -54,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="input-box">
                 <label for="email"></label>
                 <input type="email" name="email" id="email" placeholder="Enter Your Email" required
-                       value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
+                       value="<?= htmlspecialchars($_POST["email"] ?? "") ?>"> //防止xss攻击
                 <i class='bx bxs-user-circle'></i>
             </div>
             <div class="input-box">
