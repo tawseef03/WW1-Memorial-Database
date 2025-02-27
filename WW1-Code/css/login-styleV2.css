@@ -19,14 +19,14 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #cc482e; /* Red color as requested (note: fixed the color code to #923eee which is purple) */
+    background-color: #cc482e; /* Red color as requested */
     color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+.logo img {
+    width: 50px; /* 根据需要调整宽度 */
+    height: auto; /* 保持图片比例 */
 }
 
 .nav-links {
