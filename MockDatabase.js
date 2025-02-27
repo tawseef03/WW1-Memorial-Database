@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Sample database records - this would normally come from a backend server
+    // Sample database records 
     const databaseRecords = [
         {
             id: 1, 
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     let filteredRecords = [...databaseRecords];
     
-    // DOM elements
+    
     const searchButton = document.getElementById('searchButton');
     const resetButton = document.getElementById('resetButton');
     const recordsBody = document.getElementById('recordsBody');
@@ -161,10 +161,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalContent = document.getElementById('modalContent');
     const closeButton = document.querySelector('.close-button');
     
-    // Initialize the page
+   
     displayRecords();
     
-    // Event listeners
+    
     searchButton.addEventListener('click', performSearch);
     resetButton.addEventListener('click', resetSearch);
     prevPageButton.addEventListener('click', goToPrevPage);
@@ -172,14 +172,14 @@ document.addEventListener('DOMContentLoaded', function() {
     advancedSearchButton.addEventListener('click', toggleAdvancedSearch);
     closeButton.addEventListener('click', closeModal);
     
-    // Close modal when clicking outside of it
+    
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             closeModal();
         }
     });
     
-    // Search function
+    
     function performSearch() {
         const surname = document.getElementById('surname').value.trim().toLowerCase();
         const forename = document.getElementById('forename').value.trim().toLowerCase();
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateResultsInfo();
     }
     
-    // Reset search function
+    
     function resetSearch() {
         document.getElementById('searchForm').reset();
         filteredRecords = [...databaseRecords];
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateResultsInfo();
     }
     
-    // Display records function
+    
     function displayRecords() {
         recordsBody.innerHTML = '';
         
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 recordsBody.appendChild(row);
             });
             
-            // Add event listeners to details buttons
+            
             document.querySelectorAll('.details-button').forEach(button => {
                 button.addEventListener('click', function() {
                     const recordId = parseInt(this.getAttribute('data-id'));
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePagination();
     }
     
-    // Update results info
+    
     function updateResultsInfo() {
         if (filteredRecords.length === databaseRecords.length) {
             resultsInfo.textContent = `Showing all ${filteredRecords.length} records.`;
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Update pagination controls
+   
     function updatePagination() {
         const totalPages = Math.ceil(filteredRecords.length / recordsPerPage);
         
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nextPageButton.disabled = currentPage >= totalPages;
     }
     
-    // Pagination functions
+   
     function goToPrevPage() {
         if (currentPage > 1) {
             currentPage--;
@@ -296,12 +296,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Advanced search toggle (placeholder for now)
+    
     function toggleAdvancedSearch() {
         alert('Advanced search options will be implemented in a future update.');
     }
     
-    // Show record details in modal
+    
     function showRecordDetails(recordId) {
         const record = databaseRecords.find(r => r.id === recordId);
         
@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Close modal
+   
     function closeModal() {
         modal.style.display = 'none';
     }
