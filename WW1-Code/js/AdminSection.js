@@ -11,7 +11,7 @@ window.onload = function() {
         desc.style.backgroundImage = "url('../rsc/township.jpg')";
     }
     sec1.onclick = function() {
-        window.location.href = "admin/editSection1.html"; // Redirect to admin edit page for section 1
+        alert("Clicked section 1"); // Clicking section 1 deletes the icon
     }
 
     
@@ -20,7 +20,7 @@ window.onload = function() {
         desc.style.backgroundImage = "url('../rsc/memorial.jpg')";
     }
     sec2.onclick = function() {
-        window.location.href = "admin/editSection2.html"; // Redirect to admin edit page for section 2
+        alert("Clicked section 2"); // Clicking other sections gives a pop-up
     }
 
     
@@ -29,7 +29,7 @@ window.onload = function() {
         desc.style.backgroundImage = "url('../rsc/buried.jpg')";
     }
     sec3.onclick = function() {
-        window.location.href = "admin/editSection3.html"; // Redirect to admin edit page for section 3
+        alert("Clicked section 3");
     }
 
     
@@ -38,7 +38,7 @@ window.onload = function() {
         desc.style.backgroundImage = "url('../rsc/newspaper.jpeg')";
     }
     sec4.onclick = function() {
-        window.location.href = "admin/editSection4.html"; // Redirect to admin edit page for section 4
+        alert("Clicked section 4");
     }
 
     
@@ -47,6 +47,6 @@ window.onload = function() {
         desc.style.backgroundImage = "url('../rsc/biography.jpg')";
     }
     sec5.onclick = function() {
-        window.location.href = "admin/editSection5.html"; // Redirect to admin edit page for section 5
+        alert("Clicked section 5");
     }
 }
