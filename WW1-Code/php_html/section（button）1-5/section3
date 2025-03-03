@@ -1,0 +1,26 @@
+<?php
+// 包含数据库连接文件
+require_once 'db_config.php';
+
+try {
+    // 连接到数据库
+    $pdo = new PDO($dbConfig['dsn'], $dbConfig['username'], $dbConfig['password']);
+    
+    // 插入新墓地记录
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $grave_id = $_POST['grave_id'];
+        $person_id = $_POST['person_id'];
+        
+        $stmt = $pdo->prepare('INSERT INTO buried (grave_id, person_id) VALUES (:gid, :pid)');
+        $stmt->bindParam(':gid', $grave_id);
+        $stmt->bindParam(':pid', $person_id);
+        $stmt->execute();
+    }
+    
+    // 获取所有埋葬在布拉德福德的记录
+    $stmt = $pdo->query('SELECT * FROM buried');
+    $buriedRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+?>

@@ -1,0 +1,22 @@
+<?php
+// 包含数据库连接文件
+require_once 'db_config.php';
+
+try {
+    // 连接到数据库
+    $pdo = new PDO($dbConfig['dsn'], $dbConfig['username'], $dbConfig['password']);
+    
+    // 插入新的报纸和参考资料
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $article_id = $_POST['article_id'];
+        $source_name = $_POST['source_name'];
+        
+        $stmt = $pdo->prepare('INSERT INTO newspaper_references (article_id, source_name) VALUES (:aid, :sname)');
+        $stmt->bindParam(':aid', $article_id);
+        $stmt->bindParam(':sname', $source_name);
+        $stmt->execute();
+    }
+    
+    // 获取所有报纸和参考资料
+    $stmt = $pdo->query('SELECT * FROM newspaper_references');
+    $newspaperReferences = $
