@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2025 at 01:35 PM
+-- Generation Time: Feb 25, 2025 at 04:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -10447,10 +10447,18 @@ INSERT INTO `newspapers` (`NewspaperID`, `Surname`, `Forename`, `Rank`, `Address
 
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
-  `Username` varchar(25) NOT NULL,
-  `Password` varchar(25) NOT NULL,
+  `Username` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `User Type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`UserID`, `Username`, `Password`, `User Type`) VALUES
+(1, 'guest', '123', 0),
+(2, 'admin', 'admin123', 1);
 
 --
 -- Indexes for dumped tables
@@ -10530,7 +10538,7 @@ ALTER TABLE `newspapers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
