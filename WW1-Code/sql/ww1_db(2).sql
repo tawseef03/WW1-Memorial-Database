@@ -10447,8 +10447,8 @@ INSERT INTO `newspapers` (`NewspaperID`, `Surname`, `Forename`, `Rank`, `Address
 
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
-  `Username` varchar(25) NOT NULL,
-  `Password` varchar(25) NOT NULL,
+  `Username` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `User Type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
