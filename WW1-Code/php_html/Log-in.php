@@ -12,17 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 检查连接是否成功
     if ($mysqli->connect_error) {
-        die("连接失败: " . $mysqli->connect_error);
+        die("connect fail: " . $mysqli->connect_error);
     }
 
-    // 获取表单提交的电子邮件和密码
-    $email = $_POST["email"];
+    // 获取表单提交的用户名字和密码
+    $Username = $_POST["Username"];
     $password = $_POST["password"];
 
     // 查询数据库以验证用户
-    $sql = "SELECT * FROM users WHERE email = ?";
+    $sql = "SELECT * FROM users WHERE Username = ?";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param("s", $Username);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
@@ -74,11 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="index.html">
             <h1>Log-in</h1> <!-- Form title -->
 
-            <!-- Email input field -->
+            <!-- Username input field -->
             <div class="input-box">
-                <label for="email"></label>
-                <input type="email" name="email" id="email" placeholder="Enter Your Email" required>
-                <!-- Email icon -->
+                <label for="Username"></label>
+                <input type="Username" name="Username" id="Username" placeholder="Enter Your Username" required>
+                <!-- Username icon -->
                 <i class='bx bxs-user-circle'></i>
             </div>
 

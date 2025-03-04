@@ -13,13 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // 获取表单提交的电子邮件和密码
-    $email = $_POST["email"];
+    $Username = $_POST["Username"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // 对密码进行加密
 
     // 插入新用户到数据库
-    $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+    $sql = "INSERT INTO users (Username, password) VALUES (?, ?)";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
+    $stmt->bind_param("ss", $Username, $password);
     $stmt->execute();
 
     // 关闭数据库连接
@@ -69,8 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1> Register</h1>
 
             <div class="input-box">
-                <label for="email"></label>
-                <input type="email" name="email" id="email" placeholder="Enter Your Email" required>
+                <label for="Username"></label>
+                <input type="Username" name="Username" id="Username" placeholder="Enter Your Username" required>
                 <i class='bx bxs-user-circle'></i>
             </div>
             <div class="input-box">
