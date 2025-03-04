@@ -1,53 +1,18 @@
 <?php
-// handle_section_click.php
-
-// 包含数据库连接文件 / Include the database configuration file
+// 包含数据库连接文件
+// Contains the database connection file
 require_once 'db_config.php';
 
-// 设置响应头为 JSON 格式 / Set the response header to JSON format
-header('Content-Type: application/json');
-
 try {
-    // 连接到数据库 / Connect to the database
+    // 连接到数据库
+    // Connect to the database
     $pdo = new PDO($dbConfig['dsn'], $dbConfig['username'], $dbConfig['password']);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // 检查是否收到了 POST 请求 / Check if a POST request was received
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // 获取发送的数据 / Get the sent data
-        $data = json_decode(file_get_contents('php://input'), true);
-        $section = $data['section'] ?? null;
-
-        // 判断是否是 section1 的点击事件 / Check if it's a click event for section1
-        if ($section === 'section1') {
-            // 获取布拉德福德与周边乡镇的数据 / Get data for Bradford and surrounding towns
-            $stmt = $pdo->query('SELECT * FROM towns WHERE region = "Bradford"');
-            $towns = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            // 返回 JSON 格式的数据 / Return data in JSON format
-            echo json_encode([
-                'status' => 'success',
-                'data' => $towns
-            ]);
-        } else {
-            // 如果 section 不是 section1，返回错误信息 / If section is not section1, return an error message
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Invalid section.'
-            ]);
-        }
-    } else {
-        // 如果不是 POST 请求，返回错误信息 / If it's not a POST request, return an error message
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Invalid request method.'
-        ]);
-    }
+    
+    // 获取布拉德福德与周边乡镇的数据
+    // Get data on Bradford and surrounding towns
+    $stmt = $pdo->query('SELECT * FROM towns WHERE region = "Bradford"');
+    $towns = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    // 捕获数据库连接或查询中的错误 / Catch database connection or query errors
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'Database error: ' . $e->getMessage()
-    ]);
+    echo 'Error: ' . $e->getMessage();
 }
 ?>
