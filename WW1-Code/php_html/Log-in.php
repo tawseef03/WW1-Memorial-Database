@@ -2,10 +2,13 @@
 // 在使用 $is_invalid 之前先定义它
 $is_invalid = false;
 
+// 包含数据库连接文件
+require_once 'db_config.php';
+
 //检查请求方法是否为post，即表单是否已提交
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 连接到数据库
-    $mysqli = new mysqli("localhost", "username", "password", "database");
+    $mysqli = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['dbname']);
 
     // 检查连接是否成功
     if ($mysqli->connect_error) {
@@ -52,57 +55,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <div class="header header-width">
-        <div class="container">
-            <div class="navbar navbar-backlogin">
-                <div class="logo">
-                    <img src="../rsc/WebLogo.png" width="200px">
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="../index.php">Home</a></li>
-                        <li><a href="../products.php">Products</a></li>
-                        <li><a href="../about.html">About</a></li>
-                        <li><a href="../contactus.html">Contact Us</a></li>
-                    </ul>
-                </nav>
-                <img src="images/cart1.png" width="30px" height="30px">
-                <img src="../rsc/cart1.png" width="30px" height="30px">
-            </div> 
+    <!-- Navigation bar -->
+    <nav class='navbar'>
+        <!-- Website logo container -->
+        <div class='logo'></div>
+        <!-- Navigation links -->
+        <div class='nav-links'>
+            <a href='sections.php'>Sections</a> <!-- Link to Sections page -->
+            <a href='about.php'>About</a> <!-- Link to About page -->
         </div>
-    </div>
+        <!-- Shopping cart icon -->
+        <img src="images/cart1.png" width="30px" height="30px">
+    </nav>
 
+    <!-- Login form container -->
     <div class="wrapper">
-        <form method="post">
-            <h1> Log-in</h1>
+        <!-- Login form, redirects to index.html upon submission -->
+        <form action="index.html">
+            <h1>Log-in</h1> <!-- Form title -->
 
-            <?php if ($is_invalid): ?>
-                <div style="text-align: center; color: red; margin-bottom: 50px;">
-                  <em> Invalid Login</em>
-                </div>
-            <?php endif; ?>
-
+            <!-- Email input field -->
             <div class="input-box">
                 <label for="email"></label>
-                <input type="email" name="email" id="email" placeholder="Enter Your Email" required
-                       value="<?= htmlspecialchars($_POST["email"] ?? "") ?>"> <!-- 防止xss攻击 -->
+                <input type="email" name="email" id="email" placeholder="Enter Your Email" required>
+                <!-- Email icon -->
                 <i class='bx bxs-user-circle'></i>
             </div>
+
+            <!-- Password input field -->
             <div class="input-box">
                 <label for="password"></label>
                 <input type="password" name="password" id="password" placeholder="Enter Your Password" required>
+                <!-- Password icon -->
                 <i class='bx bxs-lock'></i>
             </div>
 
+            <!-- Remember me and forgot password section -->
             <div class="rememberforgot">
-                <label><input type="checkbox"> Remember Me </label>
-                <a href="#">Forgot Password?</a>
+                <label><input type="checkbox"> Remember Me </label> <!-- Remember me checkbox -->
+                <a href="#">Forgot Password?</a> <!-- Forgot password link -->
             </div>
+
+            <!-- Login button -->
             <button type="submit" class="button">Log-in</button>
 
+            <!-- Registration link -->
             <div class="Register-link">
                 <p>Don't have an Account? 
-                    <a href="../register.html">Register Here</a>
+                    <a href="register.html">Register Here</a> <!-- Link to registration page -->
                 </p>
             </div>
         </form>
