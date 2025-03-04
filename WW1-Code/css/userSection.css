@@ -55,7 +55,20 @@ body {
     border-radius: 5px;
 }
 
+button {
+    padding: 10px 20px;
+    background-color: #780909;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 .navbar .navbuttons button:hover {
+    background-color: #d41d1d;
+}
+
+button:hover {
     background-color: #d41d1d;
 }
 
