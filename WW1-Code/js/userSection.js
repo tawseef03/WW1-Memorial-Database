@@ -102,4 +102,84 @@ window.onload = function() {
     }
 
     startCarousel();
+
+    // 修改自动滚动功能
+    var sectionsEl = document.querySelector('.sections');
+    var namesEl = document.querySelector('.names');
+    var sectionIndex = 0;
+    let currentTranslate = 0;
+    
+    function updatePosition(index) {
+        const offset = -(index * 340);
+        sectionsEl.style.transform = `translateX(${offset}px)`;
+        namesEl.style.transform = `translateX(${offset}px)`;
+        currentTranslate = offset;
+    }
+
+    // 自动滚动
+    let autoScrollInterval = setInterval(function() {
+        sectionIndex = (sectionIndex + 1) % 3;
+        updatePosition(sectionIndex);
+    }, 4000);
+
+    // 边缘滚动检测
+    sectionsEl.addEventListener('mousemove', (e) => {
+        const target = e.target.closest('.section');
+        if (!target) return;
+
+        const rect = target.getBoundingClientRect();
+        const edgeWidth = 40; // 边缘检测区域宽度
+        const mouseX = e.clientX - rect.left;
+
+        clearInterval(autoScrollInterval);
+
+        if (mouseX < edgeWidth && sectionIndex > 0) {
+            // 在左边缘
+            sectionIndex--;
+            updatePosition(sectionIndex);
+        } else if (mouseX > rect.width - edgeWidth && sectionIndex < 2) {
+            // 在右边缘
+            sectionIndex++;
+            updatePosition(sectionIndex);
+        }
+    });
+
+    sectionsEl.addEventListener('mouseleave', () => {
+        // 恢复自动滚动
+        autoScrollInterval = setInterval(function() {
+            sectionIndex = (sectionIndex + 1) % 3;
+            updatePosition(sectionIndex);
+        }, 4000);
+    });
+
+    // 添加触摸事件支持
+    sectionsEl.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - sectionsEl.offsetLeft;
+        scrollLeft = currentTranslate;
+        clearInterval(autoScrollInterval);
+    });
+
+    sectionsEl.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - sectionsEl.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        const newTranslate = scrollLeft + walk;
+        
+        if (newTranslate <= 0 && newTranslate >= -680) {
+            currentTranslate = newTranslate;
+            sectionsEl.style.transform = `translateX(${newTranslate}px)`;
+            namesEl.style.transform = `translateX(${newTranslate}px)`;
+        }
+    });
+
+    sectionsEl.addEventListener('touchend', () => {
+        isDown = false;
+        snapToNearestSection();
+        autoScrollInterval = setInterval(function() {
+            sectionIndex = (sectionIndex + 1) % 3;
+            updatePosition(sectionIndex);
+        }, 4000);
+    });
 };

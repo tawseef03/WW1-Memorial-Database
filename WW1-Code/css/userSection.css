@@ -98,30 +98,79 @@ button:hover {
     color: white;
 }
 
+.sections-wrapper, .names-wrapper {
+    width: 1000px;
+    overflow: hidden;
+    position: relative;
+}
+
+.sections-wrapper {
+    position: relative;
+}
+
+.scroll-indicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.scroll-indicator.left {
+    left: 10px;
+    border-left: 4px solid #000;
+    border-bottom: 4px solid #000;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.scroll-indicator.right {
+    right: 10px;
+    border-right: 4px solid #000;
+    border-top: 4px solid #000;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.section:hover ~ .scroll-indicator {
+    opacity: 0.6;
+}
+
 .sections {
     display: flex;
-    justify-content: space-evenly;
-    width: auto;
-    height: auto;
+    width: max-content;
     gap: 20px;
+    padding: 20px;
+    scroll-behavior: smooth;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+.sections::-webkit-scrollbar {
+    display: none;
 }
 
 .section {
+    scroll-snap-align: center;
+    min-width: 300px;
+    height: 125px;
+    flex: 0 0 auto;
     display: grid;
     align-items: center;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    width: 184px;
-    height: 125px;
-    flex: 1;
     text-align: center;
     font-size: 18px;
     color: #333;
     border-color: #d41d1d #f4f4f4 #f4f4f4 #f4f4f4;
     border-style: solid;
     background-size: cover;
+    transition: transform 0.3s ease;
 }
+
 .section:hover {
     transition: transform 0.5s;
     transform: translate(0px,-10px);
@@ -142,23 +191,27 @@ button:hover {
 #sec4 { background-image: url('../rsc/newspaper.jpeg'); }
 #sec5 { background-image: url('../rsc/biography.jpg'); }
 
+.names-wrapper {
+    margin-top: -10px;  /* 调整与上方sections的间距 */
+}
 
 .names {
     display: flex;
-    justify-content: space-evenly;
-    width: auto;
-    height: auto;
+    width: max-content;
     gap: 20px;
+    padding: 0 20px;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
 }
 
 .name {
+    min-width: 300px;
+    flex: 0 0 auto;
     display: grid;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    width: 184px;
     height: 40px;
-    flex: 1;
     text-align: center;
     font-size: 15px;
     color: #333;
