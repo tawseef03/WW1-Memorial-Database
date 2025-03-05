@@ -61,6 +61,29 @@
             background: #923e3e;
             color: white;
         }
+        /* Style for the input fields */
+        .input-field {
+            width: 200px;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Style for password visibility toggle */
+        .password-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -79,11 +102,26 @@
         <div class="login-section">
             <h3>Database Access</h3>
             <p>Enter your credentials to access research records.</p>
-            <!-- Password input field -->
-            <input type="password" placeholder="Enter Password"><br><br>
-            <!-- Buttons for guest and admin access -->
-            <button>Guest Access</button>
-            <button>Admin Access</button>
+            <form id="loginForm" onsubmit="return validateForm()">
+                <!-- Username input field -->
+                <input type="text" id="username" class="input-field" placeholder="Enter Username" required><br>
+                
+                <!-- Password input field with visibility toggle -->
+                <div class="password-container">
+                    <input type="password" id="password" class="input-field" placeholder="Enter Password" required>
+                    <span class="toggle-password" onclick="togglePassword('password')">👁</span>
+                </div><br>
+                
+                <!-- Confirm password field with visibility toggle -->
+                <div class="password-container">
+                    <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm Password" required>
+                    <span class="toggle-password" onclick="togglePassword('confirmPassword')">👁</span>
+                </div><br>
+
+                <!-- Buttons for guest and admin access -->
+                <button type="submit">Admin Access</button>
+                <button type="button" onclick="guestAccess()">Guest Access</button>
+            </form>
         </div>
         
     </div>
@@ -91,5 +129,27 @@
     <footer>
         &copy; 2025 WW1 Bradford Research Group | All Rights Reserved
     </footer>
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function validateForm() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return false;
+            }
+            return true;
+        }
+
+        function guestAccess() {
+            // Handle guest access without password
+            window.location.href = 'guest-page.html';
+        }
+    </script>
 </body>
 </html>
