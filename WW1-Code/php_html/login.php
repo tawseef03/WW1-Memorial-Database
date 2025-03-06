@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // 根据用户类型跳转到不同页面
             if (intval($user["User Type"]) === 1) {  // 管理员
-                header("Location: admindashboard.html");
+                header("Location: AdminPage.html");
             } else {  // 普通用户
                 header("Location: userSection.html");
             }
