@@ -59,25 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const serviceNumber = document.getElementById('serviceNumber').value.trim().toLowerCase();
         
         filteredRecords = databaseRecords.filter(record => {
-            let match = true;
-            
-            if (surname && !record.surname.toLowerCase().includes(surname)) {
-                match = false;
-            }
-            
-            if (forename && !record.forename.toLowerCase().includes(forename)) {
-                match = false;
-            }
-            
-            if (regiment && !record.regiment.toLowerCase().includes(regiment)) {
-                match = false;
-            }
-            
-            if (serviceNumber && !record.serviceNumber.toLowerCase().includes(serviceNumber)) {
-                match = false;
-            }
-            
-            return match;
+            return (!surname || (record.surname && record.surname.toLowerCase().includes(surname))) &&
+                   (!forename || (record.forename && record.forename.toLowerCase().includes(forename))) &&
+                   (!regiment || (record.regiment && record.regiment.toLowerCase().includes(regiment))) &&
+                   (!serviceNumber || (record.serviceNumber && record.serviceNumber.toLowerCase().includes(serviceNumber)));
         });
         
         currentPage = 1;
@@ -103,27 +88,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const recordsToDisplay = filteredRecords.slice(startIndex, endIndex);
         
         if (recordsToDisplay.length === 0) {
-            recordsBody.innerHTML = `<tr><td colspan="7" class="no-records">No records found matching your search criteria.</td></tr>`;
+            recordsBody.innerHTML = '<tr><td colspan="5" class="no-records">No records found matching your search criteria.</td></tr>';
         } else {
             recordsToDisplay.forEach(record => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${record.surname}</td>
-                    <td>${record.forename}</td>
-                    <td>${record.regiment}</td>
-                    <td>${record.serviceNumber}</td>
-                    <td>${record.birthYear}</td>
-                    <td>${record.deathDate || 'Unknown'}</td>
-                    <td><button class="details-button" data-id="${record.id}">View Details</button></td>
+                    <td>${record.surname || ''}</td>
+                    <td>${record.forename || ''}</td>
+                    <td>${record.regiment || ''}</td>
+                    <td>${record.serviceNumber || ''}</td>
+                    <td>${record.biography || ''}</td>
                 `;
                 recordsBody.appendChild(row);
-            });
-            
-            document.querySelectorAll('.details-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const recordId = parseInt(this.getAttribute('data-id'));
-                    showRecordDetails(recordId);
-                });
             });
         }
         
