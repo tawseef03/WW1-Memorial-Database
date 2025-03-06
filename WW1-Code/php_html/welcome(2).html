@@ -111,15 +111,9 @@
                     <input type="password" id="password" class="input-field" placeholder="Enter Password" required>
                     <span class="toggle-password" onclick="togglePassword('password')">👁</span>
                 </div><br>
-                
-                <!-- 带有可见性切换的确认密码字段 / Confirm password field with visibility toggle -->
-                <div class="password-container">
-                    <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm Password" required>
-                    <span class="toggle-password" onclick="togglePassword('confirmPassword')">👁</span>
-                </div><br>
 
                 <!-- 访客和管理员访问按钮 / Buttons for guest and admin access -->
-                <button type="submit">Admin Access</button>
+                <button type="submit" onclick="adminAccess()">Admin Access</button>
                 <button type="button" onclick="guestAccess()">Guest Access</button>
             </form>
         </div>
@@ -139,18 +133,21 @@
         // 验证表单 / Validate form
         function validateForm() {
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return false;
-            }
-            return true;
+            // 跳转到admin.html / Redirect to admin.html
+            window.location.href = 'admin.html';
+            return false;
         }
 
         // 处理访客访问 / Handle guest access
         function guestAccess() {
-            window.location.href = 'guest-page.html';
+            // 跳转到userSection.html / Redirect to userSection.html
+            window.location.href = 'userSection.html';
+        }
+
+        // 处理管理员访问 / Handle admin access
+        function adminAccess() {
+            // 跳转到admin.html / Redirect to admin.html
+            window.location.href = 'admin.html';
         }
     </script>
 </body>
