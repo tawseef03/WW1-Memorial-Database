@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Records</title>
     <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
-    <link rel="stylesheet" href="MockSection.css">
-    <script src="MockDatabase.js"></script>
+    <link rel="stylesheet" href="../css/database.css">
 </head>
 <body>
     
@@ -19,8 +18,6 @@
         </div>
         <div class="navbuttons">
             <button type="button" onclick="location.href='userSection.html'">Back to Sections</button>
-            <button type="button">About</button>
-            <button type="button">Contact</button>
         </div>
     </div>
 
@@ -28,9 +25,6 @@
     <div class="container">
        
         <div class="search-panel">
-            <div class="logo-small">
-                <img src="../rsc/GroupLogo.png" alt="WW1 Group">
-            </div>
             
             <h3>Search Criteria</h3>
             
@@ -50,26 +44,16 @@
                     <input type="text" id="regiment" name="regiment" placeholder="Enter regiment...">
                 </div>
                 
-                <div class="form-group">
-                    <label for="serviceNumber">Service Number:</label>
-                    <input type="text" id="serviceNumber" name="serviceNumber" placeholder="Enter service number...">
-                </div>
-                
                 <div class="form-buttons">
                     <button type="button" id="searchButton">Search</button>
                     <button type="button" id="resetButton">Reset</button>
                 </div>
             </form>
-            
-            <div class="advanced-search">
-                <button type="button" id="advancedSearchButton">Advanced Search Options</button>
-            </div>
         </div>
-        
         
         <div class="content-panel">
             <div class="database-title">
-                <h2>Bradford and Surrounding Townships WW1 Records</h2>
+                <h2>Buried in Bradford</h2>
             </div>
             
             <div class="records-container">
@@ -79,22 +63,9 @@
                     Showing all records. Use the search form to filter results.
                 </div>
                 
-                <table id="recordsTable">
-                    <thead>
-                        <tr>
-                            <th>Surname</th>
-                            <th>Forename</th>
-                            <th>Regiment</th>
-                            <th>Service No.</th>
-                            <th>Birth Year</th>
-                            <th>Death Date</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody id="recordsBody">
-                        
-                    </tbody>
-                </table>
+                <div class="display">
+
+                </div>
                 
                 <div class="pagination">
                     <button id="prevPage">Previous</button>
@@ -102,15 +73,6 @@
                     <button id="nextPage">Next</button>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    
-    <div id="recordModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Soldier Details</h2>
-            <div id="modalContent"></div>
         </div>
     </div>
 </body>
