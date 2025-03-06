@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Set character encoding to UTF-8 -->
+    <!-- 设置字符编码为UTF-8 / Set character encoding to UTF-8 -->
     <meta charset="UTF-8">
-    <!-- Ensure proper scaling on mobile devices -->
+    <!-- 确保在移动设备上正确缩放 / Ensure proper scaling on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Page title -->
+    <!-- 页面标题 / Page title -->
     <title>WW1 Bradford Research Group</title>
-    <!-- Link to external stylesheet -->
+    <!-- 链接到外部样式表 / Link to external stylesheet -->
     <link rel="stylesheet" href="welcome(2).css">
-    <!-- Internal CSS for styling -->
+    <!-- 内部CSS样式 / Internal CSS for styling -->
     <style>
-        /* Set default font and background color for the body */
+        /* 设置body的默认字体和背景颜色 / Set default font and background color for the body */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -20,14 +20,14 @@
             padding: 0;
             overflow-y: auto;
         }
-        /* Style for the header section */
+        /* 头部区域样式 / Style for the header section */
         header {
             background-color: #923e3e;
             color: white;
             padding: 20px;
             font-size: 28px;
         }
-        /* Container for main content with max-width and centered alignment */
+        /* 主内容容器样式，最大宽度和居中对齐 / Container for main content with max-width and centered alignment */
         .container {
             max-width: 900px;
             margin: 20px auto;
@@ -36,7 +36,7 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 1);
         }
-        /* Style for navigation links */
+        /* 导航链接样式 / Style for navigation links */
         nav a {
             display: inline-block;
             margin: 10px 15px;
@@ -47,21 +47,21 @@
             background-color: #923e3e;
             border-radius: 5px;
         }
-        /* Style for the login section */
+        /* 登录区域样式 / Style for the login section */
         .login-section {
             margin: 20px 0;
             padding: 15px;
             background: #f9f9f9;
             border-radius: 10px;
         }
-        /* Style for the footer section */
+        /* 页脚区域样式 / Style for the footer section */
         footer {
             margin-top: 20px;
             padding: 15px;
             background: #923e3e;
             color: white;
         }
-        /* Style for the input fields */
+        /* 输入字段样式 / Style for the input fields */
         .input-field {
             width: 200px;
             padding: 10px;
@@ -70,7 +70,7 @@
             border-radius: 5px;
         }
 
-        /* Style for password visibility toggle */
+        /* 密码可见性切换样式 / Style for password visibility toggle */
         .password-container {
             position: relative;
             display: inline-block;
@@ -87,54 +87,56 @@
     </style>
 </head>
 <body>
-    <!-- Header section with welcome message -->
+    <!-- 带有欢迎信息的头部区域 / Header section with welcome message -->
     <header>
         Welcome to the WW1 Bradford Research Group
     </header>
-    <!-- Main content container -->
+    <!-- 主内容容器 / Main content container -->
     <div class="container">
-        <!-- Subheading for the mission statement -->
+        <!-- 使命声明的副标题 / Subheading for the mission statement -->
         <h2>Preserving the History of World War I</h2>
-        <!-- Mission statement paragraph -->
+        <!-- 使命声明段落 / Mission statement paragraph -->
         <p>Our mission is to uncover, document, and preserve the experiences of Bradford’s citizens during World War I. Our aim is to honor their service, share their stories, and provide valuable historical insights to the public. Whether you are a historian, student, or enthusiast, we welcome you to explore and contribute to our growing archive of wartime records.</p>
         
-        <!-- Login section for database access -->
+        <!-- 数据库访问的登录区域 / Login section for database access -->
         <div class="login-section">
             <h3>Database Access</h3>
             <p>Enter your credentials to access research records.</p>
             <form id="loginForm" onsubmit="return validateForm()">
-                <!-- Username input field -->
+                <!-- 用户名输入字段 / Username input field -->
                 <input type="text" id="username" class="input-field" placeholder="Enter Username" required><br>
                 
-                <!-- Password input field with visibility toggle -->
+                <!-- 带有可见性切换的密码输入字段 / Password input field with visibility toggle -->
                 <div class="password-container">
                     <input type="password" id="password" class="input-field" placeholder="Enter Password" required>
                     <span class="toggle-password" onclick="togglePassword('password')">👁</span>
                 </div><br>
                 
-                <!-- Confirm password field with visibility toggle -->
+                <!-- 带有可见性切换的确认密码字段 / Confirm password field with visibility toggle -->
                 <div class="password-container">
                     <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm Password" required>
                     <span class="toggle-password" onclick="togglePassword('confirmPassword')">👁</span>
                 </div><br>
 
-                <!-- Buttons for guest and admin access -->
+                <!-- 访客和管理员访问按钮 / Buttons for guest and admin access -->
                 <button type="submit">Admin Access</button>
                 <button type="button" onclick="guestAccess()">Guest Access</button>
             </form>
         </div>
         
     </div>
-    <!-- Footer section with copyright information -->
+    <!-- 带有版权信息的页脚区域 / Footer section with copyright information -->
     <footer>
         &copy; 2025 WW1 Bradford Research Group | All Rights Reserved
     </footer>
     <script>
+        // 切换密码可见性 / Toggle password visibility
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
             input.type = input.type === 'password' ? 'text' : 'password';
         }
 
+        // 验证表单 / Validate form
         function validateForm() {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -146,8 +148,8 @@
             return true;
         }
 
+        // 处理访客访问 / Handle guest access
         function guestAccess() {
-            // Handle guest access without password
             window.location.href = 'guest-page.html';
         }
     </script>
