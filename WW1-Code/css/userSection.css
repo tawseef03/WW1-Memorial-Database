@@ -112,13 +112,12 @@ button:hover {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    opacity: 0.3;
-    transition: opacity 0.3s;
-    z-index: 10;
+    width: 20px;
+    height: 20px;
+    border-style: solid;
+    border-width: 3px 3px 0 0;
     cursor: pointer;
-    animation: bounce 2s infinite;
+    z-index: 2;
 }
 
 @keyframes bounce {
@@ -132,16 +131,14 @@ button:hover {
 
 .scroll-indicator.left {
     left: 10px;
-    border-left: 4px solid #000;
-    border-bottom: 4px solid #000;
-    transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%) rotate(-135deg);
+    border-color: #007bff;  /* 蓝色 */
 }
 
 .scroll-indicator.right {
     right: 10px;
-    border-right: 4px solid #000;
-    border-top: 4px solid #000;
     transform: translateY(-50%) rotate(45deg);
+    border-color: #007bff;  /* 蓝色 */
 }
 
 .section:hover ~ .scroll-indicator {

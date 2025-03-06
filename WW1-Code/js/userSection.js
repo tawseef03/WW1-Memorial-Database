@@ -130,8 +130,12 @@ window.onload = function() {
         }
     }
 
+    let isMouseScrolling = false; // 添加滑动冷却控制变量
+
     // 修改边缘滚动检测
     sectionsEl.addEventListener('mousemove', (e) => {
+        if (isMouseScrolling) return; // 如果在冷却中，直接返回
+        
         const target = e.target.closest('.section');
         if (!target) return;
 
@@ -150,9 +154,17 @@ window.onload = function() {
             if (mouseX < edgeWidth && sectionIndex > 0) {
                 // 左边缘滚动
                 updatePosition(sectionIndex - 1);
+                isMouseScrolling = true; // 设置冷却状态
+                setTimeout(() => {
+                    isMouseScrolling = false; // 1秒后重置冷却状态
+                }, 1000);
             } else if (mouseX > totalWidth - edgeWidth && sectionIndex < totalSections - 3) {
                 // 右边缘滚动
                 updatePosition(sectionIndex + 1);
+                isMouseScrolling = true; // 设置冷却状态
+                setTimeout(() => {
+                    isMouseScrolling = false; // 1秒后重置冷却状态
+                }, 1000);
             }
         }
     });
@@ -232,3 +244,30 @@ window.onload = function() {
         }, 4000);
     });
 };
+
+let isScrolling = false;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelector('.sections');
+    const leftIndicator = document.querySelector('.scroll-indicator.left');
+    const rightIndicator = document.querySelector('.scroll-indicator.right');
+
+    function scroll(direction) {
+        if (isScrolling) return; // 如果正在冷却中，直接返回
+        
+        isScrolling = true;
+        const scrollAmount = direction === 'left' ? -300 : 300;
+        sections.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+
+        // 0.5秒后重置冷却状态
+        setTimeout(() => {
+            isScrolling = false;
+        }, 500);
+    }
+
+    leftIndicator.addEventListener('click', () => scroll('left'));
+    rightIndicator.addEventListener('click', () => scroll('right'));
+});
