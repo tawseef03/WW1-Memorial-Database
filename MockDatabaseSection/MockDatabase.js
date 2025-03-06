@@ -1,153 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Sample database records 
-    const databaseRecords = [
-        {
-            id: 1, 
-            surname: "Smith", 
-            forename: "John", 
-            regiment: "West Yorkshire Regiment", 
-            serviceNumber: "12345", 
-            birthYear: 1890, 
-            deathDate: "12/10/1916",
-            rank: "Private",
-            hometown: "Bradford",
-            placeOfDeath: "Somme, France",
-            cemetery: "Thiepval Memorial",
-            notes: "Killed in action during the Battle of the Somme. Left behind a wife and two children."
-        },
-        {
-            id: 2, 
-            surname: "Wilson", 
-            forename: "Thomas", 
-            regiment: "Duke of Wellington's Regiment", 
-            serviceNumber: "23456", 
-            birthYear: 1885, 
-            deathDate: "25/04/1918",
-            rank: "Corporal",
-            hometown: "Leeds",
-            placeOfDeath: "Ypres, Belgium",
-            cemetery: "Tyne Cot Cemetery",
-            notes: "Awarded the Military Medal for bravery in the field."
-        },
-        {
-            id: 3, 
-            surname: "Brown", 
-            forename: "William", 
-            regiment: "Yorkshire Hussars", 
-            serviceNumber: "34567", 
-            birthYear: 1893, 
-            deathDate: "03/06/1917",
-            rank: "Lance Corporal",
-            hometown: "Bradford",
-            placeOfDeath: "Arras, France",
-            cemetery: "Arras Memorial",
-            notes: "Previously wounded at Loos in 1915. Returned to service in 1916."
-        },
-        {
-            id: 4, 
-            surname: "Johnson", 
-            forename: "Arthur", 
-            regiment: "West Yorkshire Regiment", 
-            serviceNumber: "45678", 
-            birthYear: 1888, 
-            deathDate: "15/09/1916",
-            rank: "Sergeant",
-            hometown: "Halifax",
-            placeOfDeath: "Somme, France",
-            cemetery: "Thiepval Memorial",
-            notes: "Served since 1914. Mentioned in dispatches for gallantry."
-        },
-        {
-            id: 5, 
-            surname: "Taylor", 
-            forename: "Edward", 
-            regiment: "Royal Field Artillery", 
-            serviceNumber: "56789", 
-            birthYear: 1891, 
-            deathDate: "12/08/1917",
-            rank: "Gunner",
-            hometown: "Bradford",
-            placeOfDeath: "Passchendaele, Belgium",
-            cemetery: "Tyne Cot Cemetery",
-            notes: "Former mill worker. Survived by parents and three siblings."
-        },
-        {
-            id: 6, 
-            surname: "Davis", 
-            forename: "Henry", 
-            regiment: "East Yorkshire Regiment", 
-            serviceNumber: "67890", 
-            birthYear: 1895, 
-            deathDate: "09/04/1918",
-            rank: "Private",
-            hometown: "Shipley",
-            placeOfDeath: "Lys, France",
-            cemetery: "Ploegsteert Memorial",
-            notes: "One of three brothers who served. The only one who did not return."
-        },
-        {
-            id: 7, 
-            surname: "Wilson", 
-            forename: "George", 
-            regiment: "Duke of Wellington's Regiment", 
-            serviceNumber: "78901", 
-            birthYear: 1887, 
-            deathDate: "",
-            rank: "Private",
-            hometown: "Bradford",
-            placeOfDeath: "",
-            cemetery: "",
-            notes: "Wounded at Gallipoli in 1915. Discharged due to wounds in 1916. Died in 1925 from war-related injuries."
-        },
-        {
-            id: 8, 
-            surname: "Evans", 
-            forename: "Albert", 
-            regiment: "Royal Army Medical Corps", 
-            serviceNumber: "89012", 
-            birthYear: 1889, 
-            deathDate: "23/07/1916",
-            rank: "Private",
-            hometown: "Keighley",
-            placeOfDeath: "Somme, France",
-            cemetery: "Etaples Military Cemetery",
-            notes: "Former doctor's assistant. Died of wounds received at the Somme."
-        },
-        {
-            id: 9, 
-            surname: "Smith", 
-            forename: "Charles", 
-            regiment: "Yorkshire Regiment", 
-            serviceNumber: "90123", 
-            birthYear: 1894, 
-            deathDate: "31/07/1917",
-            rank: "Private",
-            hometown: "Bradford",
-            placeOfDeath: "Ypres, Belgium",
-            cemetery: "Menin Gate Memorial",
-            notes: "Former textile worker. Enlisted in 1915."
-        },
-        {
-            id: 10, 
-            surname: "Roberts", 
-            forename: "James", 
-            regiment: "King's Own Yorkshire Light Infantry", 
-            serviceNumber: "10234", 
-            birthYear: 1892, 
-            deathDate: "04/11/1918",
-            rank: "Lance Sergeant",
-            hometown: "Bingley",
-            placeOfDeath: "Le Quesnoy, France",
-            cemetery: "Le Quesnoy Communal Cemetery Extension",
-            notes: "Died just one week before the Armistice. Had served since 1914."
-        }
-    ];
-    
-    const recordsPerPage = 5;
+    let databaseRecords = [];
+    let filteredRecords = [];
+    const recordsPerPage = 10;
     let currentPage = 1;
-    let filteredRecords = [...databaseRecords];
     
-    
+    // 从PHP API获取数据
+    async function fetchRecords() {
+        try {
+            const response = await fetch('../WW1-Code/php_html/biographyinfoconnect.php');
+            const data = await response.json();
+            
+            if (data.success) {
+                databaseRecords = data.records;
+                filteredRecords = [...databaseRecords];
+                displayRecords();
+                updateResultsInfo();
+            } else {
+                console.error('Failed to load records:', data.error);
+            }
+        } catch (error) {
+            console.error('Error fetching records:', error);
+        }
+    }
+
     const searchButton = document.getElementById('searchButton');
     const resetButton = document.getElementById('resetButton');
     const recordsBody = document.getElementById('recordsBody');
@@ -162,9 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeButton = document.querySelector('.close-button');
     
    
-    displayRecords();
-    
-    
     searchButton.addEventListener('click', performSearch);
     resetButton.addEventListener('click', resetSearch);
     prevPageButton.addEventListener('click', goToPrevPage);
@@ -247,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 recordsBody.appendChild(row);
             });
             
-            
             document.querySelectorAll('.details-button').forEach(button => {
                 button.addEventListener('click', function() {
                     const recordId = parseInt(this.getAttribute('data-id'));
@@ -257,6 +128,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         updatePagination();
+    }
+
+    function showRecordDetails(recordId) {
+        const record = databaseRecords.find(r => r.id === recordId);
+        
+        if (record) {
+            modalContent.innerHTML = `
+                <div class="record-details">
+                    <h3>${record.rank} ${record.forename} ${record.surname}</h3>
+                    <p><strong>Service Number:</strong> ${record.serviceNumber}</p>
+                    <p><strong>Regiment:</strong> ${record.regiment}</p>
+                    <p><strong>Born:</strong> ${record.birthYear} in ${record.hometown}</p>
+                    <p><strong>Death:</strong> ${record.deathDate ? record.deathDate + ' at ' + record.placeOfDeath : 'Not recorded'}</p>
+                    <p><strong>Cemetery/Memorial:</strong> ${record.cemetery || 'Not recorded'}</p>
+                    <p><strong>Additional Information:</strong></p>
+                    <p>${record.notes || 'No additional information available.'}</p>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
     }
     
     
@@ -302,29 +193,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     
-    function showRecordDetails(recordId) {
-        const record = databaseRecords.find(r => r.id === recordId);
-        
-        if (record) {
-            modalContent.innerHTML = `
-                <div class="record-details">
-                    <h3>${record.rank} ${record.forename} ${record.surname}</h3>
-                    <p><strong>Service Number:</strong> ${record.serviceNumber}</p>
-                    <p><strong>Regiment:</strong> ${record.regiment}</p>
-                    <p><strong>Born:</strong> ${record.birthYear} in ${record.hometown}</p>
-                    <p><strong>Death:</strong> ${record.deathDate ? record.deathDate + ' at ' + record.placeOfDeath : 'Not recorded'}</p>
-                    <p><strong>Cemetery/Memorial:</strong> ${record.cemetery || 'Not recorded'}</p>
-                    <p><strong>Additional Information:</strong></p>
-                    <p>${record.notes || 'No additional information available.'}</p>
-                </div>
-            `;
-            
-            modal.style.display = 'block';
-        }
-    }
-    
-   
     function closeModal() {
         modal.style.display = 'none';
     }
+
+    // 初始化加载数据
+    fetchRecords();
 });
