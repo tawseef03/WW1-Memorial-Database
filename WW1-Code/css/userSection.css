@@ -3,11 +3,10 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     min-height: 100vh;
-    min-width: 100vw;
-    max-height: 100vh;
-    max-width: 100vw;
     background-color: #f4f4f4;
-    overflow: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
@@ -20,7 +19,9 @@ body {
     box-sizing: border-box;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
     height: 10vh;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar .logo {
@@ -76,26 +77,25 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    gap: 20px;
-    max-width: 100vw;
-    max-height: 90vh;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    margin-bottom: 20px;
 }
 
 .description {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     width: 1000px;
     height: 400px;
-    gap: 20px;
     background-color: #ddd;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: 0.3s ease-in-out;
     color: white;
+    margin: 20px auto;
 }
 
 .sections-wrapper, .names-wrapper {
@@ -106,6 +106,9 @@ button:hover {
 
 .sections-wrapper {
     position: relative;
+    width: 100%;
+    min-height: 200px;
+    margin: 20px 0;
 }
 
 .scroll-indicator {
@@ -176,6 +179,8 @@ button:hover {
     border-style: solid;
     background-size: cover;
     transition: transform 0.3s ease;
+    cursor: pointer; /* 添加鼠标指针样式 */
+    text-decoration: none;
 }
 
 .section:hover {
@@ -200,6 +205,8 @@ button:hover {
 
 .names-wrapper {
     margin-top: -10px;  /* 调整与上方sections的间距 */
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .names {
@@ -222,4 +229,61 @@ button:hover {
     text-align: center;
     font-size: 15px;
     color: #333;
+}
+
+.content-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sections-content {
+    padding: 20px;
+    overflow-y: auto;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 媒体查询，适应小屏幕 */
+@media screen and (max-width: 768px) {
+    .view {
+        padding: 10px;
+    }
+    
+    .description {
+        min-height: 200px;
+    }
+    
+    .sections-wrapper {
+        min-height: 150px;
+    }
+    
+    .names {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 }

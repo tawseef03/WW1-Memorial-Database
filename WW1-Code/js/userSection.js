@@ -8,10 +8,13 @@ window.onload = function() {
     var sections = ["sec1", "sec2", "sec3", "sec4", "sec5"];
     var currentIndex = 0;
     var interval;
+    let isHovering = false;
 
     function showSection(index) {
+        stopCarousel(); // 停止轮播
         var sectionContent = document.getElementById(sections[index]).innerHTML;
         desc.innerHTML = sectionContent;
+        currentIndex = index; // 更新当前索引为鼠标悬停的section
         switch (index) {
             case 0:
                 desc.style.backgroundImage = "url('../rsc/township.jpg')";
@@ -32,73 +35,81 @@ window.onload = function() {
     }
 
     function startCarousel() {
-        showSection(currentIndex);
-        currentIndex = (currentIndex + 1) % sections.length;
-        interval = setTimeout(startCarousel, 6000); // 每6秒切换一次 / Switch every 6 seconds
+        if (!isHovering) { // 只有在没有鼠标悬停时才开始轮播
+            showSection(currentIndex);
+            currentIndex = (currentIndex + 1) % sections.length;
+            interval = setTimeout(startCarousel, 6000); // 每6秒切换一次 / Switch every 6 seconds
+        }
     }
 
     function stopCarousel() {
         clearTimeout(interval);
     }
 
+    // 修改鼠标悬停事件处理
     sec1.onmouseover = function() {
+        isHovering = true;
         stopCarousel();
-        desc.innerHTML = document.getElementById("sec1").innerHTML; // Hovering replaces the description box
-        desc.style.backgroundImage = "url('../rsc/township.jpg')";
+        showSection(0);
     }
     sec1.onmouseout = function() {
+        isHovering = false;
         startCarousel();
     }
     sec1.onclick = function() {
-        alert("Clicked section 1"); // Clicking section 1 deletes the icon
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
     }
-
+    
     sec2.onmouseover = function() {
+        isHovering = true;
         stopCarousel();
-        desc.innerHTML = document.getElementById("sec2").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/memorial.jpg')";
+        showSection(1);
     }
     sec2.onmouseout = function() {
+        isHovering = false;
         startCarousel();
     }
     sec2.onclick = function() {
-        alert("Clicked section 2"); // Clicking other sections gives a pop-up
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
     }
-
+    
     sec3.onmouseover = function() {
+        isHovering = true;
         stopCarousel();
-        desc.innerHTML = document.getElementById("sec3").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/buried.jpg')";
+        showSection(2);
     }
     sec3.onmouseout = function() {
+        isHovering = false;
         startCarousel();
     }
     sec3.onclick = function() {
-        alert("Clicked section 3");
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
     }
-
+    
     sec4.onmouseover = function() {
+        isHovering = true;
         stopCarousel();
-        desc.innerHTML = document.getElementById("sec4").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/newspaper.jpeg')";
+        showSection(3);
     }
     sec4.onmouseout = function() {
+        isHovering = false;
         startCarousel();
     }
     sec4.onclick = function() {
-        alert("Clicked section 4");
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
     }
-
+    
     sec5.onmouseover = function() {
+        isHovering = true;
         stopCarousel();
-        desc.innerHTML = document.getElementById("sec5").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/biography.jpg')";
+        showSection(4);
     }
     sec5.onmouseout = function() {
+        isHovering = false;
         startCarousel();
     }
     sec5.onclick = function() {
-        alert("Clicked section 5");
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
     }
 
     startCarousel();
@@ -242,6 +253,27 @@ window.onload = function() {
             }
             updatePosition((sectionIndex + 1) % (totalSections - 2));
         }, 4000);
+    });
+
+    // 添加点击事件处理
+    document.getElementById("section1").addEventListener("click", function() {
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
+    });
+    
+    document.getElementById("section2").addEventListener("click", function() {
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
+    });
+    
+    document.getElementById("section3").addEventListener("click", function() {
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
+    });
+    
+    document.getElementById("section4").addEventListener("click", function() {
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
+    });
+    
+    document.getElementById("section5").addEventListener("click", function() {
+        window.location.href = "../../MockDatabaseSection/MockSection.html";
     });
 };
 

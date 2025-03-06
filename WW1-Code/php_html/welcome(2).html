@@ -70,19 +70,19 @@
             border-radius: 5px;
         }
 
-        /* 密码可见性切换样式 / Style for password visibility toggle */
-        .password-container {
-            position: relative;
-            display: inline-block;
+        /* 按钮样式 / Style for buttons */
+        button {
+            padding: 10px 20px;
+            background-color: #923e3e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #666;
+        button:hover {
+            background-color: #7a3232;
         }
     </style>
 </head>
@@ -101,21 +101,8 @@
         <!-- 数据库访问的登录区域 / Login section for database access -->
         <div class="login-section">
             <h3>Database Access</h3>
-            <p>Enter your credentials to access research records.</p>
-            <form id="loginForm" onsubmit="return validateForm()">
-                <!-- 用户名输入字段 / Username input field -->
-                <input type="text" id="username" class="input-field" placeholder="Enter Username" required><br>
-                
-                <!-- 带有可见性切换的密码输入字段 / Password input field with visibility toggle -->
-                <div class="password-container">
-                    <input type="password" id="password" class="input-field" placeholder="Enter Password" required>
-                    <span class="toggle-password" onclick="togglePassword('password')">👁</span>
-                </div><br>
-
-                <!-- 访客和管理员访问按钮 / Buttons for guest and admin access -->
-                <button type="submit" onclick="adminAccess()">Admin Access</button>
-                <button type="button" onclick="guestAccess()">Guest Access</button>
-            </form>
+            <p>Click below to login or register for database access.</p>
+            <button type="button" onclick="redirectToLogin()">Login / Register</button>
         </div>
         
     </div>
@@ -124,30 +111,8 @@
         &copy; 2025 WW1 Bradford Research Group | All Rights Reserved
     </footer>
     <script>
-        // 切换密码可见性 / Toggle password visibility
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            input.type = input.type === 'password' ? 'text' : 'password';
-        }
-
-        // 验证表单 / Validate form
-        function validateForm() {
-            const password = document.getElementById('password').value;
-            // 跳转到admin.html / Redirect to admin.html
-            window.location.href = 'admin.html';
-            return false;
-        }
-
-        // 处理访客访问 / Handle guest access
-        function guestAccess() {
-            // 跳转到userSection.html / Redirect to userSection.html
-            window.location.href = 'userSection.html';
-        }
-
-        // 处理管理员访问 / Handle admin access
-        function adminAccess() {
-            // 跳转到admin.html / Redirect to admin.html
-            window.location.href = 'admin.html';
+        function redirectToLogin() {
+            window.location.href = 'login.php';
         }
     </script>
 </body>

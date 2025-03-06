@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 <head>
     <!-- Set character encoding to UTF-8 -->
     <meta charset="UTF-8">
@@ -28,70 +28,75 @@
         <!-- Navigation buttons -->
         <div class="navbuttons">
             <button type="button">Button 1</button>
-            <button type="button" onclick="window.location.href='login.html'">Login</button>
+            <button type="button">Button 2</button>
             <button type="button">Button 3</button>
         </div>
     </div>
 
-    <!-- Main content area -->
-    <div class="view">
-        <!-- Description section -->
-        <div class="description">
-            <div id="description" class="description">Description</div>
-        </div>
-        <div class="sections-wrapper">
-            <div class="scroll-indicator left"></div>
-            <div class="scroll-indicator right"></div>
-            <!-- 滑动检测区域会通过JavaScript动态添加 -->
-            <div class="sections">
-                <div id="section1" class="section"></div>
-                <div id="section2" class="section"></div>
-                <div id="section3" class="section"></div>
-                <div id="section4" class="section"></div>
-                <div id="section5" class="section"></div>
+    <div class="content-container">
+        <!-- Main content area -->
+        <div class="view">
+            <!-- Description section -->
+            <div class="description">
+                <div id="description" class="description">Description</div>
+            </div>
+            <div class="sections-wrapper">
+                <div class="scroll-indicator left"></div>
+                <div class="scroll-indicator right"></div>
+                <!-- 滑动检测区域会通过JavaScript动态添加 -->
+                <div class="sections">
+                    <div id="section1" class="section"></div>
+                    <div id="section2" class="section"></div>
+                    <div id="section3" class="section"></div>
+                    <div id="section4" class="section"></div>
+                    <div id="section5" class="section"></div>
+                </div>
+            </div>
+            <div class="names-wrapper">
+                <div class="names">
+                    <div class="name">Bradford and surrounding townships</div>
+                    <div class="name">Names recorded on Bradford Memorials</div>
+                    <div class="name">Buried in Bradford</div>
+                    <div class="name">Newspaper references</div>
+                    <div class="name">Biographies</div>
+                </div>
             </div>
         </div>
-        <div class="names-wrapper">
-            <div class="names">
-                <div class="name">Bradford and surrounding townships</div>
-                <div class="name">Names recorded on Bradford Memorials</div>
-                <div class="name">Buried in Bradford</div>
-                <div class="name">Newspaper references</div>
-                <div class="name">Biographies</div>
-            </div>
-        </div>
-    </div>
 
-    <div class="hidden" id="sec1" style="display: none">
-        <div style="width:250px;">
-            <div style="height:330px;">
-                <h1>Bradford and Surrounding Townships</h1>
+        <!-- Sections content -->
+        <div class="sections-content">
+            <div class="hidden" id="sec1" style="display: none">
+                <div>
+                    <div>
+                        <h1>Bradford and Surrounding Townships</h1>
+                    </div>
+                    <button type="button" onclick="window.location.href='../../MockDatabaseSection/MockSection.html'">About</button>
+                </div>
+                <div>
+                    <p style="font-size:18px;">Information about townships in the Bradford area.</p>
+                </div>
+                <div>
+                    <div><h1></h1></div>
+                    <button type="button" onclick="window.location.href='../../MockDatabaseSection/MockSection.html'">Database</button>
+                </div>
             </div>
-            <button type="button" onclick="alert('Opens .pdf for section 1');">About</button>
+            <div class="hidden" id="sec2" style="display: none">
+                <h3>Names Recorded on Bradford Memorials</h3>
+                <p>Details of names inscribed on local memorials.</p>
+            </div>
+            <div class="hidden" id="sec3" style="display: none">
+                <h3>Buried in Bradford</h3>
+                <p>Details about cemetery records and burials.</p>
+            </div>
+            <div class="hidden" id="sec4" style="display: none">
+                <h3>Newspaper References</h3>
+                <p>Historic newspaper articles and references.</p>
+            </div>
+            <div class="hidden" id="sec5" style="display: none">
+                <h3>Biographies</h3>
+                <p>Biographies of notable individuals from Bradford.</p>
+            </div>
         </div>
-        <div style="width:350px;">
-            <p style="font-size:18px;">Information about townships in the Bradford area.</p>
-        </div>
-        <div style="width:250px;">
-            <div style="height:330px;"><h1></h1></div>
-            <button type="button" onclick="alert('Opens database for section 1');">Database</button>
-        </div>
-    </div>
-    <div class="hidden" id="sec2" style="display: none">
-        <h3>Names Recorded on Bradford Memorials</h3>
-        <p>Details of names inscribed on local memorials.</p>
-    </div>
-    <div class="hidden" id="sec3" style="display: none">
-        <h3>Buried in Bradford</h3>
-        <p>Details about cemetery records and burials.</p>
-    </div>
-    <div class="hidden" id="sec4" style="display: none">
-        <h3>Newspaper References</h3>
-        <p>Historic newspaper articles and references.</p>
-    </div>
-    <div class="hidden" id="sec5" style="display: none">
-        <h3>Biographies</h3>
-        <p>Biographies of notable individuals from Bradford.</p>
     </div>
 </body>
 </html>
