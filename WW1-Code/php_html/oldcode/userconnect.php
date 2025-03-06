@@ -1,7 +1,7 @@
 <?php
 // 包含数据库连接文件
 // Contains the database connection file
-require_once 'db_config.php';
+require_once __DIR__ . '/db_config.php';
 
 // 创建数据库连接
 // Create database connection
@@ -20,9 +20,15 @@ $result = $mysqli->query('SELECT * FROM users');
 // 如果查询成功，输出测试成功
 // If query is successful, output "测试成功"
 if ($result) {
-    echo '<html><body><h1>测试成功</h1><table border="1"><tr><th>UserID</th><th>Username</th><th>Password</th><th>User Type</th></tr>';
+    echo '<html><body><h1>测试成功</h1><table border="1">';
+    echo '<tr><th>UserID</th><th>Username</th><th>Password</th><th>User Type</th></tr>';
     while ($row = $result->fetch_assoc()) {
-        echo '<tr><td>' . $row['UserID'] . '</td><td>' . $row['Username'] . '</td><td>' . $row['Password'] . '</td><td>' . $row['User Type'] . '</td></tr>';
+        echo '<tr>';
+        echo '<td>' . $row['UserID'] . '</td>';
+        echo '<td>' . $row['Username'] . '</td>';
+        echo '<td>' . $row['Password'] . '</td>';
+        echo '<td>' . $row['User Type'] . '</td>';
+        echo '</tr>';
     }
     echo '</table></body></html>';
 } else {
