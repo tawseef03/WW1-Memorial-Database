@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control Panel - WW1 Memorial Database</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>WW1 Memorial Database Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="manage_records.php">Manage Records</a></li>
+                <li><a href="manage_users.php">User Management</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="admin-container">
+            <section class="admin-section">
+                <h2>Database Management</h2>
+                <div class="admin-actions">
+                    <a href="add_record.php" class="admin-button">Add New Record</a>
+                    <a href="edit_record.php" class="admin-button">Edit Record</a>
+                    <a href="delete_record.php" class="admin-button">Delete Record</a>
+                    <a href="view_records.php" class="admin-button">View All Records</a>
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <h2>User Management</h2>
+                <div class="admin-actions">
+                    <a href="add_user.php" class="admin-button">Add User</a>
+                    <a href="manage_permissions.php" class="admin-button">Manage Permissions</a>
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <h2>System Settings</h2>
+                <div class="admin-actions">
+                    <a href="system_settings.php" class="admin-button">System Configuration</a>
+                    <a href="backup_database.php" class="admin-button">Database Backup</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 WW1 Memorial Database Management System - Authorized Personnel Only</p>
+    </footer>
+</body>
+</html>
