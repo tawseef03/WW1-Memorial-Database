@@ -117,7 +117,17 @@ button:hover {
     opacity: 0.3;
     transition: opacity 0.3s;
     z-index: 10;
-    pointer-events: none;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(-50%); }
+    50% { transform: translateY(-60%); }
+}
+
+.scroll-indicator:hover {
+    opacity: 0.8;
 }
 
 .scroll-indicator.left {

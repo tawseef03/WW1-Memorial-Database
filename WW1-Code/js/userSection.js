@@ -108,47 +108,67 @@ window.onload = function() {
     var namesEl = document.querySelector('.names');
     var sectionIndex = 0;
     let currentTranslate = 0;
+    const totalSections = 5;
     
-    function updatePosition(index) {
-        const offset = -(index * 340);
-        sectionsEl.style.transform = `translateX(${offset}px)`;
-        namesEl.style.transform = `translateX(${offset}px)`;
-        currentTranslate = offset;
+    function updatePosition(index, immediate = false) {
+        sectionIndex = Math.max(0, Math.min(index, totalSections - 3)); // 限制在合理范围内
+        const offset = -(sectionIndex * 340);
+        
+        if (immediate) {
+            sectionsEl.style.transition = 'none';
+            namesEl.style.transition = 'none';
+        } else {
+            sectionsEl.style.transition = 'transform 0.3s ease';
+            namesEl.style.transition = 'transform 0.3s ease';
+        }
+
+        // 限制移动范围
+        if (offset <= 0 && offset >= -((totalSections - 3) * 340)) {
+            sectionsEl.style.transform = `translateX(${offset}px)`;
+            namesEl.style.transform = `translateX(${offset}px)`;
+            currentTranslate = offset;
+        }
     }
 
-    // 自动滚动
-    let autoScrollInterval = setInterval(function() {
-        sectionIndex = (sectionIndex + 1) % 3;
-        updatePosition(sectionIndex);
-    }, 4000);
-
-    // 边缘滚动检测
+    // 修改边缘滚动检测
     sectionsEl.addEventListener('mousemove', (e) => {
         const target = e.target.closest('.section');
         if (!target) return;
 
         const rect = target.getBoundingClientRect();
-        const edgeWidth = 40; // 边缘检测区域宽度
+        const edgeWidth = 60; // 增加边缘检测区域宽度
         const mouseX = e.clientX - rect.left;
-
-        clearInterval(autoScrollInterval);
-
-        if (mouseX < edgeWidth && sectionIndex > 0) {
-            // 在左边缘
-            sectionIndex--;
-            updatePosition(sectionIndex);
-        } else if (mouseX > rect.width - edgeWidth && sectionIndex < 2) {
-            // 在右边缘
-            sectionIndex++;
-            updatePosition(sectionIndex);
+        const totalWidth = rect.width;
+        
+        // 只在边缘区域触发滚动
+        if (mouseX < edgeWidth || mouseX > totalWidth - edgeWidth) {
+            clearInterval(autoScrollInterval);
+            
+            // 获取当前section的索引
+            const currentSectionIndex = Array.from(sectionsEl.children).indexOf(target);
+            
+            if (mouseX < edgeWidth && sectionIndex > 0) {
+                // 左边缘滚动
+                updatePosition(sectionIndex - 1);
+            } else if (mouseX > totalWidth - edgeWidth && sectionIndex < totalSections - 3) {
+                // 右边缘滚动
+                updatePosition(sectionIndex + 1);
+            }
         }
     });
 
+    // 修改自动滚动定时器
+    let autoScrollInterval = setInterval(function() {
+        if (sectionIndex >= totalSections - 3) {
+            sectionIndex = 0;
+        }
+        updatePosition((sectionIndex + 1) % (totalSections - 2));
+    }, 4000);
+
     sectionsEl.addEventListener('mouseleave', () => {
-        // 恢复自动滚动
+        clearInterval(autoScrollInterval);
         autoScrollInterval = setInterval(function() {
-            sectionIndex = (sectionIndex + 1) % 3;
-            updatePosition(sectionIndex);
+            updatePosition((sectionIndex + 1) % (totalSections - 2));
         }, 4000);
     });
 
@@ -180,6 +200,35 @@ window.onload = function() {
         autoScrollInterval = setInterval(function() {
             sectionIndex = (sectionIndex + 1) % 3;
             updatePosition(sectionIndex);
+        }, 4000);
+    });
+
+    // 添加箭头点击事件
+    document.querySelector('.scroll-indicator.left').addEventListener('click', () => {
+        clearInterval(autoScrollInterval);
+        if (sectionIndex > 0) {
+            updatePosition(sectionIndex - 1);
+        }
+        // 重启自动滚动
+        autoScrollInterval = setInterval(function() {
+            if (sectionIndex >= totalSections - 3) {
+                sectionIndex = 0;
+            }
+            updatePosition((sectionIndex + 1) % (totalSections - 2));
+        }, 4000);
+    });
+
+    document.querySelector('.scroll-indicator.right').addEventListener('click', () => {
+        clearInterval(autoScrollInterval);
+        if (sectionIndex < totalSections - 3) {
+            updatePosition(sectionIndex + 1);
+        }
+        // 重启自动滚动
+        autoScrollInterval = setInterval(function() {
+            if (sectionIndex >= totalSections - 3) {
+                sectionIndex = 0;
+            }
+            updatePosition((sectionIndex + 1) % (totalSections - 2));
         }, 4000);
     });
 };
