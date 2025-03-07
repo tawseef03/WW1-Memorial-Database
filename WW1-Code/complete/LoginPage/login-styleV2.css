@@ -1,4 +1,5 @@
 /* General Reset */
+/* 通用重置 */
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +15,7 @@ body {
 }
 
 /* Navbar Styling */
+/* 导航栏样式 */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -78,6 +80,7 @@ body {
 }
 
 /* Login Wrapper */
+/* 登录包装 */
 .wrapper {
     display: flex;
     justify-content: center;
@@ -91,6 +94,7 @@ body {
     background: white;
     padding: 30px;
     border-radius: 20px; /* Rounded box as requested */
+    /* 按要求设置圆角 */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -102,6 +106,7 @@ body {
 }
 
 /* Input Fields */
+/* 输入字段 */
 .input-box {
     position: relative;
     margin-bottom: 20px;
@@ -130,6 +135,7 @@ body {
 }
 
 /* Remember Me & Forgot Password */
+/* 记住我 & 忘记密码 */
 .rememberforgot {
     display: flex;
     justify-content: space-between;
@@ -154,6 +160,7 @@ body {
 }
 
 /* Button */
+/* 按钮 */
 .button {
     width: 100%;
     padding: 12px;
@@ -172,6 +179,7 @@ body {
 }
 
 /* Register Link */
+/* 注册链接 */
 .Register-link {
     margin-top: 20px;
     text-align: center;
