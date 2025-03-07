@@ -10,18 +10,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mysqli = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['dbname']);
         
         if ($mysqli->connect_error) {
-            throw new Exception('数据库连接失败: ' . $mysqli->connect_error);
+            throw new Exception('Database connection failed: ' . $mysqli->connect_error);
         }
 
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        // 修改SQL查询以匹配ww1_db中的users表结构
+        // SQL query to match users table in ww1_db
         $sql = "SELECT * FROM users WHERE Username = ?";
         $stmt = $mysqli->prepare($sql);
         
         if (!$stmt) {
-            throw new Exception("SQL准备失败: " . $mysqli->error);
+            throw new Exception("SQL preparation failed: " . $mysqli->error);
         }
 
         $stmt->bind_param("s", $username);
@@ -43,12 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             exit;
         } else {
-            $error_message = "用户名或密码错误";
+            $error_message = "Invalid username or password";
         }
         
     } catch (Exception $e) {
-        $error_message = "系统错误: " . $e->getMessage();
-        $debug_info .= "错误信息: " . $e->getMessage() . "\n";
+        $error_message = "System Error: " . $e->getMessage();
+        $debug_info .= "Error Info: " . $e->getMessage() . "\n";
     } finally {
         if (isset($stmt) && $stmt !== false) {
             $stmt->close();
@@ -99,14 +99,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="rememberforgot">
                 <label><input type="checkbox" name="remember"> Remember Me</label>
-                <a href="#">Forgot Password?</a>
             </div>
 
             <button type="submit" class="button">Log-in</button>
-
-            <div class="Register-link">
-                <p>Don't have an Account? <a href="register.php">Register Here</a></p>
-            </div>
         </form>
     </div>
     <script>
