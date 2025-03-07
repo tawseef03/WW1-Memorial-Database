@@ -1,4 +1,4 @@
-body {
+html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -6,8 +6,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
-
 
 .navbar {
     display: flex;
@@ -173,16 +173,11 @@ body {
     padding-bottom: 10px;
 }
 
-.results-info {
-    margin: 10px 0 20px;
-    font-size: 14px;
-    color: #6c757d;
-}
-
 .display {
-    height: 600px; 
-    width: 960px;
-    background-color: #a1a3a5;
+    height: 410px; 
+    width: 920px;
+    background-color: #ccc;
+    padding: 20px 20px;
 }
 
 .pagination {

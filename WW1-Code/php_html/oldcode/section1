@@ -1,0 +1,18 @@
+<?php
+// 包含数据库连接文件
+// Contains the database connection file
+require_once 'db_config.php';
+
+try {
+    // 连接到数据库
+    // Connect to the database
+    $pdo = new PDO($dbConfig['dsn'], $dbConfig['username'], $dbConfig['password']);
+    
+    // 获取布拉德福德与周边乡镇的数据
+    // Get data on Bradford and surrounding towns
+    $stmt = $pdo->query('SELECT * FROM towns WHERE region = "Bradford"');
+    $towns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+?>

@@ -20,7 +20,7 @@ window.onload = function() {
         desc.style.backgroundImage = "url('../rsc/memorial.jpg')";
     }
     sec2.onclick = function() {
-        window.location.href = 'memorial.php'; // Redirect to memorial.php
+        alert("Clicked section 2"); // Clicking other sections gives a pop-up
     }
 
     
