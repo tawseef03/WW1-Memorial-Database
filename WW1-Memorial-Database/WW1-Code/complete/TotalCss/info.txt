@@ -1,0 +1,3 @@
+Duplicate CSS styles should be placed here instead of every CSS, which can cause confusion.
+Therefore, only the CSS parts that need to be repeated should be placed here, which can simplify 
+the code space

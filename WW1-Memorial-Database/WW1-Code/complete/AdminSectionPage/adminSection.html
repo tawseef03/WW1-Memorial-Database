@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control Panel - WW1 Memorial Database</title>
+    <link rel="icon" type="image/x-icon" href="../../../rsc/WebLogo.png">
+    <link rel="stylesheet" href="AdminSection.css">
+    <script src="AdminSection.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="../../../rsc/GroupLogo.png" alt="WW1 Group">
+        </div>
+        <div class="title">
+            Admin Control Panel
+        </div>
+        <div class="navbuttons">
+            <button onclick="window.location.href='../AdminDashBoardPage/admindashboard.html'">Back to Dashboard</button>
+            <button onclick="window.location.href='../AdminPage/adminpage.html'">Back to Admin</button>
+            <button onclick="window.location.href='../LoginPage/login.html'">Logout</button>
+        </div>
+    </div>
+
+    <main>
+        <div class="admin-container">
+            <section class="admin-section">
+                <h2>Database Management</h2>
+                <div class="admin-actions">
+                    <a href="../AdminManageDatabasePage/AdminManageDatabase.html" class="admin-button">Manage Database</a>
+                    <a href="../DatabaseBackupPage/backup.html" class="admin-button">Database Backup</a>
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <h2>User Management</h2>
+                <div class="admin-actions">
+                    <a href="../UserManagementPage/usermanagement.html" class="admin-button">User Management</a>
+                    <a href="../PermissionPage/permissions.html" class="admin-button">Permission Control</a>
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <h2>System Settings</h2>
+                <div class="admin-actions">
+                    <a href="../SystemSettingsPage/settings.html" class="admin-button">System Configuration</a>
+                    <a href="../LogPage/logs.html" class="admin-button">System Logs</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 WW1 Memorial Database Management System - Authorized Personnel Only</p>
+    </footer>
+</body>
+</html>

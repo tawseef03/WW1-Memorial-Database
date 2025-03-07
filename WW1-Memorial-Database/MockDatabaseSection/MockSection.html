@@ -74,33 +74,27 @@
             
             <div class="records-container">
                 <h3 id="resultsHeading">Records Display</h3>
-                
-                <div id="resultsInfo" class="results-info">
-                    Showing all records. Use the search form to filter results.
-                </div>
-                
-                <table id="recordsTable">
+                <p id="resultsInfo">Loading records...</p>
+                <table>
                     <thead>
                         <tr>
                             <th>Surname</th>
                             <th>Forename</th>
                             <th>Regiment</th>
-                            <th>Service No.</th>
-                            <th>Birth Year</th>
-                            <th>Death Date</th>
-                            <th>Details</th>
+                            <th>Service Number</th>
+                            <th>Biography</th>
                         </tr>
                     </thead>
                     <tbody id="recordsBody">
-                        
+                        <!-- Records will be populated by JavaScript -->
                     </tbody>
                 </table>
-                
-                <div class="pagination">
-                    <button id="prevPage">Previous</button>
-                    <span id="pageInfo">Page 1 of 1</span>
-                    <button id="nextPage">Next</button>
-                </div>
+            </div>
+            
+            <div class="pagination">
+                <button id="prevPage">Previous</button>
+                <span id="pageInfo">Page 1 of 1</span>
+                <button id="nextPage">Next</button>
             </div>
         </div>
     </div>

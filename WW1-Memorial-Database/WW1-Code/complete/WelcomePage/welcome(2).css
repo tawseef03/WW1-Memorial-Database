@@ -1,0 +1,79 @@
+/* 设置body的默认字体和背景颜色 / Set default font and background color for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* 头部区域样式 / Style for the header section */
+header {
+    background-color: #923e3e;
+    color: white;
+    padding: 20px;
+    font-size: 28px;
+}
+
+/* 主内容容器样式，最大宽度和居中对齐 / Container for main content with max-width and centered alignment */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+}
+
+/* 导航链接样式 / Style for navigation links */
+nav a {
+    display: inline-block;
+    margin: 10px 15px;
+    text-decoration: none;
+    color: #f4f4f4;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #923e3e;
+    border-radius: 5px;
+}
+
+/* 登录区域样式 / Style for the login section */
+.login-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+/* 页脚区域样式 / Style for the footer section */
+footer {
+    margin-top: 20px;
+    padding: 15px;
+    background: #923e3e;
+    color: white;
+}
+
+/* 输入字段样式 / Style for the input fields */
+.input-field {
+    width: 200px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 按钮样式 / Style for buttons */
+button {
+    padding: 10px 20px;
+    background-color: #923e3e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #7a3232;
+}
