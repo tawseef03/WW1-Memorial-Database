@@ -69,15 +69,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <nav class='navbar'>
-        <div class='logo'>
-            <img src="../rsc/WebLogo.png" alt="WW1 Logo">
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <!-- Website logo -->
+        <div class="logo">
+            <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
         </div>
-        <div class='nav-links'>
-            <a href='sections.php'>Sections</a>
-            <a href='about.php'>About</a>
+        <!-- Page title -->
+        <div class="title">
+            Login
         </div>
-    </nav>
+        <!-- Navigation buttons -->
+        <div class="navbuttons">
+            <button type="button">Home</button>
+            <button type="button">About</button>
+            <button type="button">Contact</button>
+        </div>
+    </div>
 
     <div class="wrapper">
         <?php if (!empty($error_message)): ?>

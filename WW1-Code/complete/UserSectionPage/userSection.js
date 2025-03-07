@@ -1,52 +1,48 @@
 window.onload = function() {
-    var desc = document.getElementById("description");
-    var sec1 = document.getElementById("section1");
-    var sec2 = document.getElementById("section2");
-    var sec3 = document.getElementById("section3");
-    var sec4 = document.getElementById("section4");
-    var sec5 = document.getElementById("section5");
-    
-    sec1.onmouseover = function() {
-        desc.innerHTML = document.getElementById("sec1").innerHTML; // Hovering replaces the description box
-        desc.style.backgroundImage = "url('../rsc/township.jpg')";
-    }
-    sec1.onclick = function() {
-        alert("Clicked section 1"); // Clicking section 1 deletes the icon
-    }
+    const desc = document.getElementById("description");
+    const sections = {
+        section1: {
+            content: "sec1",
+            image: "../../rsc/township.jpg"
+        },
+        section2: {
+            content: "sec2",
+            image: "../../rsc/memorial.jpg"
+        },
+        section3: {
+            content: "sec3",
+            image: "../../rsc/buried.jpg"
+        },
+        section4: {
+            content: "sec4",
+            image: "../../rsc/newspaper.jpeg"
+        },
+        section5: {
+            content: "sec5",
+            image: "../../rsc/biography.jpg"
+        }
+    };
 
-    
-    sec2.onmouseover = function() {
-        desc.innerHTML = document.getElementById("sec2").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/memorial.jpg')";
-    }
-    sec2.onclick = function() {
-        alert("Clicked section 2"); // Clicking other sections gives a pop-up
-    }
+    // 初始化显示第一个section的内容
+    const firstSection = document.getElementById("sec1");
+    desc.innerHTML = firstSection.innerHTML;
+    desc.style.backgroundImage = "url('../../rsc/township.jpg')";
+    desc.style.backgroundSize = 'cover';
+    desc.style.backgroundPosition = 'center';
 
-    
-    sec3.onmouseover = function() {
-        desc.innerHTML = document.getElementById("sec3").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/buried.jpg')";
-    }
-    sec3.onclick = function() {
-        alert("Clicked section 3");
-    }
-
-    
-    sec4.onmouseover = function() {
-        desc.innerHTML = document.getElementById("sec4").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/newspaper.jpeg')";
-    }
-    sec4.onclick = function() {
-        alert("Clicked section 4");
-    }
-
-    
-    sec5.onmouseover = function() {
-        desc.innerHTML = document.getElementById("sec5").innerHTML;
-        desc.style.backgroundImage = "url('../rsc/biography.jpg')";
-    }
-    sec5.onclick = function() {
-        alert("Clicked section 5");
-    }
+    Object.keys(sections).forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        
+        section.onmouseover = function() {
+            const content = document.getElementById(sections[sectionId].content);
+            desc.innerHTML = content.innerHTML;
+            desc.style.backgroundImage = `url('${sections[sectionId].image}')`;
+            desc.style.backgroundSize = 'cover';
+            desc.style.backgroundPosition = 'center';
+        }
+        
+        section.onclick = function() {
+            alert(`Clicked ${sectionId}`);
+        }
+    });
 }
