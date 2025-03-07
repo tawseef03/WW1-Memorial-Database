@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        // SQL query to match users table in ww1_db
+        // SQL查询匹配ww1_db中的users表 / SQL query to match users table in ww1_db
         $sql = "SELECT * FROM users WHERE Username = ?";
         $stmt = $mysqli->prepare($sql);
         
@@ -29,13 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        // 使用现有的密码验证逻辑
+        // 使用现有的密码验证逻辑 / Use existing password verification logic
         if ($user && $password === $user["Password"]) {
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['user_type'] = $user["User Type"];
             $_SESSION['user_id'] = $user["UserID"];
             
+            // 根据用户类型重定向 / Redirect based on user type
             if (intval($user["User Type"]) === 1) {
                 header("Location: ../AdminPage/adminpage.html");
             } else {
@@ -43,12 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             exit;
         } else {
-            $error_message = "Invalid username or password";
+            $error_message = "Invalid username or password"; // 无效的用户名或密码
         }
         
     } catch (Exception $e) {
-        $error_message = "System Error: " . $e->getMessage();
-        $debug_info .= "Error Info: " . $e->getMessage() . "\n";
+        $error_message = "System Error: " . $e->getMessage(); // 系统错误
+        $debug_info .= "Error Info: " . $e->getMessage() . "\n"; // 错误信息
     } finally {
         if (isset($stmt) && $stmt !== false) {
             $stmt->close();
@@ -69,17 +70,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <!-- Navigation bar -->
+    <!-- 导航栏 / Navigation bar -->
     <div class="navbar">
-        <!-- Website logo -->
+        <!-- 网站标志 / Website logo -->
         <div class="logo">
             <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
         </div>
-        <!-- Page title -->
+        <!-- 页面标题 / Page title -->
         <div class="title">
             Login
         </div>
-        <!-- Navigation buttons -->
+        <!-- 导航按钮 / Navigation buttons -->
         <div class="navbuttons">
             <button type="button">Home</button>
             <button type="button">About</button>
@@ -113,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
     <script>
+        // 切换密码可见性 / Toggle password visibility
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleIcon = document.querySelector('.toggle-password');
