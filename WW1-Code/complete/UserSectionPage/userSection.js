@@ -23,16 +23,18 @@ window.onload = function() {
         }
     };
 
-    // 初始化显示第一个section的内容
+    // 初始化显示第一个section的内容 / Initialize to display the content of the first section
     const firstSection = document.getElementById("sec1");
     desc.innerHTML = firstSection.innerHTML;
     desc.style.backgroundImage = "url('../../rsc/township.jpg')";
     desc.style.backgroundSize = 'cover';
     desc.style.backgroundPosition = 'center';
 
+    // 为每个section添加鼠标悬停和点击事件 / Add mouseover and click events for each section
     Object.keys(sections).forEach(sectionId => {
         const section = document.getElementById(sectionId);
         
+        // 鼠标悬停事件 / Mouseover event
         section.onmouseover = function() {
             const content = document.getElementById(sections[sectionId].content);
             desc.innerHTML = content.innerHTML;
@@ -41,6 +43,7 @@ window.onload = function() {
             desc.style.backgroundPosition = 'center';
         }
         
+        // 点击事件 / Click event
         section.onclick = function() {
             alert(`Clicked ${sectionId}`);
         }
