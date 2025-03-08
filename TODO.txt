@@ -19,3 +19,10 @@ Jawad and Zehao can keep working on the admin side and finish it yourself.
 
 If anyone has any objection or wants any help, let me know on whatsapp.
 - Tawseef
+
+
+
+
+The code structure reset will be modified after the presentation on Tuesday, and the current structure will be temporarily retained
+
+-Zehao
