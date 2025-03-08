@@ -18,11 +18,7 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            height: 100%;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
+            overflow-y: auto;
         }
         /* 头部区域样式 / Style for the header section */
         header {
@@ -39,7 +35,6 @@
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 1);
-            flex: 1;
         }
         /* 导航链接样式 / Style for navigation links */
         nav a {
@@ -101,16 +96,13 @@
         <!-- 使命声明的副标题 / Subheading for the mission statement -->
         <h2>Preserving the History of World War I</h2>
         <!-- 使命声明段落 / Mission statement paragraph -->
-        <p>Our mission is to uncover, document, and preserve the experiences of Bradford’s citizens during World War I. 
-           Our aim is to honor their service, share their stories, and provide valuable historical insights to the public. 
-           Whether you are a historian, student, or enthusiast, we welcome you to explore and contribute to our growing archive of wartime records.</p>
+        <p>Our mission is to uncover, document, and preserve the experiences of Bradford’s citizens during World War I. Our aim is to honor their service, share their stories, and provide valuable historical insights to the public. Whether you are a historian, student, or enthusiast, we welcome you to explore and contribute to our growing archive of wartime records.</p>
+        
         <!-- 数据库访问的登录区域 / Login section for database access -->
         <div class="login-section">
             <h3>Database Access</h3>
-            <p>Click below to log into database access.</p>
-            <a href="login.php">
-                <button type="button">Login</button>
-            </a>
+            <p>Click below to login or register for database access.</p>
+            <button type="button" onclick="redirectToLogin()">Login / Register</button>
         </div>
         
     </div>
@@ -118,5 +110,10 @@
     <footer>
         &copy; 2025 WW1 Bradford Research Group | All Rights Reserved
     </footer>
+    <script>
+        function redirectToLogin() {
+            window.location.href = 'login.php';
+        }
+    </script>
 </body>
 </html>

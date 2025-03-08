@@ -1,0 +1,21 @@
+As every member of the team needs to contribute to some level of backend for the web application, I need you all to work on one PHP file of the database.
+
+Currently, there are 4 unmodified HTML pages:
+- biographies.html
+- buried.html
+- newspaper.html
+- township.html
+
+You need to either change these files into PHP or work on a separate PHP file, whichever you feel is easier. Work on those similar to how I did it in 'memorial.php'.
+All these pages share the same database.css file for styling. Don't directly change anything as it could mess up the other pages.
+
+Here is the distribution of the work:
+1. Mackenzie - biographies.html [You might have to work with a separate CSS file as you have to display a docx file in the webpage but that's on your judgement]
+2. Andrew - buried.html
+3. Yousaf - newspaper.html
+4. Vankee - township.html
+
+Jawad and Zehao can keep working on the admin side and finish it yourself.
+
+If anyone has any objection or wants any help, let me know on whatsapp.
+- Tawseef

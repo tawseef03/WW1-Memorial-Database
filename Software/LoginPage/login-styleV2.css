@@ -1,0 +1,207 @@
+/* General Reset */
+/* 通用重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+/* Navbar Styling */
+/* 导航栏样式 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    height: 50px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbuttons {
+    display: flex;
+    gap: 10px;
+}
+
+.navbuttons button {
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.navbuttons button:hover {
+    background-color: #e9ecef;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #f0f0f0;
+    text-decoration: underline;
+}
+
+/* Login Wrapper */
+/* 登录包装 */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    max-width: 450px;
+}
+
+.wrapper form {
+    width: 100%;
+    background: white;
+    padding: 30px;
+    border-radius: 20px; /* Rounded box as requested */
+    /* 按要求设置圆角 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* Input Fields */
+/* 输入字段 */
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #cc482e;
+    outline: none;
+}
+
+.input-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+/* Remember Me & Forgot Password */
+/* 记住我 & 忘记密码 */
+.rememberforgot {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.rememberforgot label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #555;
+}
+
+.rememberforgot a {
+    color: #cc482e;
+    text-decoration: none;
+}
+
+.rememberforgot a:hover {
+    text-decoration: underline;
+}
+
+/* Button */
+/* 按钮 */
+.button {
+    width: 100%;
+    padding: 12px;
+    background: #cc482e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.button:hover {
+    background: #cc482e;
+}
+
+/* Register Link */
+/* 注册链接 */
+.Register-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.Register-link a {
+    color: #cc482e;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.Register-link a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #d41d1d;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 5px;
+}
