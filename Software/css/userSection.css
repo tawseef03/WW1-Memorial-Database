@@ -93,12 +93,11 @@ body {
     width: 1000px;
     height: 400px;
     gap: 20px;
-    background-color: #ddd;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: 0.3s ease-in-out;
-    color: white;
+    background-color: #ffffff;
 }
 
 button {
