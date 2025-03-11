@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2025 at 04:19 PM
+-- Generation Time: Mar 11, 2025 at 01:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ww1 db`
+-- Database: `ww1_db`
 --
 
 -- --------------------------------------------------------
@@ -56,48 +56,15 @@ CREATE TABLE `buried` (
   `BuriedID` int(11) NOT NULL,
   `Surname` varchar(35) NOT NULL,
   `Forename` varchar(35) NOT NULL,
-  `Age` int(11) NOT NULL,
+  `DoB` date DEFAULT NULL,
   `Date of Death` date NOT NULL,
   `Rank` varchar(255) NOT NULL,
   `Service No` varchar(255) NOT NULL,
   `Regiment` varchar(255) NOT NULL,
-  `Unit` varchar(255) NOT NULL,
+  `Battalion` varchar(255) DEFAULT NULL,
   `Cemetary` varchar(255) NOT NULL,
   `Grave Ref` varchar(255) NOT NULL,
   `Info` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `honour`
---
-
-CREATE TABLE `honour` (
-  `HonourID` int(11) NOT NULL,
-  `Surname` varchar(35) NOT NULL,
-  `Forename` varchar(35) NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Electoral Ward` varchar(255) NOT NULL,
-  `Town` varchar(255) NOT NULL,
-  `Rank` varchar(255) NOT NULL,
-  `Regiment` varchar(255) NOT NULL,
-  `Unit` varchar(255) NOT NULL,
-  `Company` varchar(255) NOT NULL,
-  `Age` int(11) NOT NULL,
-  `Service No` varchar(255) NOT NULL,
-  `Other Regiment` varchar(255) NOT NULL,
-  `Other Unit` varchar(255) NOT NULL,
-  `Other Service No.` varchar(255) NOT NULL,
-  `Medals` date NOT NULL,
-  `Enlistment Date` int(11) NOT NULL,
-  `Discharge Date` date NOT NULL,
-  `Death (in service) Date` date NOT NULL,
-  `Misc Info Nroh` text NOT NULL,
-  `Cemetery/Memorial` varchar(255) NOT NULL,
-  `Cemetery/Memorial Ref` varchar(255) NOT NULL,
-  `Cemetery/Memorial Country` varchar(255) NOT NULL,
-  `Additional CWCG Info` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -10442,6 +10409,39 @@ INSERT INTO `newspapers` (`NewspaperID`, `Surname`, `Forename`, `Rank`, `Address
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `township`
+--
+
+CREATE TABLE `township` (
+  `HonourID` int(11) NOT NULL,
+  `Surname` varchar(35) NOT NULL,
+  `Forename` varchar(35) NOT NULL,
+  `Address` varchar(255) NOT NULL,
+  `Electoral Ward` varchar(255) NOT NULL,
+  `Town` varchar(255) NOT NULL,
+  `Rank` varchar(255) NOT NULL,
+  `Regiment` varchar(255) NOT NULL,
+  `Battalion` varchar(255) DEFAULT NULL,
+  `Company` varchar(255) NOT NULL,
+  `Age` int(11) NOT NULL,
+  `Service No` varchar(255) NOT NULL,
+  `Other Regiment` varchar(255) NOT NULL,
+  `Other Unit` varchar(255) NOT NULL,
+  `Other Service No.` varchar(255) NOT NULL,
+  `Medals` date NOT NULL,
+  `Enlistment Date` int(11) NOT NULL,
+  `Discharge Date` date NOT NULL,
+  `Death (in service) Date` date NOT NULL,
+  `Misc Info Nroh` text NOT NULL,
+  `Cemetery/Memorial` varchar(255) NOT NULL,
+  `Cemetery/Memorial Ref` varchar(255) NOT NULL,
+  `Cemetery/Memorial Country` varchar(255) NOT NULL,
+  `Additional CWCG Info` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -10477,12 +10477,6 @@ ALTER TABLE `buried`
   ADD PRIMARY KEY (`BuriedID`);
 
 --
--- Indexes for table `honour`
---
-ALTER TABLE `honour`
-  ADD PRIMARY KEY (`HonourID`);
-
---
 -- Indexes for table `memorials`
 --
 ALTER TABLE `memorials`
@@ -10493,6 +10487,12 @@ ALTER TABLE `memorials`
 --
 ALTER TABLE `newspapers`
   ADD PRIMARY KEY (`NewspaperID`);
+
+--
+-- Indexes for table `township`
+--
+ALTER TABLE `township`
+  ADD PRIMARY KEY (`HonourID`);
 
 --
 -- Indexes for table `users`
@@ -10517,12 +10517,6 @@ ALTER TABLE `buried`
   MODIFY `BuriedID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `honour`
---
-ALTER TABLE `honour`
-  MODIFY `HonourID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `memorials`
 --
 ALTER TABLE `memorials`
@@ -10533,6 +10527,12 @@ ALTER TABLE `memorials`
 --
 ALTER TABLE `newspapers`
   MODIFY `NewspaperID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3630;
+
+--
+-- AUTO_INCREMENT for table `township`
+--
+ALTER TABLE `township`
+  MODIFY `HonourID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

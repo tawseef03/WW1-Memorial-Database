@@ -1,1 +1,0 @@
-connect database is using ww1_memorial_db database
