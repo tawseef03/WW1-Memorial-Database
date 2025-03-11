@@ -1,5 +1,58 @@
 /* databaseManagement.css */
-/* ---------------------- Base Styles ---------------------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+    height: 100px;
+    position: relative;
+}
+
+.navbar .logo {
+    background-color: #ffffff;
+    height: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.navbar .logo img {
+    height: 80px;
+}
+
+.navbar .title {
+    color: black;
+    font-size: 35px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'Kameron';
+    font-weight: bold;
+}
+
+.navbar .navbuttons {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar .navbuttons button {
+    padding: 10px 20px;
+    background-color: #780909;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.navbar .navbuttons button:hover {
+    background-color: #d41d1d;
+}
+
+
 .button-grid {
     display: flex;
     flex-direction: column;
@@ -22,14 +75,16 @@
     width: 830px; /* Matches total width of 3 buttons + gaps */
     display: flex;
     justify-content: space-between;
-    margin-top: -160px; /* Adjust this to position vertically */
-    padding: 0 125px; /* Positions buttons between top row buttons */
+    margin-top: -50px; /* Adjust this to position vertically */
+    padding: 0 50px; /* Positions buttons between top row buttons */
+    
 }
+
 
 /* ---------------------- Database Cards ---------------------- */
 .database-card {
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,42 +108,18 @@
 .database-card h3 {
     color: #923e3e;
     margin-bottom: 15px;
-    font-size: 1.4em;
+    font-size: 2em;
     font-weight: 600;
 }
 
 .database-card p {
     color: #666;
-    font-size: 1em;
+    font-size: 1.25em;
     line-height: 1.5;
     padding: 0 10px;
 }
 
-/* ---------------------- Records Table ---------------------- */
-.records-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
 
-.records-table th, 
-.records-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.records-table th {
-    background-color: #923e3e;
-    color: white;
-    font-weight: 500;
-}
-
-/* ---------------------- Modal Styles ---------------------- */
 .modal {
     display: none;
     position: fixed;
