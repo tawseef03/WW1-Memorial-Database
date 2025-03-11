@@ -61,7 +61,7 @@
     margin-top: 50px;
 }
 
-/* ---------------------- Button Rows ---------------------- */
+
 .button-row {
     display: flex;
     gap: 40px;
@@ -82,7 +82,7 @@
 
 
 /* ---------------------- Database Cards ---------------------- */
-.database-card {
+.database-button {
     width: 350px;
     height: 200px;
     display: flex;
@@ -99,16 +99,16 @@
     cursor: pointer;
 }
 
-.database-card:hover {
+.database-button:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     background: #f8f8f8;
 }
 
-.database-card h3 {
+.database-button h3 {
     color: #923e3e;
     margin-bottom: 15px;
-    font-size: 2em;
+    font-size: 25px;
     font-weight: 600;
 }
 
@@ -118,7 +118,6 @@
     line-height: 1.5;
     padding: 0 10px;
 }
-
 
 
 
