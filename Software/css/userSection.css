@@ -87,18 +87,30 @@ body {
     background-repeat: no-repeat;
 }
 
+.bgimg {
+    width: 1000px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: 0.3s ease-in-out;
+}
+
 .description {
     display: flex;
     justify-content: space-evenly;
     width: 1000px;
     height: 400px;
     gap: 20px;
-    background-color: #ddd;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: 0.3s ease-in-out;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.5)
+}
+
+.description h1 {
+    font-family: 'Kameron';
+}
+
+.description p {
+    font-family: 'Raleway';
 }
 
 button {
