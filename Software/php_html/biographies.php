@@ -41,7 +41,29 @@ $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the total number of records for pagination calculation
 $total_query = "SELECT COUNT(*) FROM biographyinfo WHERE 1=1";
+$params = [];
+
+if (!empty($surname)) {
+    $total_query .= " AND Surname LIKE ?";
+    $params[] = "%$surname%";
+}
+if (!empty($forename)) {
+    $total_query .= " AND Forename LIKE ?";
+    $params[] = "%$forename%";
+}
+if (!empty($regiment)) {
+    $total_query .= " AND Regiment LIKE ?";
+    $params[] = "%$regiment%";
+}
+
+// Apply the limit and offset for pagination
+$total_query .= " LIMIT ? OFFSET ?";
+$params[] = $records_per_page; // Limit to 1 record per page
+$params[] = $offset; // Offset for the page
+
+// Prepare and execute the query
 $total_stmt = $mysqli->prepare($total_query);
+$total_stmt->bind_param(str_repeat('s', count($params)), ...$params);
 $total_stmt->execute();
 $total_results = $total_stmt->get_result()->fetch_row()[0];
 $total_pages = ceil($total_results / $records_per_page);
@@ -90,7 +112,7 @@ $total_pages = ceil($total_results / $records_per_page);
                 
                 <div class="form-buttons">
                     <button type="button" id="searchButton">Search</button>
-                    <button type="button" id="resetButton" onclick="window.location.href = 'memorial.php';">Reset</button>
+                    <button type="button" id="resetButton" onclick="window.location.href = 'biographies.php';">Reset</button>
                 </div>
             </form>
         </div>
