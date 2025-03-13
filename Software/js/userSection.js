@@ -6,6 +6,7 @@ window.onload = function() {
     var sec3 = document.getElementById("section3");
     var sec4 = document.getElementById("section4");
     var sec5 = document.getElementById("section5");
+    var ovly = document.getElementById("overlay");
     
     sec1.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec1").innerHTML; // Hovering replaces the description box
@@ -49,5 +50,9 @@ window.onload = function() {
     }
     sec5.onclick = function() {
         alert("Clicked section 5");
+    }
+    
+    ovly.onclick = function() {
+        ovly.style.display = "none";
     }
 }
