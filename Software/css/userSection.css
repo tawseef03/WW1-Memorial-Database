@@ -182,7 +182,7 @@ button:hover {
     background-color: rgba(0,0,0,0.5);
 }
 
-.popup {
+#popup {
     position: absolute;
     width: 50%;
     height: 90%;

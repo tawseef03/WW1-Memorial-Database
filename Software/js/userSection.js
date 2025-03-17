@@ -1,3 +1,27 @@
+function openAbout(n) {
+    switch (n) {
+        case 1:
+            document.getElementById("popup").src = "township.php";
+            break;
+        case 2:
+            document.getElementById("popup").src = "memorial.php";
+            break;
+        case 3:
+            document.getElementById("popup").src = "buried.html";
+            break;
+        case 4:
+            document.getElementById("popup").src = "newspaper.html";
+            break;
+        case 5:
+            document.getElementById("popup").src = "biographies.php";
+            break;
+        default:
+            alert("Invalid about section id: "+n);
+            return;
+    }
+    document.getElementById("overlay").style.display = "block";
+}
+
 window.onload = function() {
     var desc = document.getElementById("description");
     var img = document.getElementById("bgimg");
@@ -6,7 +30,6 @@ window.onload = function() {
     var sec3 = document.getElementById("section3");
     var sec4 = document.getElementById("section4");
     var sec5 = document.getElementById("section5");
-    var ovly = document.getElementById("overlay");
     
     sec1.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec1").innerHTML; // Hovering replaces the description box
@@ -52,7 +75,7 @@ window.onload = function() {
         alert("Clicked section 5");
     }
     
-    ovly.onclick = function() {
-        ovly.style.display = "none";
+    document.getElementById("overlay").onclick = function() {
+        document.getElementById("overlay").style.display = "none";
     }
 }

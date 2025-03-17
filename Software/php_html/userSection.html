@@ -56,8 +56,8 @@
             <div class="name">Biographies</div>
         </div>
     </div>
-    <div id="overlay" style="display: block">
-        <iframe class="popup" src="welcomepage.html"></iframe>
+    <div id="overlay" style="display: none">
+        <iframe id="popup" src="about:blank"></iframe>
     </div>
 
     <div class="hidden" id="sec1" style="display: none">
@@ -65,7 +65,7 @@
             <div style="height:330px;">
                 <h1>Bradford and Surrounding Townships</h1>
             </div>
-            <button type="button" onclick="alert('Opens \'About\' for section 1');">About</button>
+            <button type="button" onclick="openAbout(1);">About</button>
         </div>
         <div style="width:350px;">
             <p style="font-size:18px;">Source of information and knowledge relating to Bradford and its 
@@ -82,7 +82,7 @@
             <div style="height:330px;">
                 <h1>Names Recorded on Bradford Memorials</h1>
             </div>
-            <button type="button" onclick="alert('Opens \'About\' for section 2');">About</button>
+            <button type="button" onclick="openAbout(2);">About</button>
         </div>
         <div style="width:350px;">
             <p style="font-size:18px;">Here you can search and find in our archives all those that are 
@@ -98,7 +98,7 @@
             <div style="height:330px;">
                 <h1>Buried in Bradford</h1>
             </div>
-            <button type="button" onclick="alert('Opens .pdf for section 3');">About</button>
+            <button type="button" onclick="openAbout(3);">About</button>
         </div>
         <div style="width:350px;">
             <p style="font-size:18px;">Here you can search and find in our archives all those who that 
@@ -114,7 +114,7 @@
             <div style="height:330px;">
                 <h1>Newspaper references</h1>
             </div>
-            <button type="button" onclick="alert('Opens .pdf for section 4');">About</button>
+            <button type="button" onclick="openAbout(4);">About</button>
         </div>
         <div style="width:350px;">
             <p style="font-size:18px;">A collection of project pages documenting the events, newspaper 
@@ -130,7 +130,7 @@
             <div style="height:330px;">
                 <h1>Biographies</h1>
             </div>
-            <button type="button" onclick="alert('Opens .pdf for section 5');">About</button>
+            <button type="button" onclick="openAbout(5);">About</button>
         </div>
         <div style="width:350px;">
             <p style="font-size:18px;">An archive of all the biographies of the men and women who served in World 
