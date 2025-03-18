@@ -30,12 +30,12 @@ if (!empty($regiment)) {
 
 // Apply the limit and offset for pagination
 $query .= " LIMIT ? OFFSET ?";
-$params[] = $records_per_page; // Limit to 1 record per page
-$params[] = $offset; // Offset for the page
+$params[] = $records_per_page;
+$params[] = $offset;
 
 // Prepare and execute the query
 $stmt = $mysqli->prepare($query);
-$stmt->bind_param(str_repeat('s', count($params)), ...$params); // Bind parameters dynamically
+$stmt->bind_param(str_repeat('s', count($params)), ...$params);
 $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
@@ -110,6 +110,7 @@ $total_pages = ceil($total_results / $records_per_page);
                     } else {
                         foreach ($results as $row) {
                             echo "<div class='record'>";
+                            echo "<p><strong>NewspaperID:</strong> " . htmlspecialchars($row['MemorialID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
