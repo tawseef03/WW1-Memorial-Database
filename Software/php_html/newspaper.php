@@ -131,7 +131,7 @@ $total_pages = ceil($total_results / $records_per_page);
                             echo "<p><strong>Newspaper Name:</strong> " . htmlspecialchars($row['Newspaper Name']) . "</p>";
                             echo "<p><strong>Paper Date:</strong> " . htmlspecialchars($row['Paper Date']) . "</p>";
                             echo "<p><strong>Page/Col:</strong> " . htmlspecialchars($row['Page/Col']) . "</p>";
-                            echo "<p><strong>Photo incl.:</strong> " . ($row['Photo available'] ? 'Yes' : 'No') . "</p>";
+                            echo "<p><strong>Photo incl.:</strong> " . ($row['Photo incl.'] ? 'Yes' : 'No') . "</p>";
                             echo "</div>";
                         }
                     }
