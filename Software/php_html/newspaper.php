@@ -109,10 +109,6 @@ $total_pages = ceil($total_results / $records_per_page);
             <div class="records-container">
                 <h3 id="resultsHeading">Records Display</h3>
                 
-                <div id="resultsInfo" class="results-info">
-                    Showing all records. Use the search form to filter results.
-                </div>
-                
                 <div class="display">
                 <?php
                     if (empty($results)) {
