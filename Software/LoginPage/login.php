@@ -1,17 +1,13 @@
 <?php
 session_start();
-require_once '../php_html/db_config.php';
+require_once '../php_html/db_connect.php';
 
 $error_message = '';
 $debug_info = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $mysqli = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['dbname']);
-        
-        if ($mysqli->connect_error) {
-            throw new Exception('Database connection failed: ' . $mysqli->connect_error);
-        }
+        $mysqli = require '../php_html/db_connect.php';
 
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';

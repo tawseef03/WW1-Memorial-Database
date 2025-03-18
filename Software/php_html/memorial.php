@@ -110,16 +110,24 @@ $total_pages = ceil($total_results / $records_per_page);
                     } else {
                         foreach ($results as $row) {
                             echo "<div class='record'>";
-                            echo "<p><strong>NewspaperID:</strong> " . htmlspecialchars($row['MemorialID']) . "</p>";
+                            echo "<div class='col1'>";
+                            echo "<p><strong>Memorial ID:</strong> " . htmlspecialchars($row['MemorialID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
                             echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
+                            echo "<p><strong>Cemetery/Memorial:</strong> " . htmlspecialchars($row['Cemetery/Memorial']) . "</p>";
+                            echo "<p><strong>Cemetery/Grave Ref.:</strong> " . htmlspecialchars($row['Cemetery/Grave Ref.']) . "</p>";
+                            echo "<p><strong>Cemetery/Memorial Country:</strong> " . htmlspecialchars($row['Cemetery / Memorial Country']) . "</p>";
+                            echo "</div>";
+                            echo "<div class='col2'>";
                             echo "<p><strong>Memorial:</strong> " . htmlspecialchars($row['Memorial']) . "</p>";
+                            echo "<p><strong>Memorial Location:</strong> " . htmlspecialchars($row['Memorial Location']) . "</p>";
                             echo "<p><strong>Memorial Info:</strong> " . htmlspecialchars($row['Memorial Info']) . "</p>";
                             echo "<p><strong>Postcode:</strong> " . htmlspecialchars($row['Memorial Postcode']) . "</p>";
                             echo "<p><strong>District:</strong> " . htmlspecialchars($row['District']) . "</p>";
                             echo "<p><strong>Photo:</strong> " . ($row['Photo available'] ? 'Yes' : 'No') . "</p>";
+                            echo "</div>";
                             echo "</div>";
                         }
                     }
