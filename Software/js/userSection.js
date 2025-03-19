@@ -1,3 +1,27 @@
+function openAbout(n) {
+    switch (n) {
+        case 1:
+            document.getElementById("popup").src = "township.php";
+            break;
+        case 2:
+            document.getElementById("popup").src = "memorial.php";
+            break;
+        case 3:
+            document.getElementById("popup").src = "buried.html";
+            break;
+        case 4:
+            document.getElementById("popup").src = "newspaper.html";
+            break;
+        case 5:
+            document.getElementById("popup").src = "biographies.php";
+            break;
+        default:
+            alert("Invalid about section id: "+n);
+            return;
+    }
+    document.getElementById("overlay").style.display = "block";
+}
+
 window.onload = function() {
     var desc = document.getElementById("description");
     var img = document.getElementById("bgimg");
@@ -49,5 +73,9 @@ window.onload = function() {
     }
     sec5.onclick = function() {
         alert("Clicked section 5");
+    }
+    
+    document.getElementById("overlay").onclick = function() {
+        document.getElementById("overlay").style.display = "none";
     }
 }
