@@ -81,7 +81,8 @@ body {
     gap: 20px;
     max-width: 100vw;
     max-height: 90vh;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(../rsc/poppyfield.png);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.6), 
+    rgba(255, 255, 255, 0.6)), url(../rsc/poppyfield.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -125,7 +126,6 @@ button {
 button:hover {
     background-color: #d41d1d;
 }
-/* Credit for lines 104 to 115 goes to Mackenzie*/
 
 .sections {
     display: flex;
@@ -147,22 +147,24 @@ button:hover {
     text-align: center;
     font-size: 18px;
     color: #333;
-    border-color: #d41d1d #f4f4f4 #f4f4f4 #f4f4f4;
+    border-color: #f4f4f4;
     border-style: solid;
     background-size: cover;
 }
 .section:hover {
     transition: transform 0.5s;
     transform: translate(0px,-10px);
+    border-color: #d41d1d;
 }
 .section:not(:hover) {
     transition: transform 0.5s;
     transform: translate(0px,10px);
+    border-color: #f4f4f4;
 }
 .section:nth-of-type(1) { background-image: url('../rsc/township.jpg'); }
 .section:nth-of-type(2) { background-image: url('../rsc/memorial.jpg'); }
 .section:nth-of-type(3) { background-image: url('../rsc/buried.jpg'); }
-.section:nth-of-type(4) { background-image: url('../rsc/newspaper.jpeg'); }
+.section:nth-of-type(4) { background-image: url('../rsc/newspaper.jpg'); }
 .section:nth-of-type(5) { background-image: url('../rsc/biography.jpg'); }
 
 #sec1 { background-image: url('../rsc/township.jpg'); }

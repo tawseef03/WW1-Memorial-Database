@@ -60,7 +60,7 @@ window.onload = function() {
     
     sec4.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec4").innerHTML;
-        img.style.backgroundImage = "url('../rsc/newspaper.jpeg')";
+        img.style.backgroundImage = "url('../rsc/newspaper.jpg')";
     }
     sec4.onclick = function() {
         alert("Clicked section 4");

@@ -181,9 +181,18 @@ html, body {
     padding-bottom: 10px;
 }
 
+.record {
+    display: flex;
+    gap: 5px;
+}
+
+.col1, .col2 {
+    flex: 1;
+}
+
 .display {
     height: 436px; 
-    width: 926px;
+    width: 970px;
     background-color: #ffffff;
     padding: 0px 10px;
     border-style: solid;
