@@ -94,7 +94,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
                 
                 <div class="display">
-                    <!-- Results will be loaded here by JavaScript -->
+                    <!-- 在这里添加编辑按钮 -->
+                    <div class="edit-button-container" style="text-align: right; margin-bottom: 10px;">
+                        <button type="button" onclick="location.href='editPage.php'">Edit</button>
+                    </div>
+                    <!-- 表格内容 -->
                 </div>
                 
                 <div class="pagination">

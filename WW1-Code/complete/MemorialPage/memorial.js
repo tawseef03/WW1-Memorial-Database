@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         display.innerHTML = '<div class="loading">Loading records...</div>';
         
         const formData = new FormData();
+        formData.append('action', 'fetch');
         formData.append('surname', document.getElementById('surname').value);
         formData.append('forename', document.getElementById('forename').value);
         formData.append('regiment', document.getElementById('regiment').value);
