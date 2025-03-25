@@ -110,7 +110,7 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                 
                 <div class="form-buttons">
                     <button type="button" id="searchButton">Search</button>
-                    <button type="button" id="resetButton" onclick="window.location.href = 'memorial.php';">Reset</button>
+                    <button type="button" id="resetButton" onclick="window.location.href = 'newspaper.php';">Reset</button>
                 </div>
             </form>
         </div>
