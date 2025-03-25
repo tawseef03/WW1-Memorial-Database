@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (intval($user["User Type"]) === 1) {
                 header("Location: ../AdminPage/adminpage.html");
             } else {
-                header("Location: ../UserSectionPage/userSection.php");
+                header("Location: ../php_html/userSection.php");
             }
             exit;
         } else {
@@ -66,21 +66,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <!-- 导航栏 / Navigation bar -->
     <div class="navbar">
-        <!-- 网站标志 / Website logo -->
+        <!-- Website logo -->
         <div class="logo">
-            <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../rsc/GroupLogo.png" alt="WW1 Group">
         </div>
-        <!-- 页面标题 / Page title -->
+        <!-- Page title -->
         <div class="title">
             Login
         </div>
-        <!-- 导航按钮 / Navigation buttons -->
+        <!-- Navigation buttons -->
         <div class="navbuttons">
-            <button type="button">Home</button>
-            <button type="button">About</button>
-            <button type="button">Contact</button>
+            <button type="button" onclick="window.location.href='../php_html/welcomepage.html'">Exit</button>
         </div>
     </div>
 

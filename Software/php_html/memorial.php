@@ -1,13 +1,13 @@
 <?php
-// Include the database connection
-require 'db_connect.php'; // This will include your database connection from db_connect.php
+require_once 'auth_check.php';
+require 'db_connect.php';
 
 // Get search parameters and current page
 $surname = $_GET['surname'] ?? '';
 $forename = $_GET['forename'] ?? '';
 $regiment = $_GET['regiment'] ?? '';
 $page = $_GET['page'] ?? 1; // Get current page, default to 1 if not set
-$records_per_page = 1; // Number of records per page (1 in this case)
+$records_per_page = 1; // Number of records per page (fixed to 1)
 
 $offset = ($page - 1) * $records_per_page; // Calculate the offset
 
@@ -137,13 +137,13 @@ $total_pages = ceil($total_results / $records_per_page);
                 <!-- Pagination buttons -->
                 <div class="pagination">
                     <?php if ($page > 1): ?>
-                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>">Previous</a>
+                        <button href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>">Previous</button>
                     <?php endif; ?>
                     
                     <span id="pageInfo">Page <?php echo $page; ?> of <?php echo $total_pages; ?></span>
                     
                     <?php if ($page < $total_pages): ?>
-                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>">Next</a>
+                        <button href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>">Next</a>
                     <?php endif; ?>
                 </div>
             </div>
