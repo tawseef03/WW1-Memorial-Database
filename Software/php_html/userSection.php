@@ -1,3 +1,8 @@
+<?php
+require_once 'auth_check.php'
+require 'db_connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,6 +80,7 @@
         <iframe id="popup" src="about:blank"></iframe>
     </div>
 
+    <!--- Hidden section of the HTML --->
     <div class="hidden" id="sec1" style="display: none">
         <div style="width:250px;">
             <div style="height:330px;">
@@ -90,7 +96,6 @@
             <div style="height:330px;"><h1></h1></div>
             <button type="button" onclick="alert('Opens database for section 1');">Database</button>
         </div>
-        <!-- Credit for lines 61 to 73 goes to Mackenzie-->
     </div>
     <div class="hidden" id="sec2" style="display: none">
         <div class="title" style="width:250px;">
