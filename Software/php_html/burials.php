@@ -12,7 +12,7 @@ $records_per_page = 1; // Number of records per page (1 in this case)
 $offset = ($page - 1) * $records_per_page; // Calculate the offset
 
 // Build the query with search parameters
-$query = "SELECT * FROM burials WHERE 1=1";
+$query = "SELECT * FROM buried WHERE 1=1";
 $params = [];
 
 if (!empty($surname)) {
@@ -40,7 +40,7 @@ $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the total number of records for pagination calculation
-$total_query = "SELECT COUNT(*) FROM burials WHERE 1=1";
+$total_query = "SELECT COUNT(*) FROM buried WHERE 1=1";
 $total_stmt = $mysqli->prepare($total_query);
 $total_stmt->execute();
 $total_results = $total_stmt->get_result()->fetch_row()[0];

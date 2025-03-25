@@ -94,6 +94,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-image: url("../rsc/township.jpg");
     transition: 0.3s ease-in-out;
 }
 
@@ -112,6 +113,7 @@ body {
 
 .description p {
     font-family: 'Raleway';
+    font-size: 25px;
 }
 
 button {
