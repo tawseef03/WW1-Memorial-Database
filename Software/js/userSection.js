@@ -36,7 +36,7 @@ window.onload = function() {
         img.style.backgroundImage = "url('../rsc/township.jpg')";
     }
     sec1.onclick = function() {
-        alert("Clicked section 1"); // Clicking section 1 deletes the icon
+        window.location.href = 'township.php'; // Redirect to township.php
     }
 
     
@@ -54,7 +54,7 @@ window.onload = function() {
         img.style.backgroundImage = "url('../rsc/buried.jpg')";
     }
     sec3.onclick = function() {
-        alert("Clicked section 3");
+        window.location.href = 'burials.php'; // Redirect to burials.php
     }
 
     
@@ -63,7 +63,7 @@ window.onload = function() {
         img.style.backgroundImage = "url('../rsc/newspaper.jpg')";
     }
     sec4.onclick = function() {
-        alert("Clicked section 4");
+        window.location.href = 'newspaper.php'; // Redirect to newspaper.php
     }
 
     
@@ -72,7 +72,7 @@ window.onload = function() {
         img.style.backgroundImage = "url('../rsc/biography.jpg')";
     }
     sec5.onclick = function() {
-        alert("Clicked section 5");
+        window.location.href = 'biographies.php'; // Redirect to biographies.php
     }
     
     document.getElementById("overlay").onclick = function() {
