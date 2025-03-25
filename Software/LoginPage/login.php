@@ -25,8 +25,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
+        // --- Block login section ---
+
+        $BLOCK_MINS = 10;
+        $ATTEMPT_MAX = 5;
+
+        if (time()-$user["LastAttempt"] > $BLOCK_MINS*60) {
+            $sql = "UPDATE users SET Attempts=0 WHERE Username = ?";
+            $stmt = $mysqli->prepare($sql);
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $mysqli->error);
+            }
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+        }
+        $sql = "UPDATE users SET Attempts = Attempts + 1 WHERE Username = ?";
+        $stmt = $mysqli->prepare($sql);
+        if (!$stmt) {
+           throw new Exception("SQL preparation failed: " . $mysqli->error);
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $sql = "UPDATE users SET LastAttempt = ? WHERE Username = ?";
+        $stmt = $mysqli->prepare($sql);
+        if (!$stmt) {
+           throw new Exception("SQL preparation failed: " . $mysqli->error);
+        }
+        $stmt->bind_param("is", $currentTime, $username);
+        $stmt->execute();
+        
+        // ---
+
         // 使用现有的密码验证逻辑 / Use existing password verification logic
-        if ($user && $password === $user["Password"]) {
+        if ($user["Attempts"] >= $ATTEMPT_MAX) {
+            $error_message = "Account blocked for 10 minutes";
+        } elseif ($user && $password === $user["Password"]) {
+
+            $sql = "UPDATE users SET Attempts=0 WHERE Username = ?";
+            $stmt = $mysqli->prepare($sql);
+            if (!$stmt) {
+                throw new Exception("SQL preparation failed: " . $mysqli->error);
+            }
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['user_type'] = $user["User Type"];
