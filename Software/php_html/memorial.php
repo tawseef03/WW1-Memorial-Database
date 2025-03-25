@@ -6,10 +6,9 @@ require 'db_connect.php';
 $surname = $_GET['surname'] ?? '';
 $forename = $_GET['forename'] ?? '';
 $regiment = $_GET['regiment'] ?? '';
-$page = $_GET['page'] ?? 1; // Get current page, default to 1 if not set
-$records_per_page = 1; // Number of records per page (fixed to 1)
+$page = $_GET['page'] ?? 1;
 
-$offset = ($page - 1) * $records_per_page; // Calculate the offset
+$offset = ($page - 1);
 
 // Build the query with search parameters
 $query = "SELECT * FROM memorials WHERE 1=1";
@@ -29,8 +28,7 @@ if (!empty($regiment)) {
 }
 
 // Apply the limit and offset for pagination
-$query .= " LIMIT ? OFFSET ?";
-$params[] = $records_per_page;
+$query .= " LIMIT 1 OFFSET ?";
 $params[] = $offset;
 
 // Prepare and execute the query
@@ -40,11 +38,33 @@ $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the total number of records for pagination calculation
-$total_query = "SELECT COUNT(*) FROM memorials WHERE 1=1";
+$total_query = "SELECT COUNT(*) AS total FROM memorials WHERE 1=1";
+$total_params = [];
+$param_types = "";
+
+if (!empty($surname)) {
+    $total_query .= " AND Surname LIKE ?";
+    $total_params[] = "%$surname%";
+    $param_types .= "s";
+}
+if (!empty($forename)) {
+    $total_query .= " AND Forename LIKE ?";
+    $total_params[] = "%$forename%";
+    $param_types .= "s";
+}
+if (!empty($regiment)) {
+    $total_query .= " AND Regiment LIKE ?";
+    $total_params[] = "%$regiment%";
+    $param_types .= "s";
+}
+
 $total_stmt = $mysqli->prepare($total_query);
+if (!empty($total_params)) {
+    $total_stmt->bind_param($param_types, ...$total_params);
+}
 $total_stmt->execute();
-$total_results = $total_stmt->get_result()->fetch_row()[0];
-$total_pages = ceil($total_results / $records_per_page);
+$total_pages = $total_stmt->get_result()->fetch_row()[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +85,7 @@ $total_pages = ceil($total_results / $records_per_page);
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.html'">Back to Sections</button>
+            <button type="button" onclick="location.href='userSection.php   '">Back to Sections</button>
         </div>
     </div>
 
@@ -136,15 +156,17 @@ $total_pages = ceil($total_results / $records_per_page);
                 
                 <!-- Pagination buttons -->
                 <div class="pagination">
-                    <?php if ($page > 1): ?>
-                        <button href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>">Previous</button>
-                    <?php endif; ?>
-                    
+                    <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>" 
+                        class="<?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+                        Prev
+                    </a>
+
                     <span id="pageInfo">Page <?php echo $page; ?> of <?php echo $total_pages; ?></span>
-                    
-                    <?php if ($page < $total_pages): ?>
-                        <button href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>">Next</a>
-                    <?php endif; ?>
+
+                    <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>" 
+                    class="<?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
+                        Next
+                    </a>
                 </div>
             </div>
         </div>
@@ -152,7 +174,7 @@ $total_pages = ceil($total_results / $records_per_page);
     <script>
         // When the search button is clicked, trigger the form submission
         document.getElementById("searchButton").onclick = function() {
-            document.getElementById("searchForm").submit(); // Submit the form to trigger PHP search
+            document.getElementById("searchForm").submit();
         };
     </script>
 </body>
