@@ -1,14 +1,15 @@
 <?php
-require_once 'auth_check.php';
-require 'db_connect.php';
+// Include the database connection
+require 'db_connect.php'; // This will include your database connection from db_connect.php
 
 // Get search parameters and current page
 $surname = $_GET['surname'] ?? '';
 $forename = $_GET['forename'] ?? '';
 $regiment = $_GET['regiment'] ?? '';
-$page = $_GET['page'] ?? 1;
+$page = $_GET['page'] ?? 1; // Get current page, default to 1 if not set
+$records_per_page = 1; // Number of records per page (1 in this case)
 
-$offset = ($page - 1);
+$offset = ($page - 1) * $records_per_page; // Calculate the offset
 
 // Build the query with search parameters
 $query = "SELECT * FROM newspapers WHERE 1=1";
@@ -28,42 +29,22 @@ if (!empty($regiment)) {
 }
 
 // Apply the limit and offset for pagination
-$query .= " LIMIT 1 OFFSET ?";
-$params[] = $offset;
+$query .= " LIMIT ? OFFSET ?";
+$params[] = $records_per_page; // Limit to 1 record per page
+$params[] = $offset; // Offset for the page
 
 // Prepare and execute the query
 $stmt = $mysqli->prepare($query);
-$stmt->bind_param(str_repeat('s', count($params)), ...$params);
+$stmt->bind_param(str_repeat('s', count($params)), ...$params); // Bind parameters dynamically
 $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the total number of records for pagination calculation
-$total_query = "SELECT COUNT(*) AS total FROM newspapers WHERE 1=1";
-$total_params = [];
-$param_types = "";
-
-if (!empty($surname)) {
-    $total_query .= " AND Surname LIKE ?";
-    $total_params[] = "%$surname%";
-    $param_types .= "s";
-}
-if (!empty($forename)) {
-    $total_query .= " AND Forename LIKE ?";
-    $total_params[] = "%$forename%";
-    $param_types .= "s";
-}
-if (!empty($regiment)) {
-    $total_query .= " AND Regiment LIKE ?";
-    $total_params[] = "%$regiment%";
-    $param_types .= "s";
-}
-
+$total_query = "SELECT COUNT(*) FROM newspapers WHERE 1=1";
 $total_stmt = $mysqli->prepare($total_query);
-if (!empty($total_params)) {
-    $total_stmt->bind_param($param_types, ...$total_params);
-}
 $total_stmt->execute();
-$total_pages = $total_stmt->get_result()->fetch_row()[0];
+$total_results = $total_stmt->get_result()->fetch_row()[0];
+$total_pages = ceil($total_results / $records_per_page);
 
 ?>
 
@@ -77,6 +58,7 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
     <link rel="stylesheet" href="../css/database.css">
 </head>
 <body>
+    
     <div class="navbar">
         <div class="logo">
             <img src="../rsc/GroupLogo.png" alt="WW1 Group">
@@ -85,14 +67,18 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.php   '">Back to Sections</button>
+            <button type="button" onclick="location.href='userSection.html'">Back to Sections</button>
         </div>
     </div>
 
+    
     <div class="container">
+       
         <div class="search-panel">
+            
             <h3>Search Criteria</h3>
-            <form id="searchForm" method="get">
+            
+            <form id="searchForm">
                 <div class="form-group">
                     <label for="surname">Surname:</label>
                     <input type="text" id="surname" name="surname" placeholder="Enter surname..." value="<?php echo htmlspecialchars($surname); ?>">
@@ -110,7 +96,7 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                 
                 <div class="form-buttons">
                     <button type="button" id="searchButton">Search</button>
-                    <button type="button" id="resetButton" onclick="window.location.href = 'memorial.php';">Reset</button>
+                    <button type="button" id="resetButton">Reset</button>
                 </div>
             </form>
         </div>
@@ -124,21 +110,18 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                 <h3 id="resultsHeading">Records Display</h3>
                 
                 <div class="display">
-                    <?php
+                <?php
                     if (empty($results)) {
                         echo "<p>No records found.</p>";
                     } else {
                         foreach ($results as $row) {
                             echo "<div class='record'>";
-                            echo "<div class='col1'>";
                             echo "<p><strong>NewspaperID:</strong> " . htmlspecialchars($row['NewspaperID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
                             echo "<p><strong>Rank:</strong> " . htmlspecialchars($row['Rank']) . "</p>";
                             echo "<p><strong>Address:</strong> " . htmlspecialchars($row['Address']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
-                            echo "</div>";
-                            echo "<div class='col2'>";
                             echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
                             echo "<p><strong>Article Description:</strong> " . htmlspecialchars($row['Article Description']) . "</p>";
                             echo "<p><strong>Newspaper Name:</strong> " . htmlspecialchars($row['Newspaper Name']) . "</p>";
@@ -151,27 +134,23 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                     ?>
                 </div>
                 
-                <!-- Pagination buttons -->
                 <div class="pagination">
-                    <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>" 
-                        class="<?php echo ($page <= 1) ? 'disabled' : ''; ?>">
-                        Prev
-                    </a>
-
+                <?php if ($page > 1): ?>
+                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>">Previous</a>
+                    <?php endif; ?>
+                    
                     <span id="pageInfo">Page <?php echo $page; ?> of <?php echo $total_pages; ?></span>
-
-                    <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>" 
-                    class="<?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
-                        Next
-                    </a>
-                </div>
+                    
+                    <?php if ($page < $total_pages): ?>
+                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>">Next</a>
+                    <?php endif; ?>
             </div>
         </div>
     </div>
     <script>
         // When the search button is clicked, trigger the form submission
         document.getElementById("searchButton").onclick = function() {
-            document.getElementById("searchForm").submit();
+            document.getElementById("searchForm").submit(); // Submit the form to trigger PHP search
         };
     </script>
 </body>
