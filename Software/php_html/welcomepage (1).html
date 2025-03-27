@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 设置字符编码为UTF-8 / Set character encoding to UTF-8 -->
+    <meta charset="UTF-8">
+    <!-- 确保在移动设备上正确缩放 / Ensure proper scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 页面标题 / Page title -->
+    <title>WW1 Bradford Research Group</title>
+    <!-- 链接到外部样式表 / Link to external stylesheet -->
+    <link rel="stylesheet" href="welcome(2).css">
+    <!-- 内部CSS样式 / Internal CSS for styling -->
+    <style>
+        /* 设置body的默认字体和背景颜色 / Set default font and background color for the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://wallpapercave.com/wp/wp3289336.jpg');
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+        }
+        /* 头部区域样式 / Style for the header section */
+        header {
+            background-color: #923e3e;
+            color: white;
+            padding: 20px;
+            font-size: 28px;
+        }
+        /* 主内容容器样式，最大宽度和居中对齐 / Container for main content with max-width and centered alignment */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+        }
+        /* 导航链接样式 / Style for navigation links */
+        nav a {
+            display: inline-block;
+            margin: 10px 15px;
+            text-decoration: none;
+            color: #f4f4f4;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #923e3e;
+            border-radius: 5px;
+        }
+        /* 登录区域样式 / Style for the login section */
+        .login-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+        /* 页脚区域样式 / Style for the footer section */
+        footer {
+            margin-top: 20px;
+            padding: 15px;
+            background: #923e3e;
+            color: white;
+        }
+        /* 输入字段样式 / Style for the input fields */
+        .input-field {
+            width: 200px;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* 按钮样式 / Style for buttons */
+        button {
+            padding: 10px 20px;
+            background-color: #923e3e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #7a3232;
+        }
+    </style>
+</head>
+<body>
+    <!-- 带有欢迎信息的头部区域 / Header section with welcome message -->
+    <header>
+        Welcome to the WW1 Bradford Research Group
+    </header>
+    <!-- 主内容容器 / Main content container -->
+    <div class="container">
+        <!-- 使命声明的副标题 / Subheading for the mission statement -->
+        <h2>Preserving the History of World War I</h2>
+        <!-- 使命声明段落 / Mission statement paragraph -->
+        <p>Our mission is to uncover, document, and preserve the experiences of Bradford’s citizens during World War I. Our aim is to honor their service, share their stories, and provide valuable historical insights to the public. Whether you are a historian, student, or enthusiast, we welcome you to explore and contribute to our growing archive of wartime records.</p>
+        
+        <!-- 数据库访问的登录区域 / Login section for database access -->
+        <div class="login-section">
+            <h3>Database Access</h3>
+            <p>Click below to login for database access.</p>
+            <button type="button" onclick="redirectToLogin()">Log-in</button>
+        </div>
+        
+    </div>
+    <!-- 带有版权信息的页脚区域 / Footer section with copyright information -->
+    <footer>
+        &copy; 2025 WW1 Bradford Research Group | All Rights Reserved
+    </footer>
+    <script>
+        function redirectToLogin() {
+            window.location.href = 'login.php';
+        }
+        
+    </script>
+</body>
+</html>
