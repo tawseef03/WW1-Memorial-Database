@@ -111,6 +111,8 @@ $total_pages = ceil($total_results / $records_per_page);
                     } else {
                         foreach ($results as $row) {
                             echo "<div class='record'>";
+                            // 添加编辑按钮
+                            echo "<button class='edit-button' onclick=\"location.href='editTownship.php?id=" . htmlspecialchars($row['id']) . "'\">编辑</button>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
