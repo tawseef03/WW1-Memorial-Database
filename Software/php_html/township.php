@@ -1,16 +1,14 @@
-<!-- filepath: c:\Users\28341\Desktop\ww1code\WW1-Memorial-Database\Software\php_html\township.php -->
 <?php
-// Include the database connection
-require 'db_connect.php'; // This will include your database connection from db_connect.php
+require_once 'auth_check.php';
+require 'db_connect.php';
 
 // Get search parameters and current page
 $surname = $_GET['surname'] ?? '';
 $forename = $_GET['forename'] ?? '';
 $regiment = $_GET['regiment'] ?? '';
-$page = $_GET['page'] ?? 1; // Get current page, default to 1 if not set
-$records_per_page = 1; // Number of records per page (1 in this case)
+$page = $_GET['page'] ?? 1;
 
-$offset = ($page - 1) * $records_per_page; // Calculate the offset
+$offset = ($page - 1);
 
 // Build the query with search parameters
 $query = "SELECT * FROM township WHERE 1=1";
@@ -30,22 +28,43 @@ if (!empty($regiment)) {
 }
 
 // Apply the limit and offset for pagination
-$query .= " LIMIT ? OFFSET ?";
-$params[] = $records_per_page; // Limit to 1 record per page
-$params[] = $offset; // Offset for the page
+$query .= " LIMIT 1 OFFSET ?";
+$params[] = $offset;
 
 // Prepare and execute the query
 $stmt = $mysqli->prepare($query);
-$stmt->bind_param(str_repeat('s', count($params)), ...$params); // Bind parameters dynamically
+$stmt->bind_param(str_repeat('s', count($params)), ...$params);
 $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the total number of records for pagination calculation
-$total_query = "SELECT COUNT(*) FROM township WHERE 1=1";
+$total_query = "SELECT COUNT(*) AS total FROM township WHERE 1=1";
+$total_params = [];
+$param_types = "";
+
+if (!empty($surname)) {
+    $total_query .= " AND Surname LIKE ?";
+    $total_params[] = "%$surname%";
+    $param_types .= "s";
+}
+if (!empty($forename)) {
+    $total_query .= " AND Forename LIKE ?";
+    $total_params[] = "%$forename%";
+    $param_types .= "s";
+}
+if (!empty($regiment)) {
+    $total_query .= " AND Regiment LIKE ?";
+    $total_params[] = "%$regiment%";
+    $param_types .= "s";
+}
+
 $total_stmt = $mysqli->prepare($total_query);
+if (!empty($total_params)) {
+    $total_stmt->bind_param($param_types, ...$total_params);
+}
 $total_stmt->execute();
-$total_results = $total_stmt->get_result()->fetch_row()[0];
-$total_pages = ceil($total_results / $records_per_page);
+$total_pages = $total_stmt->get_result()->fetch_row()[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +85,7 @@ $total_pages = ceil($total_results / $records_per_page);
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.html'">Back to Sections</button>
+            <button type="button" onclick="location.href='userSection.php'">Back to Sections</button>
         </div>
     </div>
 
@@ -111,17 +130,34 @@ $total_pages = ceil($total_results / $records_per_page);
                     } else {
                         foreach ($results as $row) {
                             echo "<div class='record'>";
-                            // 添加编辑按钮
-                            echo "<button class='edit-button' onclick=\"location.href='editTownship.php?id=" . htmlspecialchars($row['id']) . "'\">编辑</button>";
+                            echo "<div class='col1'>";
+                            echo "<p><strong>HonourID:</strong> " . htmlspecialchars($row['HonourID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
+                            echo "<p><strong>Address:</strong> " . htmlspecialchars($row['Address']) . "</p>";
+                            echo "<p><strong>Electoral Ward:</strong> " . htmlspecialchars($row['Electoral Ward']) . "</p>";
+                            echo "<p><strong>Town:</strong> " . htmlspecialchars($row['Town']) . "</p>";
+                            echo "<p><strong>Rank:</strong> " . htmlspecialchars($row['Rank']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
-                            echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
-                            echo "<p><strong>Memorial:</strong> " . htmlspecialchars($row['Memorial']) . "</p>";
-                            echo "<p><strong>Memorial Info:</strong> " . htmlspecialchars($row['Memorial Info']) . "</p>";
-                            echo "<p><strong>Postcode:</strong> " . htmlspecialchars($row['Memorial Postcode']) . "</p>";
-                            echo "<p><strong>District:</strong> " . htmlspecialchars($row['District']) . "</p>";
-                            echo "<p><strong>Photo:</strong> " . ($row['Photo available'] ? 'Yes' : 'No') . "</p>";
+                            echo "<p><strong>Battalion:</strong> " . htmlspecialchars($row['Battalion']) . "</p>";
+                            echo "<p><strong>Company:</strong> " . htmlspecialchars($row['Company']) . "</p>";
+                            echo "<p><strong>Age:</strong> " . htmlspecialchars($row['Age']) . "</p>";
+                            echo "<p><strong>Service No:</strong> " . htmlspecialchars($row['Service No']) . "</p>";
+                            echo "</div>";
+                            echo "<div class='col2'>";
+                            echo "<p><strong>Other Regiment:</strong> " . htmlspecialchars($row['Other Regiment']) . "</p>";
+                            echo "<p><strong>Other Battalion:</strong> " . htmlspecialchars($row['Other Battalion']) . "</p>";
+                            echo "<p><strong>Other Service No.:</strong> " . htmlspecialchars($row['Other Service No.']) . "</p>";
+                            echo "<p><strong>Medals:</strong> " . htmlspecialchars($row['Medals']) . "</p>";
+                            echo "<p><strong>Enlistment Date:</strong> " . htmlspecialchars($row['Enlistment Date']) . "</p>";
+                            echo "<p><strong>Discharge Date:</strong> " . htmlspecialchars($row['Discharge Date']) . "</p>";
+                            echo "<p><strong>Death (in service) Date:</strong> " . htmlspecialchars($row['Death (in service) Date']) . "</p>";
+                            echo "<p><strong>Misc Info Nroh:</strong> " . htmlspecialchars($row['Misc Info Nroh']) . "</p>";
+                            echo "<p><strong>Cemetery/Memorial:</strong> " . htmlspecialchars($row['Cemetery/Memorial']) . "</p>";
+                            echo "<p><strong>Cemetery/Memorial Ref:</strong> " . htmlspecialchars($row['Cemetery/Memorial Ref']) . "</p>";
+                            echo "<p><strong>Cemetery/Memorial Country:</strong> " . htmlspecialchars($row['Cemetery/Memorial Country']) . "</p>";
+                            echo "<p><strong>Additional CWCG Info:</strong> " . htmlspecialchars($row['Additional CWCG Info']) . "</p>";
+                            echo "</div>";
                             echo "</div>";
                         }
                     }
@@ -130,15 +166,17 @@ $total_pages = ceil($total_results / $records_per_page);
                 
                 <!-- Pagination buttons -->
                 <div class="pagination">
-                    <?php if ($page > 1): ?>
-                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>">Previous</a>
-                    <?php endif; ?>
-                    
+                    <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>" 
+                        class="<?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+                        Prev
+                    </a>
+
                     <span id="pageInfo">Page <?php echo $page; ?> of <?php echo $total_pages; ?></span>
-                    
-                    <?php if ($page < $total_pages): ?>
-                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>">Next</a>
-                    <?php endif; ?>
+
+                    <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>" 
+                    class="<?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
+                        Next
+                    </a>
                 </div>
             </div>
         </div>
