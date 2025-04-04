@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2025 at 12:55 AM
+-- Generation Time: Apr 03, 2025 at 12:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,17 @@ CREATE TABLE `about` (
   `filePath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `about`
+--
+
+INSERT INTO `about` (`aboutID`, `fileName`, `filePath`) VALUES
+(1, 'township.pdf', '../files/about/township.pdf'),
+(2, 'memorial.pdf', '../files/about/memorial.pdf'),
+(3, 'buried.pdf', '../files/about/buried.pdf'),
+(4, 'newspaper.pdf', '../files/about/newspaper.pdf'),
+(5, 'biography.pdf', '../files/about/biography.pdf');
+
 -- --------------------------------------------------------
 
 --
@@ -53,10 +64,10 @@ CREATE TABLE `biographyinfo` (
 --
 
 INSERT INTO `biographyinfo` (`BiographyID`, `Surname`, `Forename`, `Regiment`, `Service No`, `Biography`) VALUES
-(1, 'Allan-Black', 'Hugh McAllister', 'Royal Fusiliers', '77570', 'C:DatabseDocsAllan Black Pte Hugh McAllister.pdf'),
-(2, 'Griffiths', 'Alfred ', 'Army Service Corps', 'M2/113717', ''),
-(3, 'Loben', 'John William', 'West Yorkshire Regiment', '45034', ''),
-(4, 'Griffiths', 'Frank', 'Royal Navy', '347550', '');
+(1, 'Allan-Black', 'Hugh McAllister', 'Royal Fusiliers', '77570', '../files/biographies/Allan Black Pte Hugh McAllister.pdf'),
+(2, 'Griffiths', 'Alfred ', 'Army Service Corps', 'M2/113717', '../files/biographies/Griffiths Pte Alfred.pdf'),
+(3, 'Loben', 'John William', 'West Yorkshire Regiment', '45034', '../files/biographies/Loben Pte John William 16th WYR.pdf'),
+(4, 'Griffiths', 'Frank', 'Royal Navy', '347550', '../files/biographies/Griffiths Frank.pdf');
 
 -- --------------------------------------------------------
 
@@ -10662,7 +10673,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `about`
 --
 ALTER TABLE `about`
-  MODIFY `aboutID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `aboutID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `biographyinfo`

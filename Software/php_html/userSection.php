@@ -11,6 +11,7 @@ if ($result->num_rows > 0) {
 } else {
     $township = 0;
 }
+$result->free();
 
 // Records count for Names recorded on Bradford Memorials
 $sql = "SELECT COUNT(*) AS total FROM memorials";
@@ -21,6 +22,7 @@ if ($result->num_rows > 0) {
 } else {
     $memorial = 0;
 }
+$result->free();
 
 // Records count for Buried in Bradford
 $sql = "SELECT COUNT(*) AS total FROM buried";
@@ -31,6 +33,7 @@ if ($result->num_rows > 0) {
 } else {
     $buried = 0;
 }
+$result->free();
 
 // Records count for Newspaper references
 $sql = "SELECT COUNT(*) AS total FROM newspapers";
@@ -41,6 +44,7 @@ if ($result->num_rows > 0) {
 } else {
     $newspaper = 0;
 }
+$result->free();
 
 // Records count for Biographies
 $sql = "SELECT COUNT(*) AS total FROM biographyinfo";
@@ -50,6 +54,25 @@ if ($result->num_rows > 0) {
     $biography = $row["total"];
 } else {
     $biography = 0;
+}
+$result->free();
+
+$query = "SELECT filePath FROM about ORDER BY aboutID ASC";
+$result = $mysqli->query($query);
+if ($result) {
+    // Fetch all file paths into an array
+    $filePaths = [];
+    while ($row = $result->fetch_assoc()) {
+        $filePaths[] = $row['filePath'];
+    }
+
+    // Assign variables based on the sequence
+    list($townshipabout, $memorialabout, $buriedabout, $newspaperabout, $biographyabout) = $filePaths;
+    
+    // Free result set
+    $result->free();
+} else {
+    die("Error fetching file paths.");
 }
 
 ?>
@@ -91,25 +114,23 @@ if ($result->num_rows > 0) {
     <div class="view">
         <!-- Description section -->
         <div class="bgimg" id="bgimg">
-            <div class="description">
-                <div id="description" class="description">
-                    <div style="width:250px;">
-                        <div style="height:330px;">
-                            <h1>Bradford and Surrounding Townships</h1>
-                        </div>
-                        <button type="button" onclick="alert('Opens \'About\' for section 1');">About</button>
+            <div id="description" class="description">
+                <div style="width:250px;">
+                    <div style="height:330px;">
+                        <h1>Bradford and Surrounding Townships</h1>
                     </div>
-                    <div style="width:350px;">
-                        <p>Source of information and knowledge relating to Bradford and its 
-                        surrounding townships and their contributions to World War 1.</p>
+                    <button type="button" id="openModal1">About</button>
+                </div>
+                <div style="width:350px;">
+                    <p>Source of information and knowledge relating to Bradford and its 
+                    surrounding townships and their contributions to World War 1.</p>
+                </div>
+                <div style="width:250px;">
+                    <div style="height:330px;">
+                        <h1>Total records:</h1>
+                        <p><?php echo $township; ?></p>
                     </div>
-                    <div style="width:250px;">
-                        <div style="height:330px;">
-                            <h1>Total records:</h1>
-                            <p><?php echo $township; ?></p>
-                        </div>
-                        <button type="button" onclick="alert('Opens database for section 1');">Database</button>
-                    </div>
+                    <button type="button" onclick="openPage(1)">Database</button>
                 </div>
             </div>
         </div>
@@ -130,9 +151,6 @@ if ($result->num_rows > 0) {
             <div class="name">Biographies</div>
         </div>
     </div>
-    <div id="overlay" style="display: none">
-        <iframe id="popup" src="about:blank"></iframe>
-    </div>
 
     <!--- Hidden section of the HTML --->
     <div class="hidden" id="sec1" style="display: none">
@@ -151,7 +169,7 @@ if ($result->num_rows > 0) {
                 <h1>Total records:</h1>
                 <p><?php echo $township; ?></p>
             </div>
-            <button type="button" onclick="alert('Opens database for section 1');">Database</button>
+            <button type="button" onclick="openPage(1)">Database</button>
         </div>
     </div>
     <div class="hidden" id="sec2" style="display: none">
@@ -170,7 +188,7 @@ if ($result->num_rows > 0) {
                 <h1>Total records:</h1>
                 <p><?php echo $memorial; ?></p>
             </div>
-            <button type="button" onclick="alert('Opens database for section 2');">Database</button>
+            <button type="button" onclick="openPage(2)">Database</button>
         </div>
     </div>
     <div class="hidden" id="sec3" style="display: none">
@@ -189,7 +207,7 @@ if ($result->num_rows > 0) {
                 <h1>Total records:</h1>
                 <p><?php echo $buried; ?></p>
             </div>
-            <button type="button" onclick="alert('Opens database for section 3');">Database</button>
+            <button type="button" onclick="openPage(3)">Database</button>
         </div>
     </div>
     <div class="hidden" id="sec4" style="display: none">
@@ -208,7 +226,7 @@ if ($result->num_rows > 0) {
                 <h1>Total records:</h1>
                 <p><?php echo $newspaper; ?></p>
             </div>
-            <button type="button" onclick="alert('Opens database for section 4');">Database</button>
+            <button type="button" onclick="openPage(4)">Database</button>
         </div>
     </div>
     <div class="hidden" id="sec5" style="display: none">
@@ -227,7 +245,7 @@ if ($result->num_rows > 0) {
                 <h1>Total records:</h1>
                 <p><?php echo $biography; ?></p>
             </div>
-            <button type="button" onclick="alert('Opens database for section 5');">Database</button>
+            <button type="button" onclick="openPage(5)">Database</button>
         </div>
     </div>
 </body>

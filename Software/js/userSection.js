@@ -22,6 +22,29 @@ function openAbout(n) {
     document.getElementById("overlay").style.display = "block";
 }
 
+function openPage(n) {
+    switch (n) {
+        case 1:
+            window.location.href = 'township.php';
+            break;
+        case 2:
+            window.location.href = 'memorial.php';
+            break;
+        case 3:
+            window.location.href = 'buried.php';
+            break;
+        case 4:
+            window.location.href = 'newspaper.php';
+            break;
+        case 5:
+            window.location.href = 'biographies.php';
+            break;
+        default:
+            alert("Invalid about section id: "+n);
+            return;
+    }
+}
+
 window.onload = function() {
     var desc = document.getElementById("description");
     var img = document.getElementById("bgimg");
@@ -78,4 +101,18 @@ window.onload = function() {
     document.getElementById("overlay").onclick = function() {
         document.getElementById("overlay").style.display = "none";
     }
+}
+
+window.onload = function() {
+    const openBtn1 = document.getElementById("openModal1");
+    const closeBtn1 = document.getElementById("closeModal1");
+    const modal1 = document.getElementById("modal1");
+
+    openBtn1.addEventListener("click", () => {
+        modal1.classList.add("open");
+    });
+
+    closeBtn1.addEventListener("click", () => {
+        modal1.classList.remove("open");
+    });
 }
