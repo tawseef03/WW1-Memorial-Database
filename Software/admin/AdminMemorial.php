@@ -1,5 +1,5 @@
 <?php
-// Include the database connection and authentication check
+// connect to the database
 require 'db_connect.php';
 
 
@@ -12,7 +12,7 @@ $records_per_page = 10;
 
 $offset = ($page - 1) * $records_per_page;
 
-// Build the query with search parameters
+// query for search
 $query = "SELECT * FROM memorials WHERE 1=1";
 $params = [];
 
@@ -63,7 +63,7 @@ if (!empty($regiment)) {
 
 $total_stmt = $mysqli->prepare($total_query);
 
-// Dynamically create the bind_param string for total query
+// create the bind_param string for total query
 $total_bind_types = str_repeat('s', count($total_params));
 if (!empty($total_params)) {
     $total_stmt->bind_param($total_bind_types, ...$total_params);
