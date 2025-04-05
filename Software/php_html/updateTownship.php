@@ -7,14 +7,16 @@ $id = $_POST['id'];
 $surname = $_POST['surname'];
 $forename = $_POST['forename'];
 $regiment = $_POST['regiment'];
+$unit = $_POST['unit'];
+$memorial = $_POST['memorial'];
 
 // 更新记录
-$query = "UPDATE township SET Surname = ?, Forename = ?, Regiment = ? WHERE id = ?";
+$query = "UPDATE township SET Surname = ?, Forename = ?, Regiment = ?, Unit = ?, Memorial = ? WHERE id = ?";
 $stmt = $mysqli->prepare($query);
-$stmt->bind_param('sssi', $surname, $forename, $regiment, $id);
+$stmt->bind_param('sssssi', $surname, $forename, $regiment, $unit, $memorial, $id);
 
 if ($stmt->execute()) {
-    header("Location: township.php");
+    header("Location: township.php?msg=Record updated successfully");
 } else {
     echo "Error updating record: " . $mysqli->error;
 }

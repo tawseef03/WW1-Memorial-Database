@@ -109,24 +109,41 @@ $total_pages = ceil($total_results / $records_per_page);
                     if (empty($results)) {
                         echo "<p>No records found.</p>";
                     } else {
+                        echo "<table class='records-table'>";
+                        echo "<thead><tr>
+                            <th>Surname</th>
+                            <th>Forename</th>
+                            <th>Regiment</th>
+                            <th>Unit</th>
+                            <th>Memorial</th>
+                            <th>Actions</th>
+                        </tr></thead><tbody>";
+
                         foreach ($results as $row) {
-                            echo "<div class='record'>";
-                            // 添加编辑按钮
-                            echo "<button class='edit-button' onclick=\"location.href='editTownship.php?id=" . htmlspecialchars($row['id']) . "'\">编辑</button>";
-                            echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
-                            echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
-                            echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
-                            echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
-                            echo "<p><strong>Memorial:</strong> " . htmlspecialchars($row['Memorial']) . "</p>";
-                            echo "<p><strong>Memorial Info:</strong> " . htmlspecialchars($row['Memorial Info']) . "</p>";
-                            echo "<p><strong>Postcode:</strong> " . htmlspecialchars($row['Memorial Postcode']) . "</p>";
-                            echo "<p><strong>District:</strong> " . htmlspecialchars($row['District']) . "</p>";
-                            echo "<p><strong>Photo:</strong> " . ($row['Photo available'] ? 'Yes' : 'No') . "</p>";
-                            echo "</div>";
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['Surname']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Forename']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Regiment']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Unit']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Memorial']) . "</td>";
+                            echo "<td class='action-buttons'>
+                                <button class='edit-btn' onclick=\"location.href='editTownship.php?id=" . htmlspecialchars($row['id']) . "'\">Edit</button>
+                                <button class='delete-btn' onclick=\"confirmDelete(" . htmlspecialchars($row['id']) . ")\">Delete</button>
+                            </td>";
+                            echo "</tr>";
                         }
+
+                        echo "</tbody></table>";
                     }
                     ?>
                 </div>
+                <script>
+                    function confirmDelete(id) {
+                        if (confirm("Are you sure you want to delete this record?")) {
+                            window.location.href = `deleteTownship.php?id=${id}`;
+                        }
+                    }
+                </script>
                 
                 <!-- Pagination buttons -->
                 <div class="pagination">
