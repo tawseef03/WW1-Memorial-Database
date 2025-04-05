@@ -8,7 +8,8 @@ $forename = $_GET['forename'] ?? '';
 $regiment = $_GET['regiment'] ?? '';
 $page = $_GET['page'] ?? 1;
 
-$offset = ($page - 1);
+$records_per_page = 10; // Number of records per page
+$offset = ($page - 1) * $records_per_page;
 
 // Build the query with search parameters
 $query = "SELECT * FROM newspapers WHERE 1=1";
@@ -28,12 +29,13 @@ if (!empty($regiment)) {
 }
 
 // Apply the limit and offset for pagination
-$query .= " LIMIT 1 OFFSET ?";
+$query .= " LIMIT ? OFFSET ?";
+$params[] = $records_per_page;
 $params[] = $offset;
 
 // Prepare and execute the query
 $stmt = $mysqli->prepare($query);
-$stmt->bind_param(str_repeat('s', count($params)), ...$params);
+$stmt->bind_param(str_repeat('s', count($params) - 2) . "ii", ...$params);
 $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
@@ -63,8 +65,8 @@ if (!empty($total_params)) {
     $total_stmt->bind_param($param_types, ...$total_params);
 }
 $total_stmt->execute();
-$total_pages = $total_stmt->get_result()->fetch_row()[0];
-
+$total_results = $total_stmt->get_result()->fetch_row()[0];
+$total_pages = ceil($total_results / $records_per_page);
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +74,7 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WW1 Database Records</title>
+    <title>WW1 Newspaper References</title>
     <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
     <link rel="stylesheet" href="../css/database.css">
 </head>
@@ -82,10 +84,10 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
             <img src="../rsc/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
-            WW1 Database Records
+            WW1 Newspaper References
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.php   '">Back to Sections</button>
+            <button type="button" onclick="location.href='userSection.php'">Back to Sections</button>
         </div>
     </div>
 
@@ -145,6 +147,7 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                             echo "<p><strong>Paper Date:</strong> " . htmlspecialchars($row['Paper Date']) . "</p>";
                             echo "<p><strong>Page/Col:</strong> " . htmlspecialchars($row['Page/Col']) . "</p>";
                             echo "<p><strong>Photo incl.:</strong> " . ($row['Photo incl.'] ? 'Yes' : 'No') . "</p>";
+                            echo "</div>";
                             echo "</div>";
                         }
                     }
