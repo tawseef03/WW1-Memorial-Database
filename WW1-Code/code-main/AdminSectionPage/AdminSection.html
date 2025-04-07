@@ -4,46 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Section</title>
-    <link rel="icon" type="image/x-icon" href="../../../rsc/WebLogo.png">
+    <link rel="icon" type="image/x-icon" href="../../rsc/WebLogo.png">
     <link rel="stylesheet" href="AdminSection.css">
     <script src="AdminSection.js" defer></script>
 </head>
 <body>
-    <div class="navbar">
-        <div class="logo">
-            <img src="../../../rsc/GroupLogo.png" alt="WW1 Group">
-        </div>
-        <div class="title">
-            WW1 Memorial Sections
-        </div>
-        <div class="navbuttons">
-            <button onclick="window.location.href='../AdminPage/adminpage.html'">Back to Admin</button>
-            <button onclick="window.location.href='../LoginPage/login.html'">Logout</button>
-        </div>
-    </div>
+    <div class="page-container">
+        <div class="content-wrap">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="../../rsc/WebLogo.png" alt="WW1 Group">
+                </div>
+                <div class="title">
+                    WW1 Memorial Sections
+                </div>
+                <div class="navbuttons">
+                    <button onclick="window.location.href='../AdminPage/adminpage.html'">Back to Admin</button>
+                    <button onclick="window.location.href='../LoginPage/login.html'">Logout</button>
+                </div>
+            </div>
 
-    <div class="view">
-        <div class="description">
-            <div id="description">Townships and Surrounding Areas</div>
+            <div class="view" style="max-width: 1200px; margin: 0 auto;">
+                <div class="description">
+                    <div id="description">Townships and Surrounding Areas</div>
+                </div>
+                <div class="sections">
+                    <div id="section1" class="section" data-description="Townships and Surrounding Areas"></div>
+                    <div id="section2" class="section" data-description="Memorial Information"></div>
+                    <div id="section3" class="section" data-description="Burial Records"></div>
+                    <div id="section4" class="section" data-description="Newspaper Archives"></div>
+                    <div id="section5" class="section" data-description="Biographical Data"></div>
+                </div>
+                <div class="names">
+                    <div class="name">Townships</div>
+                    <div class="name">Memorials</div>
+                    <div class="name">Burials</div>
+                    <div class="name">Newspapers</div>
+                    <div class="name">Biographies</div>
+                </div>
+            </div>
         </div>
-        <div class="sections">
-            <div id="section1" class="section" data-description="Townships and Surrounding Areas"></div>
-            <div id="section2" class="section" data-description="Memorial Information"></div>
-            <div id="section3" class="section" data-description="Burial Records"></div>
-            <div id="section4" class="section" data-description="Newspaper Archives"></div>
-            <div id="section5" class="section" data-description="Biographical Data"></div>
-        </div>
-        <div class="names">
-            <div class="name">Townships</div>
-            <div class="name">Memorials</div>
-            <div class="name">Burials</div>
-            <div class="name">Newspapers</div>
-            <div class="name">Biographies</div>
-        </div>
-    </div>
 
-    <footer>
-        <p>&copy; 2025 WW1 Memorial Database Management System - Authorized Personnel Only</p>
-    </footer>
+        <footer>
+            <p>&copy; 2025 WW1 Memorial Database Management System - Authorized Personnel Only</p>
+        </footer>
+    </div>
 </body>
 </html>
