@@ -127,8 +127,16 @@ $total_pages = ceil($total_results / $records_per_page);
                             echo "<td>" . htmlspecialchars($row['Unit']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Memorial']) . "</td>";
                             echo "<td class='action-buttons'>
-                                <button class='edit-btn' onclick=\"location.href='editTownship.php?id=" . htmlspecialchars($row['id']) . "'\">Edit</button>
-                                <button class='delete-btn' onclick=\"confirmDelete(" . htmlspecialchars($row['id']) . ")\">Delete</button>
+                                <form action='process_township.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='action' value='edit'>
+                                    <input type='hidden' name='record_id' value='" . htmlspecialchars($row['id']) . "'>
+                                    <button type='submit'>Edit</button>
+                                </form>
+                                <form action='process_township.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='action' value='delete'>
+                                    <input type='hidden' name='record_id' value='" . htmlspecialchars($row['id']) . "'>
+                                    <button type='submit' onclick=\"return confirm('Are you sure you want to delete this record?');\">Delete</button>
+                                </form>
                             </td>";
                             echo "</tr>";
                         }
