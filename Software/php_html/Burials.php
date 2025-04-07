@@ -128,26 +128,53 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                     if (empty($results)) {
                         echo "<p>No records found.</p>";
                     } else {
+                        echo "<table class='records-table'>";
+                        echo "<thead><tr>
+                            <th>Surname</th>
+                            <th>Forename</th>
+                            <th>Age</th>
+                            <th>Medals</th>
+                            <th>Date of Death</th>
+                            <th>Rank</th>
+                            <th>Service Number</th>
+                            <th>Regiment</th>
+                            <th>Unit</th>
+                            <th>Cemetery</th>
+                            <th>Grave Reference</th>
+                            <th>Information</th>
+                            <th>Actions</th>
+                        </tr></thead><tbody>";
+
                         foreach ($results as $row) {
-                            echo "<div class='record'>";
-                            echo "<div class='col1'>";
-                            echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
-                            echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
-                            echo "<p><strong>Age:</strong> " . htmlspecialchars($row['Age']) . "</p>";
-                            echo "<p><strong>Medals:</strong> " . htmlspecialchars($row['Medals']) . "</p>";
-                            echo "<p><strong>Date of Death:</strong> " . htmlspecialchars($row['Date of Death']) . "</p>";
-                            echo "<p><strong>Rank:</strong> " . htmlspecialchars($row['Rank']) . "</p>";
-                            echo "<p><strong>Service Number:</strong> " . htmlspecialchars($row['Service Number']) . "</p>";
-                            echo "</div>";
-                            echo "<div class='col2'>";
-                            echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
-                            echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
-                            echo "<p><strong>Cemetery:</strong> " . htmlspecialchars($row['Cemetery']) . "</p>";
-                            echo "<p><strong>Grave Reference:</strong> " . htmlspecialchars($row['Grave Reference']) . "</p>";
-                            echo "<p><strong>Information:</strong> " . htmlspecialchars($row['Information']) . "</p>";
-                            echo "</div>";
-                            echo "</div>";
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['Surname']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Forename']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Age']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Medals']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Date of Death']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Rank']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Service Number']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Regiment']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Unit']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Cemetery']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Grave Reference']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Information']) . "</td>";
+                            echo "<td class='action-buttons'>
+                                <form action='process_burials.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='action' value='edit'>
+                                    <input type='hidden' name='record_id' value='" . htmlspecialchars($row['BurialID']) . "'>
+                                    <button type='submit'>Edit</button>
+                                </form>
+                                <form action='process_burials.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='action' value='delete'>
+                                    <input type='hidden' name='record_id' value='" . htmlspecialchars($row['BurialID']) . "'>
+                                    <button type='submit' onclick=\"return confirm('Are you sure you want to delete this record?');\">Delete</button>
+                                </form>
+                            </td>";
+                            echo "</tr>";
                         }
+
+                        echo "</tbody></table>";
                     }
                     ?>
                 </div>

@@ -130,26 +130,51 @@ $total_pages = ceil($total_results / $records_per_page);
                     if (empty($results)) {
                         echo "<p>No records found.</p>";
                     } else {
+                        echo "<table class='records-table'>";
+                        echo "<thead><tr>
+                            <th>Surname</th>
+                            <th>Forename</th>
+                            <th>Rank</th>
+                            <th>Address</th>
+                            <th>Regiment</th>
+                            <th>Unit</th>
+                            <th>Article Description</th>
+                            <th>Newspaper Name</th>
+                            <th>Paper Date</th>
+                            <th>Page/Col</th>
+                            <th>Photo incl.</th>
+                            <th>Actions</th>
+                        </tr></thead><tbody>";
+
                         foreach ($results as $row) {
-                            echo "<div class='record'>";
-                            echo "<div class='col1'>";
-                            echo "<p><strong>NewspaperID:</strong> " . htmlspecialchars($row['NewspaperID']) . "</p>";
-                            echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
-                            echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
-                            echo "<p><strong>Rank:</strong> " . htmlspecialchars($row['Rank']) . "</p>";
-                            echo "<p><strong>Address:</strong> " . htmlspecialchars($row['Address']) . "</p>";
-                            echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
-                            echo "</div>";
-                            echo "<div class='col2'>";
-                            echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
-                            echo "<p><strong>Article Description:</strong> " . htmlspecialchars($row['Article Description']) . "</p>";
-                            echo "<p><strong>Newspaper Name:</strong> " . htmlspecialchars($row['Newspaper Name']) . "</p>";
-                            echo "<p><strong>Paper Date:</strong> " . htmlspecialchars($row['Paper Date']) . "</p>";
-                            echo "<p><strong>Page/Col:</strong> " . htmlspecialchars($row['Page/Col']) . "</p>";
-                            echo "<p><strong>Photo incl.:</strong> " . ($row['Photo incl.'] ? 'Yes' : 'No') . "</p>";
-                            echo "</div>";
-                            echo "</div>";
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['Surname']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Forename']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Rank']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Address']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Regiment']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Unit']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Article Description']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Newspaper Name']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Paper Date']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Page/Col']) . "</td>";
+                            echo "<td>" . ($row['Photo incl.'] ? 'Yes' : 'No') . "</td>";
+                            echo "<td class='action-buttons'>
+                                <form action='process_newspaper.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='action' value='edit'>
+                                    <input type='hidden' name='record_id' value='" . htmlspecialchars($row['NewspaperID']) . "'>
+                                    <button type='submit'>Edit</button>
+                                </form>
+                                <form action='process_newspaper.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='action' value='delete'>
+                                    <input type='hidden' name='record_id' value='" . htmlspecialchars($row['NewspaperID']) . "'>
+                                    <button type='submit' onclick=\"return confirm('Are you sure you want to delete this record?');\">Delete</button>
+                                </form>
+                            </td>";
+                            echo "</tr>";
                         }
+
+                        echo "</tbody></table>";
                     }
                     ?>
                 </div>
