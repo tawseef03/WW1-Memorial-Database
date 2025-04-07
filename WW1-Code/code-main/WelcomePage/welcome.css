@@ -1,0 +1,162 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../../rsc/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #923e3e;
+    color: white;
+    padding: 25px;
+    font-size: 32px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease-out;
+}
+
+h2 {
+    color: #923e3e;
+    margin: 20px 0;
+    font-size: 28px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+p {
+    color: #444;
+    line-height: 1.8;
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+.login-section {
+    background: #f8f8f8;
+    padding: 25px;
+    border-radius: 12px;
+    margin: 30px 0;
+    border: 1px solid #eee;
+    transition: transform 0.3s ease;
+}
+
+.login-section:hover {
+    transform: translateY(-5px);
+}
+
+.input-field {
+    width: 250px;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #923e3e;
+    outline: none;
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #923e3e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin: 10px 5px;
+}
+
+button:hover {
+    background-color: #7a3232;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+    display: inline-block;
+    margin: 10px 15px;
+    text-decoration: none;
+    color: #f4f4f4;
+    font-weight: 500;
+    padding: 12px 20px;
+    background-color: #923e3e;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #7a3232;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+footer {
+    margin-top: auto;
+    padding: 15px;
+    background: #923e3e;
+    color: white;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    header {
+        font-size: 24px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    .input-field {
+        width: 200px;
+    }
+
+    nav a {
+        margin: 5px;
+        padding: 10px 15px;
+    }
+}

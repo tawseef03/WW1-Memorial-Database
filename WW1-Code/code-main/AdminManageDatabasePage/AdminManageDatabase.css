@@ -52,33 +52,39 @@ body {
 
 /* 主容器样式升级 */
 .container {
-    padding: 30px;
-    max-width: 1200px;
-    margin: 100px auto 0;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    padding: 0;
+    margin: 0;
+    height: calc(100vh - 80px);
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .container h1 {
     text-align: center;
     color: #333;
-    margin-bottom: 50px;
+    margin: 0 0 2vh 0;
     font-size: 2.5em;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 /* 按钮网格布局 */
 .button-grid {
+    width: 90%;
+    max-width: 1400px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 2vh;
 }
 
 .button-row {
+    width: 100%;
     display: flex;
-    gap: 20px;
+    gap: 2vw;
     justify-content: center;
     animation: fadeIn 0.6s ease-out forwards;
     opacity: 0;
@@ -90,20 +96,40 @@ body {
 /* 数据库按钮样式升级 */
 .database-button {
     flex: 1;
-    max-width: 350px;
-    padding: 25px;
-    background: white;
-    border: none;
+    height: 180px;
+    max-width: 400px;
+    margin: 0;
+    padding: 20px;
+    background-color: white;
+    border: 2px solid #ccc;
     border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     text-align: left;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .database-button:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(146, 62, 62, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    border-color: #923e3e;
+}
+
+.database-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(146, 62, 62, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.database-button:hover::before {
+    opacity: 1;
 }
 
 .database-button h3 {
@@ -120,6 +146,24 @@ body {
     line-height: 1.6;
 }
 
+.action-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: #923e3e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: #d41d1d;
+}
+
 /* 动画效果 */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
@@ -129,8 +173,8 @@ body {
 /* 响应式优化 */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
-        margin-top: 70px;
+        height: calc(100vh - 80px);
+        padding: 10px;
     }
     
     .button-row {
@@ -140,11 +184,20 @@ body {
     
     .database-button {
         width: 100%;
-        max-width: none;
-        margin-bottom: 15px;
+        height: 160px;
+        max-width: 400px;
+        padding: 15px;
     }
     
     .container h1 {
-        font-size: 2em;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+    
+    .action-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 6px 12px;
+        font-size: 13px;
     }
 }
