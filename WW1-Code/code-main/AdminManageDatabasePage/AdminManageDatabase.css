@@ -1,0 +1,150 @@
+/* 基础样式 */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* 导航栏样式 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #923e3e;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .logo img {
+    height: 60px;
+}
+
+.navbar .title {
+    color: white;
+    font-size: 28px;
+    margin-left: 20px;
+}
+
+.navbar .navbuttons {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar .navbuttons button {
+    padding: 10px 20px;
+    background-color: #780909;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.navbar .navbuttons button:hover {
+    background-color: #d41d1d;
+}
+
+/* 主容器样式升级 */
+.container {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 100px auto 0;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 50px;
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* 按钮网格布局 */
+.button-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.top-row { animation-delay: 0.2s; }
+.bottom-row { animation-delay: 0.4s; }
+
+/* 数据库按钮样式升级 */
+.database-button {
+    flex: 1;
+    max-width: 350px;
+    padding: 25px;
+    background: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.database-button:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(146, 62, 62, 0.2);
+}
+
+.database-button h3 {
+    color: #923e3e;
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.database-button p {
+    color: #666;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin-top: 70px;
+    }
+    
+    .button-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .database-button {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 15px;
+    }
+    
+    .container h1 {
+        font-size: 2em;
+    }
+}

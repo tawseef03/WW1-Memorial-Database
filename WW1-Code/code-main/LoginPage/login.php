@@ -36,11 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_type'] = $user["User Type"];
             $_SESSION['user_id'] = $user["UserID"];
             
-            // 根据用户类型重定向 / Redirect based on user type
+            // 根据用户类型重定向 / Redirect based on user type 
             if (intval($user["User Type"]) === 1) {
-                header("Location: ../AdminPage/adminpage.html");
+                header("Location: ../AdminSectionPage/AdminSection.html");
             } else {
-                header("Location: ../UserSectionPage/userSection.php");
+                header("Location: ../UserSectionPage/userSection.html"); // 修改为正确的用户页面路径
             }
             exit;
         } else {
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Bradford Group</title>
-    <link rel="stylesheet" href="login-styleV2.css">
+    <link rel="stylesheet" href="login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
