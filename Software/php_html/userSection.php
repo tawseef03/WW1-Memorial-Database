@@ -1,61 +1,20 @@
 <?php
 require_once 'auth_check.php';
 require 'db_connect.php';
-
-// Records count for Bradford and surrounding townships
-$sql = "SELECT COUNT(*) AS total FROM township";
-$result = $mysqli->query($sql);
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $township = $row["total"];
-} else {
-    $township = 0;
+/*
+function getCount($mysqli, $table) {
+    $sql = "SELECT COUNT(*) AS total FROM $table";
+    $result = $mysqli->query($sql);
+    $count = ($result && $result->num_rows > 0) ? $result->fetch_assoc()['total'] : 0;
+    $result->free();
+    return $count;
 }
-$result->free();
 
-// Records count for Names recorded on Bradford Memorials
-$sql = "SELECT COUNT(*) AS total FROM memorials";
-$result = $mysqli->query($sql);
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $memorial = $row["total"];
-} else {
-    $memorial = 0;
-}
-$result->free();
-
-// Records count for Buried in Bradford
-$sql = "SELECT COUNT(*) AS total FROM buried";
-$result = $mysqli->query($sql);
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $buried = $row["total"];
-} else {
-    $buried = 0;
-}
-$result->free();
-
-// Records count for Newspaper references
-$sql = "SELECT COUNT(*) AS total FROM newspapers";
-$result = $mysqli->query($sql);
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $newspaper = $row["total"];
-} else {
-    $newspaper = 0;
-}
-$result->free();
-
-// Records count for Biographies
-$sql = "SELECT COUNT(*) AS total FROM biographyinfo";
-$result = $mysqli->query($sql);
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $biography = $row["total"];
-} else {
-    $biography = 0;
-}
-$result->free();
+$township = getCount($mysqli, "township"); // Records count for Bradford and surrounding townships
+$memorial = getCount($mysqli, "memorials"); // Records count for Names recorded on Bradford Memorials
+$buried = getCount($mysqli, "buried"); // Records count for Buried in Bradford
+$newspaper = getCount($mysqli, "newspapers"); // Records count for Newspaper references
+$biography = getCount($mysqli, "biographyinfo"); // Records count for Biographies
 
 $query = "SELECT filePath FROM about ORDER BY aboutID ASC";
 $result = $mysqli->query($query);
@@ -74,7 +33,7 @@ if ($result) {
 } else {
     die("Error fetching file paths.");
 }
-
+*/
 ?>
 
 <!DOCTYPE html>
@@ -114,6 +73,8 @@ if ($result) {
     <div class="view">
         <!-- Description section -->
         <div class="bgimg" id="bgimg">
+            <div id="hidden-sections-container" class="description"></div>
+            <!---
             <div id="description" class="description">
                 <div style="width:250px;">
                     <div style="height:330px;">
@@ -133,6 +94,7 @@ if ($result) {
                     <button type="button" onclick="openPage(1)">Database</button>
                 </div>
             </div>
+            --->
         </div>
         <!-- Sections area -->
         <div class="sections">
@@ -153,6 +115,27 @@ if ($result) {
     </div>
 
     <!--- Hidden section of the HTML --->
+    <template id="section-template">
+        <div class="hidden section-block" style="display: none">
+            <div style="width:250px;">
+                <div style="height:330px;">
+                    <h1 class="title-text"></h1>
+                </div>
+                <button type="button" class="about-btn">About</button>
+            </div>
+            <div style="width:350px;">
+                <p class="desc-text"></p>
+            </div>
+            <div style="width:250px;">
+                <div style="height:330px;">
+                    <h1>Total records:</h1>
+                    <p class="record-count"></p>
+                </div>
+                <button type="button" class="db-btn">Database</button>
+            </div>
+        </div>
+    </template>
+    <!---
     <div class="hidden" id="sec1" style="display: none">
         <div style="width:250px;">
             <div style="height:330px;">
@@ -247,6 +230,6 @@ if ($result) {
             </div>
             <button type="button" onclick="openPage(5)">Database</button>
         </div>
-    </div>
+    </div> --->
 </body>
 </html>
