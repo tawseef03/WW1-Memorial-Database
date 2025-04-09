@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $BLOCK_MINS = 10;
         $ATTEMPT_MAX = 5;
 
-        if (time()-$user["LastAttempt"] > $BLOCK_MINS*60) {
-            $sql = "UPDATE users SET Attempts=0 WHERE Username = ?";
+        $currentTime = time();
+        if ($currentTime-$user["LastAttempt"] > $BLOCK_MINS*60) { // When block period has expired
+            $sql = "UPDATE users SET Attempts=0 WHERE Username = ?"; // Reset attempt counter
             $stmt = $mysqli->prepare($sql);
             if (!$stmt) {
                 throw new Exception("SQL preparation failed: " . $mysqli->error);
@@ -39,14 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("s", $username);
             $stmt->execute();
         }
-        $sql = "UPDATE users SET Attempts = Attempts + 1 WHERE Username = ?";
-        $stmt = $mysqli->prepare($sql);
-        if (!$stmt) {
-           throw new Exception("SQL preparation failed: " . $mysqli->error);
-        }
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $sql = "UPDATE users SET LastAttempt = ? WHERE Username = ?";
+        $sql = "UPDATE users SET LastAttempt = ?, Attempts = Attempts + 1 WHERE Username = ?"; // Update attempt count and time
         $stmt = $mysqli->prepare($sql);
         if (!$stmt) {
            throw new Exception("SQL preparation failed: " . $mysqli->error);
@@ -57,11 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ---
 
         // 使用现有的密码验证逻辑 / Use existing password verification logic
-        if ($user["Attempts"] >= $ATTEMPT_MAX) {
-            $error_message = "Account blocked for 10 minutes";
+        if ($user["Attempts"] >= $ATTEMPT_MAX - 1) { // If max attempts exceeded
+            $error_message = "Account blocked for 10 minutes"; // Do not accept input, give block message
         } elseif ($user && $password === $user["Password"]) {
-
-            $sql = "UPDATE users SET Attempts=0 WHERE Username = ?";
+            $sql = "UPDATE users SET Attempts=0 WHERE Username = ?"; // Correct details will reset attempt counter
             $stmt = $mysqli->prepare($sql);
             if (!$stmt) {
                 throw new Exception("SQL preparation failed: " . $mysqli->error);
