@@ -31,7 +31,7 @@ window.onload = function() {
     desc.style.backgroundPosition = 'center';
 
     // 为每个section添加鼠标悬停和点击事件 / Add mouseover and click events for each section
-    Object.keys(sections).forEach(sectionId => {
+    Object.keys(sections).forEach((sectionId, index) => {
         const section = document.getElementById(sectionId);
         
         // 鼠标悬停事件 / Mouseover event
@@ -45,7 +45,14 @@ window.onload = function() {
         
         // 点击事件 / Click event
         section.onclick = function() {
-            alert(`Clicked ${sectionId}`);
+            const pages = [
+                '../UserHonourPage/UserHonour.php',  // 从township.html改为UserHonour.php
+                '../UserMemorialPage/UserMemorial.php',
+                '../UserBuriedPage/UserBuried.php',
+                '../UserNewspaperPage/userNewspaper.php',
+                '../UserBiographiesPage/UserBiographies.php'
+            ];
+            window.location.href = pages[index];
         }
     });
 }

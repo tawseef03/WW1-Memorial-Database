@@ -38,9 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // 根据用户类型重定向 / Redirect based on user type 
             if (intval($user["User Type"]) === 1) {
-                header("Location: ../AdminSectionPage/AdminSection.html");
+                header("Location: ../AdminSectionPage/AdminSection.php"); // 管理员跳转到AdminSection
             } else {
-                header("Location: ../UserSectionPage/userSection.html"); // 修改为正确的用户页面路径
+                header("Location: ../UserSectionPage/userSection.php");
             }
             exit;
         } else {
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <!-- 导航按钮 / Navigation buttons -->
         <div class="navbuttons">
-            <button type="button">Home</button>
+            <button type="button" onclick="window.location.href='../WelcomePage/welcome.html'">Home</button>
             <button type="button">About</button>
             <button type="button">Contact</button>
         </div>
