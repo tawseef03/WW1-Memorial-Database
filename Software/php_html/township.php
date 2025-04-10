@@ -128,6 +128,16 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                     if (empty($results)) {
                         echo "<p>No records found.</p>";
                     } else {
+                        echo "<table class='records-table'>";
+                        echo "<thead><tr>
+                            <th>Surname</th>
+                            <th>Forename</th>
+                            <th>Regiment</th>
+                            <th>Unit</th>
+                            <th>Memorial</th>
+                            <th>Actions</th>
+                        </tr></thead><tbody>";
+
                         foreach ($results as $row) {
                             echo "<div class='record'>";
                             echo "<div class='col1'>";
@@ -160,9 +170,18 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                             echo "</div>";
                             echo "</div>";
                         }
+
+                        echo "</tbody></table>";
                     }
                     ?>
                 </div>
+                <script>
+                    function confirmDelete(id) {
+                        if (confirm("Are you sure you want to delete this record?")) {
+                            window.location.href = `deleteTownship.php?id=${id}`;
+                        }
+                    }
+                </script>
                 
                 <!-- Pagination buttons -->
                 <div class="pagination">

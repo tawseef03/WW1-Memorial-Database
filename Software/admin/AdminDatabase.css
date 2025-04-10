@@ -264,7 +264,11 @@
     background-color: #d32f2f;
 }
 
+<<<<<<< Updated upstream
 /* Alert messages */
+=======
+/* Alert messages styling */
+>>>>>>> Stashed changes
 .alert {
     padding: 15px;
     margin: 15px;

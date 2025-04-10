@@ -37,7 +37,11 @@ $params[] = $offset;
 $stmt = $mysqli->prepare($query);
 
 // Dynamically create the bind_param string
+<<<<<<< Updated upstream
 $bind_types = str_repeat('s', count($params));
+=======
+$bind_types = str_repeat('s', count($params) - 2) . 'ii';
+>>>>>>> Stashed changes
 $stmt->bind_param($bind_types, ...$params);
 
 $stmt->execute();
@@ -77,7 +81,11 @@ $total_pages = ceil($total_results / $records_per_page);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< Updated upstream
     <title>WW1 Township Records - Admin</title>
+=======
+    <title>WW1 Database Records - Admin</title>
+>>>>>>> Stashed changes
     <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
     <link rel="stylesheet" href="AdminDatabase.css">
 </head>
@@ -87,11 +95,19 @@ $total_pages = ceil($total_results / $records_per_page);
             <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
+<<<<<<< Updated upstream
             WW1 Township Records
         </div>
         <div class="navbuttons">
             <button type="button" onclick="location.href='AdminSection2.html'">Back to Sections</button>
             <button type="button" onclick="location.href='AdminManageDatabase.html'">Admin Panel</button>
+=======
+            WW1 Database Records
+        </div>
+        <div class="navbuttons">
+            <button type="button" onclick="location.href='AdminSection2.html'">Back</button>
+            <button type="button" onclick="location.href='AdminManageDatabase.html'">Admin Page</button>
+>>>>>>> Stashed changes
         </div>
     </div>
 
@@ -123,7 +139,11 @@ $total_pages = ceil($total_results / $records_per_page);
         
         <div class="content-panel">
             <div class="database-title">
+<<<<<<< Updated upstream
                 <h2>Names in Township Records</h2>
+=======
+                <h2>Bradford and Surrounding Townships</h2>
+>>>>>>> Stashed changes
             </div>
             
             <div class="records-container">
@@ -149,6 +169,7 @@ $total_pages = ceil($total_results / $records_per_page);
                         
                         foreach ($results as $row) {
                             echo "<tr>";
+<<<<<<< Updated upstream
                             echo "<td>" . htmlspecialchars($row['HonourID']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Surname']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Forename']) . "</td>";
@@ -176,12 +197,25 @@ $total_pages = ceil($total_results / $records_per_page);
                             
                             echo "<td class='action-buttons'>
                                 <button class='edit-btn' data-id='" . $row['TownshipID'] . "' 
+=======
+                            echo "<td>" . htmlspecialchars($row['Surname']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Forename']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Regiment']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Unit']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Memorial']) . "</td>";
+                            echo "<td class='action-buttons'>
+                                <button class='edit-btn' data-id='" . $row['id'] . "' 
+>>>>>>> Stashed changes
                                 data-surname='" . htmlspecialchars($row['Surname']) . "' 
                                 data-forename='" . htmlspecialchars($row['Forename']) . "' 
                                 data-regiment='" . htmlspecialchars($row['Regiment']) . "' 
                                 data-unit='" . htmlspecialchars($row['Unit']) . "' 
                                 data-memorial='" . htmlspecialchars($row['Memorial']) . "'>Edit</button>
+<<<<<<< Updated upstream
                                 <button class='delete-btn' data-id='" . $row['TownshipID'] . "'>Delete</button>
+=======
+                                <button class='delete-btn' data-id='" . $row['id'] . "'>Delete</button>
+>>>>>>> Stashed changes
                             </td>";
                             echo "</tr>";
                         }
@@ -223,7 +257,11 @@ $total_pages = ceil($total_results / $records_per_page);
     <div class="modal" id="createRecordModal">
         <div class="modal-content">
             <button class="close-btn" id="closeCreateModal">×</button>
+<<<<<<< Updated upstream
             <h2>Create New Record</h2>
+=======
+            <h2>Create New Township Record</h2>
+>>>>>>> Stashed changes
             <form id="createRecordForm" action="process_township.php" method="POST">
                 <input type="hidden" name="action" value="create">
                 <div class="form-group">
@@ -240,11 +278,19 @@ $total_pages = ceil($total_results / $records_per_page);
                 </div>
                 <div class="form-group">
                     <label for="create_unit">Unit:</label>
+<<<<<<< Updated upstream
                     <input type="text" id="create_unit" name="unit" required>
                 </div>
                 <div class="form-group">
                     <label for="create_memorial">Memorial:</label>
                     <input type="text" id="create_memorial" name="memorial" required>
+=======
+                    <input type="text" id="create_unit" name="unit">
+                </div>
+                <div class="form-group">
+                    <label for="create_memorial">Memorial:</label>
+                    <input type="text" id="create_memorial" name="memorial">
+>>>>>>> Stashed changes
                 </div>
                 <div class="form-buttons">
                     <button type="submit" class="submit-btn">Create Record</button>
@@ -257,7 +303,11 @@ $total_pages = ceil($total_results / $records_per_page);
     <div class="modal" id="editRecordModal">
         <div class="modal-content">
             <button class="close-btn" id="closeEditModal">×</button>
+<<<<<<< Updated upstream
             <h2>Edit Record</h2>
+=======
+            <h2>Edit Township Record</h2>
+>>>>>>> Stashed changes
             <form id="editRecordForm" action="process_township.php" method="POST">
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" id="edit_record_id" name="record_id">
@@ -275,11 +325,19 @@ $total_pages = ceil($total_results / $records_per_page);
                 </div>
                 <div class="form-group">
                     <label for="edit_unit">Unit:</label>
+<<<<<<< Updated upstream
                     <input type="text" id="edit_unit" name="unit" required>
                 </div>
                 <div class="form-group">
                     <label for="edit_memorial">Memorial:</label>
                     <input type="text" id="edit_memorial" name="memorial" required>
+=======
+                    <input type="text" id="edit_unit" name="unit">
+                </div>
+                <div class="form-group">
+                    <label for="edit_memorial">Memorial:</label>
+                    <input type="text" id="edit_memorial" name="memorial">
+>>>>>>> Stashed changes
                 </div>
                 <div class="form-buttons">
                     <button type="submit" class="submit-btn">Update Record</button>
@@ -293,7 +351,11 @@ $total_pages = ceil($total_results / $records_per_page);
         <div class="modal-content">
             <button class="close-btn" id="closeDeleteModal">×</button>
             <h2>Confirm Deletion</h2>
+<<<<<<< Updated upstream
             <p>Are you sure you want to delete this record? This action cannot be undone.</p>
+=======
+            <p>Are you sure you want to delete this township record? This action cannot be undone.</p>
+>>>>>>> Stashed changes
             <form id="deleteRecordForm" action="process_township.php" method="POST">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" id="delete_record_id" name="record_id">
@@ -305,6 +367,12 @@ $total_pages = ceil($total_results / $records_per_page);
         </div>
     </div>
 
+<<<<<<< Updated upstream
+=======
+    <!-- Modal Overlay -->
+    <div class="overlay" id="adminOverlay"></div>
+
+>>>>>>> Stashed changes
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Modal elements

@@ -1,8 +1,15 @@
 <?php
+<<<<<<< Updated upstream
 // connect to the database
 require 'db_connect.php';
 
 // check if form is submitted
+=======
+// Include the database connection
+require 'db_connect.php';
+
+// Check if the form is submitted
+>>>>>>> Stashed changes
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';
     
