@@ -1,18 +1,20 @@
 <?php
 session_start();
-require_once '../php_html/db_connect.php';
+require_once '../Global/db_connect.php';
 
 $error_message = '';
 $debug_info = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $mysqli = require '../php_html/db_connect.php';
-
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        // SQL查询匹配ww1_db中的users表 / SQL query to match users table in ww1_db
+        if (empty($username) || empty($password)) {
+            throw new Exception('Username and password are required');
+        }
+
+        // SQL query to match users table in ww1_db
         $sql = "SELECT * FROM users WHERE Username = ?";
         $stmt = $mysqli->prepare($sql);
         
@@ -25,27 +27,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        // 使用password_verify验证加密密码 / Use password_verify to validate encrypted password
-        if ($user && password_verify($password, $user["Password"])) {
+        // Use existing password verification logic
+        if ($user && $password === $user["Password"]) {
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['user_type'] = $user["User Type"];
             $_SESSION['user_id'] = $user["UserID"];
             
-            // 根据用户类型重定向 / Redirect based on user type
+            // Redirect based on user type
             if (intval($user["User Type"]) === 1) {
                 header("Location: ../AdminPage/adminpage.html");
             } else {
-                header("Location: ../php_html/userSection.php");
+                header("Location: ../Guest/UserSection/userSection.php");
             }
             exit;
         } else {
-            $error_message = "Invalid username or password"; // 无效的用户名或密码
+            $error_message = "Invalid username or password";
         }
         
     } catch (Exception $e) {
-        $error_message = "System Error: " . $e->getMessage(); // 系统错误
-        $debug_info .= "Error Info: " . $e->getMessage() . "\n"; // 错误信息
+        $error_message = "System Error: " . $e->getMessage();
+        $debug_info .= "Error Info: " . $e->getMessage() . "\n";
     } finally {
         if (isset($stmt) && $stmt !== false) {
             $stmt->close();
@@ -60,16 +62,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" width="device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Bradford Group</title>
-    <link rel="stylesheet" href="login-styleV2.css">
+    <link rel="stylesheet" href="login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <div class="navbar">
         <!-- Website logo -->
         <div class="logo">
-            <img src="../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <!-- Page title -->
         <div class="title">
@@ -107,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
     <script>
-        // 切换密码可见性 / Toggle password visibility
+        // Toggle password visibility
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleIcon = document.querySelector('.toggle-password');
