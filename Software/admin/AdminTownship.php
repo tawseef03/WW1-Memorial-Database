@@ -167,7 +167,7 @@ $total_pages = ceil($total_results / $records_per_page);
                             echo "<td>" . htmlspecialchars($row['Medals']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Enlistment Date']) . "</td>"; 
                             echo "<td>" . htmlspecialchars($row['Discharge Date']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['Death（in service Date）']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Death(in service Date)']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Cemetery/Memorial']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Cemetery/Memorial Ref']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Cemetery/Memorial Country']) . "</td>";
