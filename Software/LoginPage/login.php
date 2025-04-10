@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        // 使用现有的密码验证逻辑 / Use existing password verification logic
-        if ($user && $password === $user["Password"]) {
+        // 使用password_verify验证加密密码 / Use password_verify to validate encrypted password
+        if ($user && password_verify($password, $user["Password"])) {
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['user_type'] = $user["User Type"];
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" width="device-width, initial-scale=1.0">
     <title>WW1 Bradford Group</title>
     <link rel="stylesheet" href="login-styleV2.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
