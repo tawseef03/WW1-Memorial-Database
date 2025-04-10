@@ -1,8 +1,8 @@
 <?php
-// Include the database connection
+// connect to the database
 require 'db_connect.php';
 
-// Get search parameters and current page
+// Get used for search
 $surname = $_GET['surname'] ?? '';
 $forename = $_GET['forename'] ?? '';
 $regiment = $_GET['regiment'] ?? '';
@@ -11,7 +11,7 @@ $records_per_page = 10;
 
 $offset = ($page - 1) * $records_per_page;
 
-// Build the query with search parameters
+//query for search
 $query = "SELECT * FROM biographyinfo WHERE 1=1";
 $params = [];
 
@@ -62,7 +62,7 @@ if (!empty($regiment)) {
 
 $total_stmt = $mysqli->prepare($total_query);
 
-// Dynamically create the bind_param string for total query
+// create the bind_param string for total query
 $total_bind_types = str_repeat('s', count($total_params));
 if (!empty($total_params)) {
     $total_stmt->bind_param($total_bind_types, ...$total_params);
@@ -301,25 +301,25 @@ $total_pages = ceil($total_results / $records_per_page);
         // Admin panel toggle
         const adminPanelToggle = document.getElementById('adminPanelToggle');
         
-        // Open create record modal
+        // Open create record 
         createRecordBtn.addEventListener('click', () => {
             createRecordModal.style.display = 'block';
             overlay.classList.add('active');
         });
         
-        // Close create record modal
+        // Close create record 
         closeCreateModal.addEventListener('click', () => {
             createRecordModal.style.display = 'none';
             overlay.classList.remove('active');
         });
         
-        // Close edit record modal
+        // Close edit record 
         closeEditModal.addEventListener('click', () => {
             editRecordModal.style.display = 'none';
             overlay.classList.remove('active');
         });
         
-        // Close delete confirmation modal
+        // Close delete confirmation 
         closeDeleteModal.addEventListener('click', () => {
             deleteConfirmModal.style.display = 'none';
             overlay.classList.remove('active');

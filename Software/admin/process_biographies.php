@@ -1,8 +1,8 @@
 <?php
-// Include the database connection
+// connect to the database
 require 'db_connect.php';
 
-// Check if the form is submitted
+// check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';
     

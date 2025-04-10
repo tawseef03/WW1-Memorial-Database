@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $hostname = "localhost";
 $username = "root";
 $dbname = "ww1_db";
-$password = ""; // Typical default for XAMPP, adjust if different
+$password = ""; 
 
 // Create connection
 $mysqli = new mysqli($hostname, $username, $password, $dbname);
@@ -16,9 +16,6 @@ $mysqli = new mysqli($hostname, $username, $password, $dbname);
 if($mysqli->connect_errno){
     die("ERROR: Could not connect. " . $mysqli->connect_error);
 }
-
-// Optional: Add a print statement to verify connection
-// echo "Database connection successful!";
 
 return $mysqli;
 ?>
