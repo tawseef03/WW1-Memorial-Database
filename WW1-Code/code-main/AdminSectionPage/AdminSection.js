@@ -20,12 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         section.addEventListener('click', function() {
+            // 管理员点击跳转到用户页面
             const pages = [
-                '../TownShipPage/township.html',
-                '../MemorialPage/memorial.html',
-                '../BurialPage/burial.html',
-                '../NewspaperPage/newspaper.html',
-                '../BiographyPage/biography.html'
+                '../UserHonourPage/UserHonour.php',
+                '../UserMemorialPage/UserMemorial.php',
+                '../UserBuriedPage/UserBuried.php',
+                '../UserNewspaperPage/userNewspaper.php',
+                '../UserBiographiesPage/UserBiographies.php'
             ];
             window.location.href = pages[index];
         });
