@@ -1,7 +1,7 @@
 <?php
 require_once 'auth_check.php';
 require 'db_connect.php';
-/*
+
 function getCount($mysqli, $table) {
     $sql = "SELECT COUNT(*) AS total FROM $table";
     $result = $mysqli->query($sql);
@@ -33,7 +33,9 @@ if ($result) {
 } else {
     die("Error fetching file paths.");
 }
-*/
+
+$townshipabout .= '#toolbar=0';
+
 ?>
 
 <!DOCTYPE html>
@@ -73,8 +75,6 @@ if ($result) {
     <div class="view">
         <!-- Description section -->
         <div class="bgimg" id="bgimg">
-            <div id="hidden-sections-container" class="description"></div>
-            <!---
             <div id="description" class="description">
                 <div style="width:250px;">
                     <div style="height:330px;">
@@ -94,7 +94,6 @@ if ($result) {
                     <button type="button" onclick="openPage(1)">Database</button>
                 </div>
             </div>
-            --->
         </div>
         <!-- Sections area -->
         <div class="sections">
@@ -115,27 +114,6 @@ if ($result) {
     </div>
 
     <!--- Hidden section of the HTML --->
-    <template id="section-template">
-        <div class="hidden section-block" style="display: none">
-            <div style="width:250px;">
-                <div style="height:330px;">
-                    <h1 class="title-text"></h1>
-                </div>
-                <button type="button" class="about-btn">About</button>
-            </div>
-            <div style="width:350px;">
-                <p class="desc-text"></p>
-            </div>
-            <div style="width:250px;">
-                <div style="height:330px;">
-                    <h1>Total records:</h1>
-                    <p class="record-count"></p>
-                </div>
-                <button type="button" class="db-btn">Database</button>
-            </div>
-        </div>
-    </template>
-    <!---
     <div class="hidden" id="sec1" style="display: none">
         <div style="width:250px;">
             <div style="height:330px;">
@@ -230,6 +208,6 @@ if ($result) {
             </div>
             <button type="button" onclick="openPage(5)">Database</button>
         </div>
-    </div> --->
+    </div>
 </body>
 </html>
