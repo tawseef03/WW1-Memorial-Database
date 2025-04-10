@@ -123,7 +123,7 @@ $total_pages = ceil($total_results / $records_per_page);
         
         <div class="content-panel">
             <div class="database-title">
-                <h2>Burial Records</h2>
+                <h2>Newspaper Records</h2>
             </div>
             
             <div class="records-container">

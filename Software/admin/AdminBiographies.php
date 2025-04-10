@@ -1,4 +1,6 @@
 <?php
+// admin authentication check
+require '../php_html/admin_auth_check.php';
 // connect to the database
 require 'db_connect.php';
 
