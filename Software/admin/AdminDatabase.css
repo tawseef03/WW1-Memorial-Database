@@ -174,17 +174,32 @@
 }
 
 .records-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-    table-layout: fixed;
+    width: 100%; /* 表格宽度占满容器 */
+    border-collapse: collapse; /* 去掉单元格之间的间隙 */
+    margin: 20px 0; /* 表格与其他内容的间距 */
 }
 
 .records-table th,
 .records-table td {
-    padding: 6px;
-    vertical-align: top;
-    border: 1px solid #ddd;
+    padding: 10px; /* 单元格内边距 */
+    text-align: left; /* 左对齐内容 */
+    border: 1px solid #ddd; /* 添加边框 */
+    word-wrap: break-word; /* 自动换行 */
+    max-width: 200px; /* 限制列宽 */
+}
+
+.records-table th {
+    background-color: #f4f4f4; /* 表头背景色 */
+    font-weight: bold; /* 表头加粗 */
+}
+
+/* 设置表格的响应式样式 */
+@media screen and (max-width: 768px) {
+    .records-table th,
+    .records-table td {
+        font-size: 14px; /* 小屏幕时缩小字体 */
+        padding: 8px; /* 减小单元格内边距 */
+    }
 }
 
 /* Column widths */
