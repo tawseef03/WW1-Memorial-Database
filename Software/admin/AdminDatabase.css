@@ -1,0 +1,418 @@
+.container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #962222;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+    height: 100px;
+    position: relative;
+}
+
+.navbar .logo {
+    background-color: #ffffff;
+    height: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.navbar .logo img {
+    height: 80px;
+}
+
+.navbar .title {
+    color: black;
+    font-size: 35px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'Kameron';
+    font-weight: bold;
+}
+
+.navbar .navbuttons {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar .navbuttons button {
+    padding: 10px 20px;
+    background-color: #780909;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.navbar .navbuttons button:hover {
+    background-color: #d41d1d;
+}
+
+.search-panel {
+    flex: 0 0 300px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-panel {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#searchButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#resetButton {
+    background-color: #f44336;
+    color: white;
+}
+
+.display table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.display th, 
+.display td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.display th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.display tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.display tr:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.database-stats {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.error {
+    color: red;
+    padding: 10px;
+    background-color: #ffebee;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.no-records {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed;
+}
+
+.records-table th,
+.records-table td {
+    padding: 6px;
+    vertical-align: top;
+    border: 1px solid #ddd;
+}
+
+/* Column widths */
+.records-table th:nth-child(1),
+.records-table td:nth-child(1) { width: 18%; }
+
+.records-table th:nth-child(2),
+.records-table td:nth-child(2) { width: 18%; }
+
+.records-table th:nth-child(3),
+.records-table td:nth-child(3) { width: 25%; }
+
+.records-table th:nth-child(4),
+.records-table td:nth-child(4) { width: 15%; }
+
+.records-table th:nth-child(5),
+.records-table td:nth-child(5) { width: 12%; }
+
+.records-table th:nth-child(6),
+.records-table td:nth-child(6) { width: 12%; }
+
+/* Records header */
+.records-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Create record button */
+.create-record-btn {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.create-record-btn:hover {
+    background-color: #45a049;
+}
+
+/* Action buttons container */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+/* Edit and Delete buttons */
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    width: 45%;
+    text-align: center;
+}
+
+.edit-btn {
+    background-color: #2196F3;
+}
+
+.edit-btn:hover {
+    background-color: #0b7dda;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Alert messages */
+.alert {
+    padding: 15px;
+    margin: 15px;
+    border-radius: 4px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Internal styles */
+.records-table small {
+    display: block;
+    color: #666;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.records-table .info-text {
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Overflow handling */
+.records-table td > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Show full content on hover */
+.records-table td > div:hover {
+    position: relative;
+    overflow: visible;
+    white-space: normal;
+    z-index: 1;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 4px;
+    margin: -4px;
+}
+
+.records-container {
+    position: relative;
+    height: calc(100vh - 280px);
+    display: flex;
+    flex-direction: column;
+}
+
+.display {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.records-table {
+    margin: 0;
+    width: 100%;
+}
+
+.records-table thead {
+    position: sticky;
+    top: 0;
+    background: #f5f5f5;
+    z-index: 1;
+}
+
+/* Modal styling */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.cancel-btn {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.delete-confirm-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
