@@ -50,6 +50,77 @@
             </div>
             
         </div>
+        
+        <div class="display">
+            <?php
+            if (empty($results)) {
+                echo "<p>No records found.</p>";
+            } else {
+                echo "<table class='records-table'>";
+                echo "<thead><tr>
+                    <th>HonourID</th>
+                    <th>Surname</th>
+                    <th>Forename</th>
+                    <th>Address</th>
+                    <th>Electoral Ward</th>
+                    <th>Town</th>
+                    <th>Rank</th>
+                    <th>Regiment</th>
+                    <th>Battalion</th>
+                    <th>Company</th>
+                    <th>Age</th>
+                    <th>Service No</th>
+                    <th>Other Regiment</th>
+                    <th>Other Battalion</th>
+                    <th>Other Service No</th>
+                    <th>Medals</th>
+                    <th>Enlistment Date</th>
+                    <th>Discharge Date</th>
+                    <th>Death (in service Date)</th>
+                    <th>Cemetery/Memorial</th>
+                    <th>Cemetery/Memorial Ref</th>
+                    <th>Cemetery/Memorial Country</th>
+                    <th>Additional CWCG Info</th>
+                    <th>Actions</th>
+                </tr></thead><tbody>";
+
+                foreach ($results as $row) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['HonourID'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Surname'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Forename'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Address'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Electoral Ward'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Town'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Rank'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Regiment'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Battalion'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Company'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Age'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['ServiceNo'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Other Regiment'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Other Battalion'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Other Service No.'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Medals'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Enlistment Date'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Discharge Date'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Death(in service Date)'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Cemetery/Memorial'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Cemetery/Memorial Ref'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Cemetery/Memorial Country'] ?? '') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Additional CWCG Info'] ?? '') . "</td>";
+
+                    echo "<td class='action-buttons'>
+                        <button class='edit-btn' data-id='" . htmlspecialchars($row['TownshipID'] ?? '') . "'>Edit</button>
+                        <button class='delete-btn' data-id='" . htmlspecialchars($row['TownshipID'] ?? '') . "'>Delete</button>
+                    </td>";
+                    echo "</tr>";
+                }
+
+                echo "</tbody></table>";
+            }
+            ?>
+        </div>
     </div>
 </body>
 </html>

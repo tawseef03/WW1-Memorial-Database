@@ -1,6 +1,6 @@
 <?php
-require_once 'auth_check.php';
-require 'db_connect.php';
+require_once '../../Global/auth_check.php';
+require '../../Global/db_connect.php';
 
 // Get search parameters and current page
 $surname = $_GET['surname'] ?? '';
@@ -11,7 +11,7 @@ $page = $_GET['page'] ?? 1;
 $offset = ($page - 1);
 
 // Build the query with search parameters
-$query = "SELECT * FROM township WHERE 1=1";
+$query = "SELECT * FROM memorials WHERE 1=1";
 $params = [];
 
 if (!empty($surname)) {
@@ -38,7 +38,7 @@ $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the total number of records for pagination calculation
-$total_query = "SELECT COUNT(*) AS total FROM township WHERE 1=1";
+$total_query = "SELECT COUNT(*) AS total FROM memorials WHERE 1=1";
 $total_params = [];
 $param_types = "";
 
@@ -73,19 +73,19 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Records</title>
-    <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
-    <link rel="stylesheet" href="../css/database.css">
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
+    <link rel="stylesheet" href="database.css">
 </head>
 <body>
     <div class="navbar">
         <div class="logo">
-            <img src="../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.php'">Back to Sections</button>
+            <button type="button" onclick="location.href='../UserSection/userSection.php'">Back to Sections</button>
         </div>
     </div>
 
@@ -110,14 +110,14 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                 
                 <div class="form-buttons">
                     <button type="button" id="searchButton">Search</button>
-                    <button type="button" id="resetButton" onclick="window.location.href = 'township.php';">Reset</button>
+                    <button type="button" id="resetButton" onclick="window.location.href = 'memorial.php';">Reset</button>
                 </div>
             </form>
         </div>
         
         <div class="content-panel">
             <div class="database-title">
-                <h2>Bradford and Surrounding Townships</h2>
+                <h2>Names on Bradford Memorials</h2>
             </div>
             
             <div class="records-container">
@@ -128,60 +128,31 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                     if (empty($results)) {
                         echo "<p>No records found.</p>";
                     } else {
-                        echo "<table class='records-table'>";
-                        echo "<thead><tr>
-                            <th>Surname</th>
-                            <th>Forename</th>
-                            <th>Regiment</th>
-                            <th>Unit</th>
-                            <th>Memorial</th>
-                            <th>Actions</th>
-                        </tr></thead><tbody>";
-
                         foreach ($results as $row) {
                             echo "<div class='record'>";
                             echo "<div class='col1'>";
-                            echo "<p><strong>HonourID:</strong> " . htmlspecialchars($row['HonourID']) . "</p>";
+                            echo "<p><strong>Memorial ID:</strong> " . htmlspecialchars($row['MemorialID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
-                            echo "<p><strong>Address:</strong> " . htmlspecialchars($row['Address']) . "</p>";
-                            echo "<p><strong>Electoral Ward:</strong> " . htmlspecialchars($row['Electoral Ward']) . "</p>";
-                            echo "<p><strong>Town:</strong> " . htmlspecialchars($row['Town']) . "</p>";
-                            echo "<p><strong>Rank:</strong> " . htmlspecialchars($row['Rank']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
-                            echo "<p><strong>Battalion:</strong> " . htmlspecialchars($row['Battalion']) . "</p>";
-                            echo "<p><strong>Company:</strong> " . htmlspecialchars($row['Company']) . "</p>";
-                            echo "<p><strong>Age:</strong> " . htmlspecialchars($row['Age']) . "</p>";
-                            echo "<p><strong>Service No:</strong> " . htmlspecialchars($row['Service No']) . "</p>";
+                            echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
+                            echo "<p><strong>Cemetery/Memorial:</strong> " . htmlspecialchars($row['Cemetery/Memorial']) . "</p>";
+                            echo "<p><strong>Cemetery/Grave Ref.:</strong> " . htmlspecialchars($row['Cemetery/Grave Ref.']) . "</p>";
+                            echo "<p><strong>Cemetery/Memorial Country:</strong> " . htmlspecialchars($row['Cemetery / Memorial Country']) . "</p>";
                             echo "</div>";
                             echo "<div class='col2'>";
-                            echo "<p><strong>Other Regiment:</strong> " . htmlspecialchars($row['Other Regiment']) . "</p>";
-                            echo "<p><strong>Other Battalion:</strong> " . htmlspecialchars($row['Other Battalion']) . "</p>";
-                            echo "<p><strong>Other Service No.:</strong> " . htmlspecialchars($row['Other Service No.']) . "</p>";
-                            echo "<p><strong>Medals:</strong> " . htmlspecialchars($row['Medals']) . "</p>";
-                            echo "<p><strong>Enlistment Date:</strong> " . htmlspecialchars($row['Enlistment Date']) . "</p>";
-                            echo "<p><strong>Discharge Date:</strong> " . htmlspecialchars($row['Discharge Date']) . "</p>";
-                            echo "<p><strong>Death (in service) Date:</strong> " . htmlspecialchars($row['Death (in service) Date']) . "</p>";
-                            echo "<p><strong>Misc Info Nroh:</strong> " . htmlspecialchars($row['Misc Info Nroh']) . "</p>";
-                            echo "<p><strong>Cemetery/Memorial:</strong> " . htmlspecialchars($row['Cemetery/Memorial']) . "</p>";
-                            echo "<p><strong>Cemetery/Memorial Ref:</strong> " . htmlspecialchars($row['Cemetery/Memorial Ref']) . "</p>";
-                            echo "<p><strong>Cemetery/Memorial Country:</strong> " . htmlspecialchars($row['Cemetery/Memorial Country']) . "</p>";
-                            echo "<p><strong>Additional CWCG Info:</strong> " . htmlspecialchars($row['Additional CWCG Info']) . "</p>";
+                            echo "<p><strong>Memorial:</strong> " . htmlspecialchars($row['Memorial']) . "</p>";
+                            echo "<p><strong>Memorial Location:</strong> " . htmlspecialchars($row['Memorial Location']) . "</p>";
+                            echo "<p><strong>Memorial Info:</strong> " . htmlspecialchars($row['Memorial Info']) . "</p>";
+                            echo "<p><strong>Postcode:</strong> " . htmlspecialchars($row['Memorial Postcode']) . "</p>";
+                            echo "<p><strong>District:</strong> " . htmlspecialchars($row['District']) . "</p>";
+                            echo "<p><strong>Photo:</strong> " . ($row['Photo available'] ? 'Yes' : 'No') . "</p>";
                             echo "</div>";
                             echo "</div>";
                         }
-
-                        echo "</tbody></table>";
                     }
                     ?>
                 </div>
-                <script>
-                    function confirmDelete(id) {
-                        if (confirm("Are you sure you want to delete this record?")) {
-                            window.location.href = `deleteTownship.php?id=${id}`;
-                        }
-                    }
-                </script>
                 
                 <!-- Pagination buttons -->
                 <div class="pagination">
@@ -203,7 +174,7 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
     <script>
         // When the search button is clicked, trigger the form submission
         document.getElementById("searchButton").onclick = function() {
-            document.getElementById("searchForm").submit(); // Submit the form to trigger PHP search
+            document.getElementById("searchForm").submit();
         };
     </script>
 </body>

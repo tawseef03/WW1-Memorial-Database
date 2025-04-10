@@ -1,48 +1,31 @@
-function openAbout(n) {
-    switch (n) {
-        case 1:
-            document.getElementById("popup").src = "township.php";
-            break;
-        case 2:
-            document.getElementById("popup").src = "memorial.php";
-            break;
-        case 3:
-            document.getElementById("popup").src = "buried.html";
-            break;
-        case 4:
-            document.getElementById("popup").src = "newspaper.html";
-            break;
-        case 5:
-            document.getElementById("popup").src = "biographies.php";
-            break;
-        default:
-            alert("Invalid about section id: "+n);
-            return;
-    }
-    document.getElementById("overlay").style.display = "block";
-}
-
 function openPage(n) {
     switch (n) {
         case 1:
-            window.location.href = 'township.php';
+            window.location.href = '../RecordsDisplay/township.php';
             break;
         case 2:
-            window.location.href = 'memorial.php';
+            window.location.href = '../RecordsDisplay/memorial.php';
             break;
         case 3:
-            window.location.href = 'buried.php';
+            window.location.href = '../RecordsDisplay/buried.php';
             break;
         case 4:
-            window.location.href = 'newspaper.php';
+            window.location.href = '../RecordsDisplay/newspaper.php';
             break;
         case 5:
-            window.location.href = 'biographies.php';
+            window.location.href = '../RecordsDisplay/biographies.php';
             break;
         default:
-            alert("Invalid about section id: "+n);
             return;
     }
+}
+
+function logout() {
+    fetch('../../Global/logout.php', {
+        method: 'POST'
+    }).then(() => {
+        window.location.href = '../../LoginPage/login.php';
+    });
 }
 
 window.onload = function() {
@@ -56,7 +39,7 @@ window.onload = function() {
     
     sec1.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec1").innerHTML; // Hovering replaces the description box
-        img.style.backgroundImage = "url('../rsc/township.jpg')";
+        img.style.backgroundImage = "url('../../Resource/Images/township.jpg')";
     }
     sec1.onclick = function() {
         openPage(1); // Redirect to township.php
@@ -65,7 +48,7 @@ window.onload = function() {
     
     sec2.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec2").innerHTML;
-        img.style.backgroundImage = "url('../rsc/memorial.jpg')";
+        img.style.backgroundImage = "url('../../Resource/Images/memorial.jpg')";
     }
     sec2.onclick = function() {
         openPage(2); // Redirect to memorial.php
@@ -74,7 +57,7 @@ window.onload = function() {
     
     sec3.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec3").innerHTML;
-        img.style.backgroundImage = "url('../rsc/buried.jpg')";
+        img.style.backgroundImage = "url('../../Resource/Images/buried.jpg')";
     }
     sec3.onclick = function() {
         openPage(3); // Redirect to burials.php
@@ -83,7 +66,7 @@ window.onload = function() {
     
     sec4.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec4").innerHTML;
-        img.style.backgroundImage = "url('../rsc/newspaper.jpg')";
+        img.style.backgroundImage = "url('../../Resource/Images/newspaper.jpg')";
     }
     sec4.onclick = function() {
         openPage(4); // Redirect to newspaper.php
@@ -92,7 +75,7 @@ window.onload = function() {
     
     sec5.onmouseover = function() {
         desc.innerHTML = document.getElementById("sec5").innerHTML;
-        img.style.backgroundImage = "url('../rsc/biography.jpg')";
+        img.style.backgroundImage = "url('../../Resource/Images/biography.jpg')";
     }
     sec5.onclick = function() {
         openPage(5); // Redirect to biographies.php

@@ -1,15 +1,10 @@
 <?php
-<<<<<<< Updated upstream
+// admin authentication check
+require '../php_html/admin_auth_check.php';
 // connect to the database
 require 'db_connect.php';
 
 // Get used for search
-=======
-// Include the database connection
-require 'db_connect.php';
-
-// Get search parameters and current page
->>>>>>> Stashed changes
 $surname = $_GET['surname'] ?? '';
 $forename = $_GET['forename'] ?? '';
 $regiment = $_GET['regiment'] ?? '';
@@ -18,11 +13,7 @@ $records_per_page = 10;
 
 $offset = ($page - 1) * $records_per_page;
 
-<<<<<<< Updated upstream
 //query for search
-=======
-// Build the query with search parameters
->>>>>>> Stashed changes
 $query = "SELECT * FROM biographyinfo WHERE 1=1";
 $params = [];
 
@@ -73,11 +64,7 @@ if (!empty($regiment)) {
 
 $total_stmt = $mysqli->prepare($total_query);
 
-<<<<<<< Updated upstream
 // create the bind_param string for total query
-=======
-// Dynamically create the bind_param string for total query
->>>>>>> Stashed changes
 $total_bind_types = str_repeat('s', count($total_params));
 if (!empty($total_params)) {
     $total_stmt->bind_param($total_bind_types, ...$total_params);
@@ -316,41 +303,25 @@ $total_pages = ceil($total_results / $records_per_page);
         // Admin panel toggle
         const adminPanelToggle = document.getElementById('adminPanelToggle');
         
-<<<<<<< Updated upstream
         // Open create record 
-=======
-        // Open create record modal
->>>>>>> Stashed changes
         createRecordBtn.addEventListener('click', () => {
             createRecordModal.style.display = 'block';
             overlay.classList.add('active');
         });
         
-<<<<<<< Updated upstream
         // Close create record 
-=======
-        // Close create record modal
->>>>>>> Stashed changes
         closeCreateModal.addEventListener('click', () => {
             createRecordModal.style.display = 'none';
             overlay.classList.remove('active');
         });
         
-<<<<<<< Updated upstream
         // Close edit record 
-=======
-        // Close edit record modal
->>>>>>> Stashed changes
         closeEditModal.addEventListener('click', () => {
             editRecordModal.style.display = 'none';
             overlay.classList.remove('active');
         });
         
-<<<<<<< Updated upstream
         // Close delete confirmation 
-=======
-        // Close delete confirmation modal
->>>>>>> Stashed changes
         closeDeleteModal.addEventListener('click', () => {
             deleteConfirmModal.style.display = 'none';
             overlay.classList.remove('active');

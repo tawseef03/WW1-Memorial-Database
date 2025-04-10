@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'Kameron';
-    src: url(../fonts/Kameron.ttf)
+    src: url(../Resource/Fonts/Kameron.ttf)
 }
 @font-face {
     font-family: 'Raleway';
-    src: url(../fonts/Raleway.ttf);
+    src: url(../Resource/Fonts/Raleway.ttf);
 }
 
 /* General Reset */

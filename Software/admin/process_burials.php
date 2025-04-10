@@ -3,33 +3,54 @@
 // Include the database connection
 require 'db_connect.php';
 
-// Check if the form is submitted
+// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';
     
     // Create a new record
     if ($action == 'create') {
+        // Get all the fields from the form
         $surname = $_POST['surname'] ?? '';
         $forename = $_POST['forename'] ?? '';
-        $age = $_POST['age'] ?? '';
-        $medals = $_POST['medals'] ?? '';
+        $dob = $_POST['dob'] ?? null;
         $date_of_death = $_POST['date_of_death'] ?? '';
         $rank = $_POST['rank'] ?? '';
-        $service_number = $_POST['service_number'] ?? '';
+        $service_no = $_POST['service_no'] ?? '';
         $regiment = $_POST['regiment'] ?? '';
-        $unit = $_POST['unit'] ?? '';
+        $battalion = $_POST['battalion'] ?? '';
         $cemetery = $_POST['cemetery'] ?? '';
-        $grave_reference = $_POST['grave_reference'] ?? '';
-        $information = $_POST['information'] ?? '';
+        $grave_ref = $_POST['grave_ref'] ?? '';
         
-        // Prepare and execute the query with prepared statements
-        $query = "INSERT INTO burials (Surname, Forename, Age, Medals, `Date of Death`, Rank, `Service Number`, 
-                  Regiment, Unit, Cemetery, `Grave Reference`, Information) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // Create query - use prepared statement
+        $query = "INSERT INTO buried (
+            Surname, 
+            Forename, 
+            DoB, 
+            `Date of Death`, 
+            Rank, 
+            `Service No`, 
+            Regiment, 
+            Battalion, 
+            Cemetary, 
+            `Grave Ref`
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
+        // Prepare statement
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('ssissssissss', $surname, $forename, $age, $medals, $date_of_death, $rank, $service_number, 
-                          $regiment, $unit, $cemetery, $grave_reference, $information);
+        
+        // Bind parameters
+        $stmt->bind_param("ssssssssss", 
+            $surname, 
+            $forename, 
+            $dob, 
+            $date_of_death, 
+            $rank, 
+            $service_no, 
+            $regiment, 
+            $battalion, 
+            $cemetery, 
+            $grave_ref
+        );
         
         // Execute query
         if ($stmt->execute()) {
@@ -38,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Redirect back with error message
-            header("Location: AdminBurials.php?error=Error creating record: " . $mysqli->error);
+            header("Location: AdminBurials.php?error=Error creating record: " . $stmt->error);
             exit();
         }
     }
@@ -48,36 +69,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $record_id = $_POST['record_id'] ?? '';
         $surname = $_POST['surname'] ?? '';
         $forename = $_POST['forename'] ?? '';
-        $age = $_POST['age'] ?? '';
-        $medals = $_POST['medals'] ?? '';
+        $dob = $_POST['dob'] ?? null;
         $date_of_death = $_POST['date_of_death'] ?? '';
         $rank = $_POST['rank'] ?? '';
-        $service_number = $_POST['service_number'] ?? '';
+        $service_no = $_POST['service_no'] ?? '';
         $regiment = $_POST['regiment'] ?? '';
-        $unit = $_POST['unit'] ?? '';
+        $battalion = $_POST['battalion'] ?? '';
         $cemetery = $_POST['cemetery'] ?? '';
-        $grave_reference = $_POST['grave_reference'] ?? '';
-        $information = $_POST['information'] ?? '';
+        $grave_ref = $_POST['grave_ref'] ?? '';
         
-        // Prepare and execute the query with prepared statements
-        $query = "UPDATE burials SET 
-                 Surname = ?, 
-                 Forename = ?, 
-                 Age = ?, 
-                 Medals = ?, 
-                 `Date of Death` = ?, 
-                 Rank = ?, 
-                 `Service Number` = ?, 
-                 Regiment = ?, 
-                 Unit = ?, 
-                 Cemetery = ?, 
-                 `Grave Reference` = ?, 
-                 Information = ? 
-                 WHERE BurialID = ?";
+        // Update query
+        $query = "UPDATE buried SET 
+            Surname = ?, 
+            Forename = ?, 
+            DoB = ?, 
+            `Date of Death` = ?, 
+            Rank = ?, 
+            `Service No` = ?, 
+            Regiment = ?, 
+            Battalion = ?, 
+            Cemetary = ?, 
+            `Grave Ref` = ?
+            WHERE BuriedID = ?";
         
+        // Prepare statement
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('ssissssissssi', $surname, $forename, $age, $medals, $date_of_death, $rank, $service_number, 
-                          $regiment, $unit, $cemetery, $grave_reference, $information, $record_id);
+        
+        // Bind parameters
+        $stmt->bind_param("ssssssssssi", 
+            $surname, 
+            $forename, 
+            $dob, 
+            $date_of_death, 
+            $rank, 
+            $service_no, 
+            $regiment, 
+            $battalion, 
+            $cemetery, 
+            $grave_ref, 
+            $record_id
+        );
         
         // Execute query
         if ($stmt->execute()) {
@@ -86,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Redirect back with error message
-            header("Location: AdminBurials.php?error=Error updating record: " . $mysqli->error);
+            header("Location: AdminBurials.php?error=Error updating record: " . $stmt->error);
             exit();
         }
     }
@@ -95,11 +126,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     else if ($action == 'delete') {
         $record_id = $_POST['record_id'] ?? '';
         
-        // Prepare and execute the query with prepared statements
-        $query = "DELETE FROM burials WHERE BurialID = ?";
+        // Delete query
+        $query = "DELETE FROM buried WHERE BuriedID = ?";
         
+        // Prepare statement
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('i', $record_id);
+        
+        // Bind parameter
+        $stmt->bind_param("i", $record_id);
         
         // Execute query
         if ($stmt->execute()) {
@@ -108,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Redirect back with error message
-            header("Location: AdminBurials.php?error=Error deleting record: " . $mysqli->error);
+            header("Location: AdminBurials.php?error=Error deleting record: " . $stmt->error);
             exit();
         }
     }

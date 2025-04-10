@@ -3,29 +3,29 @@
 require 'db_connect.php';
 
 // Get search parameters and current page
-$cemetery = $_GET['cemetery'] ?? '';
-$location = $_GET['location'] ?? '';
-$grave_number = $_GET['grave_number'] ?? '';
+$surname = $_GET['surname'] ?? '';
+$forename = $_GET['forename'] ?? '';
+$regiment = $_GET['regiment'] ?? '';
 $page = $_GET['page'] ?? 1;
 $records_per_page = 10;
 
 $offset = ($page - 1) * $records_per_page;
 
 // Build the query with search parameters
-$query = "SELECT * FROM burialinfo WHERE 1=1";
+$query = "SELECT * FROM buried WHERE 1=1";
 $params = [];
 
-if (!empty($cemetery)) {
-    $query .= " AND Cemetery LIKE ?";
-    $params[] = "%$cemetery%";
+if (!empty($surname)) {
+    $query .= " AND Surname LIKE ?";
+    $params[] = "%$surname%";
 }
-if (!empty($location)) {
-    $query .= " AND Location LIKE ?";
-    $params[] = "%$location%";
+if (!empty($forename)) {
+    $query .= " AND Forename LIKE ?";
+    $params[] = "%$forename%";
 }
-if (!empty($grave_number)) {
-    $query .= " AND GraveNumber LIKE ?";
-    $params[] = "%$grave_number%";
+if (!empty($regiment)) {
+    $query .= " AND Regiment LIKE ?";
+    $params[] = "%$regiment%";
 }
 
 // Apply the limit and offset for pagination
@@ -37,27 +37,27 @@ $params[] = $offset;
 $stmt = $mysqli->prepare($query);
 
 // Dynamically create the bind_param string
-$bind_types = str_repeat('s', count($params));
+$bind_types = str_repeat('s', count($params) - 2) . "ii";
 $stmt->bind_param($bind_types, ...$params);
 
 $stmt->execute();
 $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the total number of records for pagination calculation
-$total_query = "SELECT COUNT(*) FROM burialinfo WHERE 1=1";
+$total_query = "SELECT COUNT(*) FROM buried WHERE 1=1";
 $total_params = [];
 
-if (!empty($cemetery)) {
-    $total_query .= " AND Cemetery LIKE ?";
-    $total_params[] = "%$cemetery%";
+if (!empty($surname)) {
+    $total_query .= " AND Surname LIKE ?";
+    $total_params[] = "%$surname%";
 }
-if (!empty($location)) {
-    $total_query .= " AND Location LIKE ?";
-    $total_params[] = "%$location%";
+if (!empty($forename)) {
+    $total_query .= " AND Forename LIKE ?";
+    $total_params[] = "%$forename%";
 }
-if (!empty($grave_number)) {
-    $total_query .= " AND GraveNumber LIKE ?";
-    $total_params[] = "%$grave_number%";
+if (!empty($regiment)) {
+    $total_query .= " AND Regiment LIKE ?";
+    $total_params[] = "%$regiment%";
 }
 
 $total_stmt = $mysqli->prepare($total_query);
@@ -100,18 +100,18 @@ $total_pages = ceil($total_results / $records_per_page);
             <h3>Search Criteria</h3>
             <form id="searchForm" method="get">
                 <div class="form-group">
-                    <label for="cemetery">Cemetery:</label>
-                    <input type="text" id="cemetery" name="cemetery" placeholder="Enter cemetery..." value="<?php echo htmlspecialchars($cemetery); ?>">
+                    <label for="surname">Surname:</label>
+                    <input type="text" id="surname" name="surname" placeholder="Enter surname..." value="<?php echo htmlspecialchars($surname); ?>">
                 </div>
                 
                 <div class="form-group">
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location" placeholder="Enter location..." value="<?php echo htmlspecialchars($location); ?>">
+                    <label for="forename">Forename:</label>
+                    <input type="text" id="forename" name="forename" placeholder="Enter forename..." value="<?php echo htmlspecialchars($forename); ?>">
                 </div>
                 
                 <div class="form-group">
-                    <label for="grave_number">Grave Number:</label>
-                    <input type="text" id="grave_number" name="grave_number" placeholder="Enter grave number..." value="<?php echo htmlspecialchars($grave_number); ?>">
+                    <label for="regiment">Regiment:</label>
+                    <input type="text" id="regiment" name="regiment" placeholder="Enter regiment..." value="<?php echo htmlspecialchars($regiment); ?>">
                 </div>
                 
                 <div class="form-buttons">
@@ -139,26 +139,36 @@ $total_pages = ceil($total_results / $records_per_page);
                     } else {
                         echo "<table class='records-table'>";
                         echo "<thead><tr>
-                            <th>Cemetery</th>
-                            <th>Location</th>
-                            <th>Grave Number</th>
-                            <th>Details</th>
+                            <th>Surname</th>
+                            <th>Forename</th>
+                            <th>Date of Birth</th>
+                            <th>Date of Death</th>
+                            <th>Rank</th>
+                            <th>Service No</th>
                             <th>Actions</th>
                         </tr></thead><tbody>";
                         
                         foreach ($results as $row) {
                             echo "<tr>";
-                            echo "<td>" . htmlspecialchars($row['Cemetery']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['Location']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['GraveNumber']) . "</td>";
-                            echo "<td><a href='" . htmlspecialchars($row['Details']) . "' target='_blank'>View</a></td>";
+                            echo "<td>" . htmlspecialchars($row['Surname']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Forename']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['DoB']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Date of Death']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Rank']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Service No']) . "</td>";
                             echo "<td class='action-buttons'>
-                                <button class='edit-btn' data-id='" . $row['BurialID'] . "' 
-                                data-cemetery='" . htmlspecialchars($row['Cemetery']) . "' 
-                                data-location='" . htmlspecialchars($row['Location']) . "' 
-                                data-grave-number='" . htmlspecialchars($row['GraveNumber']) . "' 
-                                data-details='" . htmlspecialchars($row['Details']) . "'>Edit</button>
-                                <button class='delete-btn' data-id='" . $row['BurialID'] . "'>Delete</button>
+                                <button class='edit-btn' data-id='" . $row['BuriedID'] . "' 
+                                data-surname='" . htmlspecialchars($row['Surname']) . "' 
+                                data-forename='" . htmlspecialchars($row['Forename']) . "' 
+                                data-dob='" . htmlspecialchars($row['DoB']) . "' 
+                                data-date_of_death='" . htmlspecialchars($row['Date of Death']) . "' 
+                                data-rank='" . htmlspecialchars($row['Rank']) . "' 
+                                data-service_no='" . htmlspecialchars($row['Service No']) . "' 
+                                data-regiment='" . htmlspecialchars($row['Regiment']) . "' 
+                                data-battalion='" . htmlspecialchars($row['Battalion']) . "' 
+                                data-cemetery='" . htmlspecialchars($row['Cemetary']) . "' 
+                                data-grave_ref='" . htmlspecialchars($row['Grave Ref']) . "'>Edit</button>
+                                <button class='delete-btn' data-id='" . $row['BuriedID'] . "'>Delete</button>
                             </td>";
                             echo "</tr>";
                         }
@@ -171,13 +181,13 @@ $total_pages = ceil($total_results / $records_per_page);
                 <!-- Pagination buttons -->
                 <div class="pagination">
                     <?php if ($page > 1): ?>
-                        <a href="?cemetery=<?php echo urlencode($cemetery); ?>&location=<?php echo urlencode($location); ?>&grave_number=<?php echo urlencode($grave_number); ?>&page=<?php echo $page - 1; ?>">Previous</a>
+                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page - 1; ?>">Previous</a>
                     <?php endif; ?>
                     
                     <span id="pageInfo">Page <?php echo $page; ?> of <?php echo $total_pages; ?></span>
                     
                     <?php if ($page < $total_pages): ?>
-                        <a href="?cemetery=<?php echo urlencode($cemetery); ?>&location=<?php echo urlencode($location); ?>&grave_number=<?php echo urlencode($grave_number); ?>&page=<?php echo $page + 1; ?>">Next</a>
+                        <a href="?surname=<?php echo urlencode($surname); ?>&forename=<?php echo urlencode($forename); ?>&regiment=<?php echo urlencode($regiment); ?>&page=<?php echo $page + 1; ?>">Next</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -194,13 +204,220 @@ $total_pages = ceil($total_results / $records_per_page);
             <?php echo htmlspecialchars($_GET['error']); ?>
         </div>
     <?php endif; ?>
+ <!-- Create Record Modal -->
+<div class="modal" id="createRecordModal">
+    <div class="modal-content">
+        <button class="close-btn" id="closeCreateModal">×</button>
+        <h2>Create New Burial Record</h2>
+        <form id="createRecordForm" action="process_burials.php" method="POST">
+            <input type="hidden" name="action" value="create">
+            
+            <div class="form-group">
+                <label for="create_surname">Surname:</label>
+                <input type="text" id="create_surname" name="surname" required>
+            </div>
+            <div class="form-group">
+                <label for="create_forename">Forename:</label>
+                <input type="text" id="create_forename" name="forename" required>
+            </div>
+            <div class="form-group">
+                <label for="create_dob">Date of Birth:</label>
+                <input type="date" id="create_dob" name="dob">
+            </div>
+            <div class="form-group">
+                <label for="create_date_of_death">Date of Death:</label>
+                <input type="date" id="create_date_of_death" name="date_of_death">
+            </div>
+            <div class="form-group">
+                <label for="create_rank">Rank:</label>
+                <input type="text" id="create_rank" name="rank">
+            </div>
+            <div class="form-group">
+                <label for="create_service_no">Service No:</label>
+                <input type="text" id="create_service_no" name="service_no">
+            </div>
+            <div class="form-group">
+                <label for="create_regiment">Regiment:</label>
+                <input type="text" id="create_regiment" name="regiment">
+            </div>
+            <div class="form-group">
+                <label for="create_battalion">Battalion:</label>
+                <input type="text" id="create_battalion" name="battalion">
+            </div>
+            <div class="form-group">
+                <label for="create_cemetery">Cemetery:</label>
+                <input type="text" id="create_cemetery" name="cemetery">
+            </div>
+            <div class="form-group">
+                <label for="create_grave_ref">Grave Ref:</label>
+                <input type="text" id="create_grave_ref" name="grave_ref">
+            </div>
+            
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Create Record</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <!-- Create, Edit, Delete Modals (similar to AdminBiographies.php) -->
-    <!-- Add JavaScript for modal handling -->
+<!-- Edit Record Modal -->
+<div class="modal" id="editRecordModal">
+    <div class="modal-content">
+        <button class="close-btn" id="closeEditModal">×</button>
+        <h2>Edit Burial Record</h2>
+        <form id="editRecordForm" action="process_burials.php" method="POST">
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" id="edit_record_id" name="record_id">
+            
+            <div class="form-group">
+                <label for="edit_surname">Surname:</label>
+                <input type="text" id="edit_surname" name="surname" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_forename">Forename:</label>
+                <input type="text" id="edit_forename" name="forename" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_dob">Date of Birth:</label>
+                <input type="date" id="edit_dob" name="dob">
+            </div>
+            <div class="form-group">
+                <label for="edit_date_of_death">Date of Death:</label>
+                <input type="date" id="edit_date_of_death" name="date_of_death">
+            </div>
+            <div class="form-group">
+                <label for="edit_rank">Rank:</label>
+                <input type="text" id="edit_rank" name="rank">
+            </div>
+            <div class="form-group">
+                <label for="edit_service_no">Service No:</label>
+                <input type="text" id="edit_service_no" name="service_no">
+            </div>
+            <div class="form-group">
+                <label for="edit_regiment">Regiment:</label>
+                <input type="text" id="edit_regiment" name="regiment">
+            </div>
+            <div class="form-group">
+                <label for="edit_battalion">Battalion:</label>
+                <input type="text" id="edit_battalion" name="battalion">
+            </div>
+            <div class="form-group">
+                <label for="edit_cemetery">Cemetery:</label>
+                <input type="text" id="edit_cemetery" name="cemetery">
+            </div>
+            <div class="form-group">
+                <label for="edit_grave_ref">Grave Ref:</label>
+                <input type="text" id="edit_grave_ref" name="grave_ref">
+            </div>
+            
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Update Record</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal" id="deleteConfirmModal">
+    <div class="modal-content">
+        <button class="close-btn" id="closeDeleteModal">×</button>
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete this record? This action cannot be undone.</p>
+        <form id="deleteRecordForm" action="process_burials.php" method="POST">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" id="delete_record_id" name="record_id">
+            <div class="form-buttons">
+                <button type="button" id="cancelDelete" class="cancel-btn">Cancel</button>
+                <button type="submit" class="delete-confirm-btn">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Similar modal handling as in AdminBiographies.php
+        // Modal elements
+        const createRecordModal = document.getElementById('createRecordModal');
+        const closeCreateModal = document.getElementById('closeCreateModal');
+        const editRecordModal = document.getElementById('editRecordModal');
+        const closeEditModal = document.getElementById('closeEditModal');
+        const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+        const closeDeleteModal = document.getElementById('closeDeleteModal');
+        const cancelDelete = document.getElementById('cancelDelete');
+        const createRecordBtn = document.getElementById('createRecordBtn');
+        
+        // Open create record modal
+        createRecordBtn.addEventListener('click', () => {
+            createRecordModal.style.display = 'block';
+        });
+        
+        // Close create record modal
+        closeCreateModal.addEventListener('click', () => {
+            createRecordModal.style.display = 'none';
+        });
+        
+        // Close edit record modal
+        closeEditModal.addEventListener('click', () => {
+            editRecordModal.style.display = 'none';
+        });
+        
+        // Close delete confirmation modal
+        closeDeleteModal.addEventListener('click', () => {
+            deleteConfirmModal.style.display = 'none';
+        });
+        
+        // Cancel delete
+        cancelDelete.addEventListener('click', () => {
+            deleteConfirmModal.style.display = 'none';
+        });
+        
+        // Edit button click handlers
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Fill the edit form with the data attributes
+                document.getElementById('edit_record_id').value = this.getAttribute('data-id');
+                document.getElementById('edit_surname').value = this.getAttribute('data-surname');
+                document.getElementById('edit_forename').value = this.getAttribute('data-forename');
+                document.getElementById('edit_dob').value = this.getAttribute('data-dob');
+                document.getElementById('edit_date_of_death').value = this.getAttribute('data-date_of_death');
+                document.getElementById('edit_rank').value = this.getAttribute('data-rank');
+                document.getElementById('edit_service_no').value = this.getAttribute('data-service_no');
+                document.getElementById('edit_regiment').value = this.getAttribute('data-regiment');
+                document.getElementById('edit_battalion').value = this.getAttribute('data-battalion');
+                document.getElementById('edit_cemetery').value = this.getAttribute('data-cemetery');
+                document.getElementById('edit_grave_ref').value = this.getAttribute('data-grave_ref');
+                
+                // Show the edit modal
+                editRecordModal.style.display = 'block';
+            });
+        });
+        
+        // Delete button click handlers
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('delete_record_id').value = this.getAttribute('data-id');
+                deleteConfirmModal.style.display = 'block';
+            });
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === createRecordModal) {
+                createRecordModal.style.display = 'none';
+            }
+            if (event.target === editRecordModal) {
+                editRecordModal.style.display = 'none';
+            }
+            if (event.target === deleteConfirmModal) {
+                deleteConfirmModal.style.display = 'none';
+            }
+        });
+        
+        // Handle search button click
+        document.getElementById('searchButton').addEventListener('click', function() {
+            document.getElementById('searchForm').submit();
+        });
     });
-    </script>
+</script>
 </body>
 </html>

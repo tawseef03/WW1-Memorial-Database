@@ -1,14 +1,15 @@
-<!-- filepath: c:\Users\28341\Desktop\ww1code\WW1-Memorial-Database\Software\admin\process_newspaper.php -->
+<!-- filepath: c:\Users\28341\Desktop\ww1code\WW1-Memorial-Database\Software\admin\process_burials.php -->
 <?php
 // Include the database connection
 require 'db_connect.php';
 
-// Check if the form is submitted
+// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';
     
     // Create a new record
     if ($action == 'create') {
+        // Get all the fields from the form
         $surname = $_POST['surname'] ?? '';
         $forename = $_POST['forename'] ?? '';
         $rank = $_POST['rank'] ?? '';
@@ -19,16 +20,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $newspaper_name = $_POST['newspaper_name'] ?? '';
         $paper_date = $_POST['paper_date'] ?? '';
         $page_col = $_POST['page_col'] ?? '';
-        $photo_incl = $_POST['photo_incl'] ?? '0';
+        $photo_incl = $_POST['photo_incl'] ?? '';
         
-        // Prepare and execute the query with prepared statements
-        $query = "INSERT INTO newspapers (Surname, Forename, Rank, Address, Regiment, Unit, `Article Description`, 
-                  `Newspaper Name`, `Paper Date`, `Page/Col`, `Photo incl.`) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // Create query - use prepared statement
+        $query = "INSERT INTO newspapers (
+            Surname, 
+            Forename, 
+            Rank, 
+            Address, 
+            Regiment, 
+            Unit, 
+            `Article Description`, 
+            `Newspaper Name`, 
+            `Paper Date`, 
+            `Page/Col`, 
+            `Photo incl.`
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
+        // Prepare statement
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('ssssssssssi', $surname, $forename, $rank, $address, $regiment, $unit, 
-                          $article_description, $newspaper_name, $paper_date, $page_col, $photo_incl);
+        
+        // Bind parameters
+        $stmt->bind_param("sssssssssss", 
+            $surname, 
+            $forename, 
+            $rank, 
+            $address, 
+            $regiment, 
+            $unit, 
+            $article_description, 
+            $newspaper_name, 
+            $paper_date, 
+            $page_col, 
+            $photo_incl
+        );
+        
         
         // Execute query
         if ($stmt->execute()) {
@@ -37,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Redirect back with error message
-            header("Location: AdminNewspaper.php?error=Error creating record: " . $mysqli->error);
+            header("Location: AdminNewspaper.php?error=Error creating record: " . $stmt->error);
             exit();
         }
     }
@@ -55,26 +81,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $newspaper_name = $_POST['newspaper_name'] ?? '';
         $paper_date = $_POST['paper_date'] ?? '';
         $page_col = $_POST['page_col'] ?? '';
-        $photo_incl = $_POST['photo_incl'] ?? '0';
+        $photo_incl = $_POST['photo_incl'] ?? '';
         
-        // Prepare and execute the query with prepared statements
+        // Update query
         $query = "UPDATE newspapers SET 
-                 Surname = ?, 
-                 Forename = ?, 
-                 Rank = ?, 
-                 Address = ?, 
-                 Regiment = ?, 
-                 Unit = ?, 
-                 `Article Description` = ?, 
-                 `Newspaper Name` = ?, 
-                 `Paper Date` = ?, 
-                 `Page/Col` = ?, 
-                 `Photo incl.` = ? 
-                 WHERE NewspaperID = ?";
+        Surname = ?, 
+        Forename = ?, 
+        Rank = ?, 
+        Address = ?, 
+        Regiment = ?, 
+        Unit = ?, 
+        `Article Description` = ?, 
+        `Newspaper Name` = ?, 
+        `Paper Date` = ?, 
+        `Page/Col` = ?, 
+        `Photo incl.` = ?
+        WHERE NewspaperID = ?";
         
+        // Prepare statement
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('ssssssssssii', $surname, $forename, $rank, $address, $regiment, $unit, 
-                          $article_description, $newspaper_name, $paper_date, $page_col, $photo_incl, $record_id);
+        
+        // Bind parameters
+        $stmt->bind_param("sssssssssssi", 
+        $surname, 
+        $forename, 
+        $rank, 
+        $address, 
+        $regiment, 
+        $unit, 
+        $article_description, 
+        $newspaper_name, 
+        $paper_date, 
+        $page_col, 
+        $photo_incl, 
+        $record_id
+    );
         
         // Execute query
         if ($stmt->execute()) {
@@ -83,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Redirect back with error message
-            header("Location: AdminNewspaper.php?error=Error updating record: " . $mysqli->error);
+            header("Location: AdminNewspaper.php?error=Error updating record: " . $stmt->error);
             exit();
         }
     }
@@ -92,11 +133,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     else if ($action == 'delete') {
         $record_id = $_POST['record_id'] ?? '';
         
-        // Prepare and execute the query with prepared statements
+        // Delete query
         $query = "DELETE FROM newspapers WHERE NewspaperID = ?";
         
+        // Prepare statement
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('i', $record_id);
+        
+        // Bind parameter
+        $stmt->bind_param("i", $record_id);
         
         // Execute query
         if ($stmt->execute()) {
@@ -105,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Redirect back with error message
-            header("Location: AdminNewspaper.php?error=Error deleting record: " . $mysqli->error);
+            header("Location: AdminNewspaper.php?error=Error deleting record: " . $stmt->error);
             exit();
         }
     }

@@ -1,6 +1,6 @@
 <?php
-require_once 'auth_check.php';
-require 'db_connect.php';
+require_once '../../Global/auth_check.php';
+require '../../Global/db_connect.php';
 
 function getCount($mysqli, $table) {
     $sql = "SELECT COUNT(*) AS total FROM $table";
@@ -48,18 +48,18 @@ $townshipabout .= '#toolbar=0';
     <!-- Page title -->
     <title>Database</title>
     <!-- Set page favicon -->
-    <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
     <!-- Link to external stylesheet -->
-    <link rel="stylesheet" href="../css/userSection.css">
+    <link rel="stylesheet" href="userSection.css">
     <!-- Link to external JavaScript file -->
-    <script src="../js/userSection.js"></script>
+    <script src="userSection.js"></script>
 </head>
 <body>
     <!-- Navigation bar -->
     <div class="navbar">
         <!-- Website logo -->
         <div class="logo">
-            <img src="../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <!-- Page title -->
         <div class="title">
@@ -67,7 +67,7 @@ $townshipabout .= '#toolbar=0';
         </div>
         <!-- Navigation buttons -->
         <div class="navbuttons">
-            <button type="button" onclick="window.location.href='login.html'">Exit</button>
+            <button type="button" onclick="logout()">Exit</button>
         </div>
     </div>
 
