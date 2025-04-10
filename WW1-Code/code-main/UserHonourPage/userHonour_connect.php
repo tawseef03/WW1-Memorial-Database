@@ -1,0 +1,162 @@
+<?php
+require_once '../db_config.php';
+
+header('Content-Type: application/json');
+
+try {
+    $conn = new mysqli(
+        $dbConfig['host'],
+        $dbConfig['username'],
+        $dbConfig['password'],
+        $dbConfig['dbname']
+    );
+    
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+
+    // 获取数据库统计信息
+    $stats = [
+        'total_records' => 0,
+        'last_update' => '',
+        'database_size' => ''
+    ];
+
+    // 获取记录总数
+    $result = $conn->query("SELECT COUNT(*) as count FROM honour");
+    if ($result) {
+        $stats['total_records'] = $result->fetch_assoc()['count'];
+    }
+
+    // 获取最后更新时间
+    $result = $conn->query("SELECT UPDATE_TIME FROM information_schema.tables 
+                           WHERE TABLE_SCHEMA = '{$dbConfig['dbname']}' 
+                           AND TABLE_NAME = 'honour'");
+    if ($result) {
+        $row = $result->fetch_assoc();
+        $stats['last_update'] = $row['UPDATE_TIME'] ?? 'Unknown';
+    }
+
+    // 获取搜索参数
+    $surname = isset($_POST['surname']) ? trim($_POST['surname']) : '';
+    $forename = isset($_POST['forename']) ? trim($_POST['forename']) : '';
+    $regiment = isset($_POST['regiment']) ? trim($_POST['regiment']) : '';
+    $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
+    $limit = 10;
+    $offset = ($page - 1) * $limit;
+
+    // 构建搜索条件
+    $where_conditions = [];
+    $params = [];
+    $types = '';
+
+    if (!empty($surname)) {
+        $where_conditions[] = "Surname LIKE ?";
+        $params[] = "%$surname%";
+        $types .= 's';
+    }
+    if (!empty($forename)) {
+        $where_conditions[] = "Forename LIKE ?";
+        $params[] = "%$forename%";
+        $types .= 's';
+    }
+    if (!empty($regiment)) {
+        $where_conditions[] = "Regiment LIKE ?";
+        $params[] = "%$regiment%";
+        $types .= 's';
+    }
+
+    // 构建完整的 SQL 查询
+    $sql = "SELECT 
+            HonourID,
+            Surname,
+            Forename,
+            Address,
+            `Electoral Ward`,
+            Town,
+            Rank,
+            Regiment,
+            Unit,
+            Company,
+            Age,
+            `Service No`,
+            `Other Regiment`,
+            `Other Unit`,
+            `Other Service No.`,
+            Medals,
+            `Enlistment Date`,
+            `Discharge Date`,
+            `Death (in service) Date`,
+            `Misc Info Nroh`,
+            `Cemetery/Memorial`,
+            `Cemetery/Memorial Ref`,
+            `Cemetery/Memorial Country`,
+            `Additional CWCG Info`
+            FROM honour";
+
+    if (!empty($where_conditions)) {
+        $sql .= " WHERE " . implode(" AND ", $where_conditions);
+    }
+
+    $sql .= " ORDER BY Surname, Forename LIMIT ?, ?";
+    $types .= 'ii';
+    $params[] = $offset;
+    $params[] = $limit;
+
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        throw new Exception("准备SQL语句失败: " . $conn->error);
+    }
+
+    if (!empty($params)) {
+        $stmt->bind_param($types, ...$params);
+    }
+
+    if (!$stmt->execute()) {
+        throw new Exception("执行查询失败: " . $stmt->error);
+    }
+
+    $result = $stmt->get_result();
+    if ($result === false) {
+        throw new Exception("获取结果失败: " . $stmt->error);
+    }
+
+    $records = $result->fetch_all(MYSQLI_ASSOC);
+
+    // 计算总页数
+    $count_sql = "SELECT COUNT(*) as total FROM honour";
+    if (!empty($where_conditions)) {
+        $count_sql .= " WHERE " . implode(" AND ", $where_conditions);
+    }
+    
+    $count_stmt = $conn->prepare($count_sql);
+    if (!empty($params)) {
+        array_pop($params); // 移除 LIMIT 参数
+        array_pop($params);
+        if (!empty($params)) {
+            $count_stmt->bind_param(substr($types, 0, -2), ...$params);
+        }
+    }
+    
+    $count_stmt->execute();
+    $total = $count_stmt->get_result()->fetch_assoc()['total'];
+
+    echo json_encode([
+        'success' => true,
+        'records' => $records,
+        'total' => $total,
+        'page' => $page,
+        'pages' => ceil($total / $limit),
+        'stats' => $stats
+    ]);
+
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ]);
+} finally {
+    if (isset($count_stmt)) $count_stmt->close();
+    if (isset($stmt)) $stmt->close();
+    if (isset($conn)) $conn->close();
+}

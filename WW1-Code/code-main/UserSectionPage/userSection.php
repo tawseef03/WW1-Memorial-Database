@@ -1,0 +1,84 @@
+<?php
+require_once 'auth_check.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Set character encoding to UTF-8 -->
+    <meta charset="UTF-8">
+    <!-- Set viewport for proper scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title -->
+    <title>Database</title>
+    <!-- Set page favicon -->
+    <link rel="icon" type="image/x-icon" href="../../rsc/WebLogo.png">
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="userSection.css">
+    <!-- Link to external JavaScript file -->
+    <script src="userSection.js"></script>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <!-- Website logo -->
+        <div class="logo">
+            <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
+        </div>
+        <!-- Page title -->
+        <div class="title">
+            Sections
+        </div>
+        <!-- Navigation buttons -->
+        <div class="navbuttons">
+            <button type="button" onclick="window.location.href='../logout.php?redirect=welcome'">Home</button>
+            <button type="button" onclick="window.location.href='/WW1-Memorial-Database-总/code-main/logout.php'">Logout</button>
+            <button type="button">About</button>
+        </div>
+    </div>
+
+    <!-- Main content area -->
+    <div class="view">
+        <!-- Description section -->
+        <div class="description">
+            <div id="description" class="description"></div>
+        </div>
+        <!-- Sections area -->
+        <div class="sections">
+            <div id="section1" class="section"></div>
+            <div id="section2" class="section"></div>
+            <div id="section3" class="section"></div>
+            <div id="section4" class="section"></div>
+            <div id="section5" class="section"></div>
+        </div>
+        <!-- Section names area -->
+        <div class="names">
+            <div class="name">Bradford and surrounding townships</div>
+            <div class="name">Names recorded on Bradford Memorials</div>
+            <div class="name">Buried in Bradford</div>
+            <div class="name">Newspaper references</div>
+            <div class="name">Biographies</div>
+        </div>
+    </div>
+
+    <div class="hidden" id="sec1" style="display: none">
+        <h3>Bradford and Surrounding Townships</h3>
+        <p>Information about townships in the Bradford area.</p>
+    </div>
+    <div class="hidden" id="sec2" style="display: none">
+        <h3>Names Recorded on Bradford Memorials</h3>
+        <p>Details of names inscribed on local memorials.</p>
+    </div>
+    <div class="hidden" id="sec3" style="display: none">
+        <h3>Buried in Bradford</h3>
+        <p>Details about cemetery records and burials.</p>
+    </div>
+    <div class="hidden" id="sec4" style="display: none">
+        <h3>Newspaper References</h3>
+        <p>Historic newspaper articles and references.</p>
+    </div>
+    <div class="hidden" id="sec5" style="display: none">
+        <h3>Biographies</h3>
+        <p>Biographies of notable individuals from Bradford.</p>
+    </div>
+</body>
+</html>
