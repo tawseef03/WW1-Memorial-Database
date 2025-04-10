@@ -149,11 +149,31 @@ $total_pages = ceil($total_results / $records_per_page);
                         
                         foreach ($results as $row) {
                             echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['HonourID']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Surname']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Forename']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Address']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Electoral Ward']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Town']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Rank']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['Regiment']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['Unit']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['Memorial']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Battalion']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Company']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Age']) . "</td>"; 
+                            echo "<td>" . htmlspecialchars($row['Service No']) . "</td>"; 
+                            echo "<td>" . htmlspecialchars($row['Other Regiment']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Other Battalion']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Other Service No.']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Medals']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Enlistment Date']) . "</td>"; 
+                            echo "<td>" . htmlspecialchars($row['Discharge Date']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Death（in service Date）']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Cemetery/Memorial']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Cemetery/Memorial Ref']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Cemetery/Memorial Country']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['Additional CWCG Info']) . "</td>";
+                            
+                            
                             echo "<td class='action-buttons'>
                                 <button class='edit-btn' data-id='" . $row['TownshipID'] . "' 
                                 data-surname='" . htmlspecialchars($row['Surname']) . "' 
