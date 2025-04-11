@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-require 'db_connect.php';
+require '../db_connect.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -116,8 +116,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: AdminMemorial.php?error=Error deleting record: " . $mysqli->error);
             exit();
         }
+    } else if ($action == 'upload_csv') {
+        if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['csv_file']['tmp_name'];
+    
+            // Open the CSV file
+            if (($handle = fopen($fileTmpPath, 'r')) !== false) {
+                // Skip the header row
+                fgetcsv($handle);
+    
+                // Process each row
+                while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+                    $surname = $mysqli->real_escape_string($data[0]);
+                    $forename = $mysqli->real_escape_string($data[1]);
+                    $regiment = $mysqli->real_escape_string($data[2]);
+                    $memorial = $mysqli->real_escape_string($data[3]);
+                    $district = $mysqli->real_escape_string($data[4]);
+    
+                    // Insert or update the record
+                    $query = "INSERT INTO memorials (Surname, Forename, Regiment, Memorial, District)
+                              VALUES ('$surname', '$forename', '$regiment', '$memorial', '$district')
+                              ON DUPLICATE KEY UPDATE
+                              Surname = VALUES(Surname),
+                              Forename = VALUES(Forename),
+                              Regiment = VALUES(Regiment),
+                              Memorial = VALUES(Memorial),
+                              District = VALUES(District)";
+                    $mysqli->query($query);
+                }
+    
+                fclose($handle);
+    
+                // Redirect back with success message
+                header("Location: AdminMemorial.php?msg=CSV file processed successfully");
+                exit();
+            } else {
+                // Redirect back with error message
+                header("Location: AdminMemorial.php?error=Error opening CSV file.");
+                exit();
+            }
+        } else {
+            // Redirect back with error message
+            header("Location: AdminMemorial.php?error=No file uploaded or file upload error.");
+            exit();
+        }
     }
-} else {
+}
+ else {
     // If not a POST request, redirect to the main page
     header("Location: AdminMemorial.php");
     exit();

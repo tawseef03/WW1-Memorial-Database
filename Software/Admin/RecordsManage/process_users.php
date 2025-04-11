@@ -1,6 +1,6 @@
 <?php
 // connect to the database
-require 'db_connect.php';
+require '../db_connect.php';
 
 // check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,8 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($action == 'create') {
         $username = $_POST['username'] ?? '';
         $password = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
-        
-        $query = "INSERT INTO users (Username, Password) VALUES ('$username', '$password')";
+        $usertype = $_POST['usertype'] ?? 2; // Default to Guest if not provided
+
+        $query = "INSERT INTO users (Username, Password, `User Type`) VALUES ('$username', '$password', $usertype)";
         
         if ($mysqli->query($query)) {
             header("Location: AdminUsers.php?msg=User created successfully");
@@ -27,8 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = $_POST['user_id'] ?? '';
         $username = $_POST['username'] ?? '';
         $password = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
-        
-        $query = "UPDATE users SET Username = '$username', Password = '$password' WHERE UserID = $user_id";
+        $usertype = $_POST['usertype'] ?? 2; // Default to Guest if not provided
+
+        $query = "UPDATE users SET Username = '$username', Password = '$password', `User Type` = $usertype WHERE UserID = $user_id";
         
         if ($mysqli->query($query)) {
             header("Location: AdminUsers.php?msg=User updated successfully");

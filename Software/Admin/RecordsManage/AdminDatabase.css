@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 .container {
     display: flex;
     padding: 20px;
@@ -111,15 +115,10 @@
     color: white;
 }
 
-.display table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.display th, 
-.display td {
+.records-table th, 
+.records-table td {
     padding: 12px;
+    height: 25px;
     text-align: left;
     border: 1px solid #ddd;
 }
@@ -136,6 +135,25 @@
 .display tr:hover {
     background-color: #f0f0f0;
 }
+
+.records-table {
+    width: 100%;
+    table-layout: fixed; /* Enforces column widths */
+    border-collapse: collapse;
+}
+
+.records-table th,
+.records-table td {
+    padding: 10px;
+    text-align: left;
+    word-wrap: break-word; /* Ensures content wraps within the column */
+}   
+
+.records-table th:nth-child(1),
+.records-table td:nth-child(1) {
+    width: 10%;
+}
+
 
 .pagination {
     margin-top: 20px;
@@ -173,53 +191,13 @@
     font-style: italic;
 }
 
-.records-table {
-    width: 100%; /* 表格宽度占满容器 */
-    border-collapse: collapse; /* 去掉单元格之间的间隙 */
-    margin: 20px 0; /* 表格与其他内容的间距 */
-}
-
-.records-table th,
-.records-table td {
-    padding: 10px; /* 单元格内边距 */
-    text-align: left; /* 左对齐内容 */
-    border: 1px solid #ddd; /* 添加边框 */
-    word-wrap: break-word; /* 自动换行 */
-    max-width: 200px; /* 限制列宽 */
-}
-
-.records-table th {
-    background-color: #f4f4f4; /* 表头背景色 */
-    font-weight: bold; /* 表头加粗 */
-}
-
-/* 设置表格的响应式样式 */
 @media screen and (max-width: 768px) {
     .records-table th,
     .records-table td {
-        font-size: 14px; /* 小屏幕时缩小字体 */
-        padding: 8px; /* 减小单元格内边距 */
+        font-size: 14px;
+        padding: 8px;
     }
 }
-
-/* Column widths */
-.records-table th:nth-child(1),
-.records-table td:nth-child(1) { width: 18%; }
-
-.records-table th:nth-child(2),
-.records-table td:nth-child(2) { width: 18%; }
-
-.records-table th:nth-child(3),
-.records-table td:nth-child(3) { width: 25%; }
-
-.records-table th:nth-child(4),
-.records-table td:nth-child(4) { width: 15%; }
-
-.records-table th:nth-child(5),
-.records-table td:nth-child(5) { width: 12%; }
-
-.records-table th:nth-child(6),
-.records-table td:nth-child(6) { width: 12%; }
 
 /* Records header */
 .records-header {
@@ -246,9 +224,10 @@
 /* Action buttons container */
 .action-buttons {
     display: flex;
-    gap: 10px;
-    justify-content: space-between;
+    gap: 2px;
+    justify-content: center;
     padding: 5px 0;
+    width: 90px;
 }
 
 /* Edit and Delete buttons */
@@ -259,7 +238,7 @@
     border-radius: 3px;
     cursor: pointer;
     font-size: 12px;
-    width: 45%;
+    width: 60px;
     text-align: center;
 }
 
@@ -430,4 +409,18 @@
     padding: 8px 16px;
     cursor: pointer;
     border-radius: 4px;
+}
+
+.upload-csv-btn {
+    padding: 8px 16px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.upload-csv-btn:hover {
+    background-color: #0b7dda;
 }

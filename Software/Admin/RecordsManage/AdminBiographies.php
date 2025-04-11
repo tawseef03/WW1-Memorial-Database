@@ -1,8 +1,6 @@
 <?php
-// admin authentication check
-require '../php_html/admin_auth_check.php';
-// connect to the database
-require 'db_connect.php';
+require '../../Global/admin_auth_check.php';
+require '../db_connect.php';
 
 // Get used for search
 $surname = $_GET['surname'] ?? '';
@@ -80,20 +78,19 @@ $total_pages = ceil($total_results / $records_per_page);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Records - Admin</title>
-    <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
     <link rel="stylesheet" href="AdminDatabase.css">
 </head>
 <body>
 <div class="navbar">
         <div class="logo">
-            <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='AdminSection2.html'">Back to Sections</button>
-            <button type="button" onclick="location.href='AdminManageDatabase.html'">Admin Panel</button>
+            <button type="button" onclick="location.href='../AdminManageDatabase.php'">Back</button>
         </div>
     </div>
 
@@ -206,7 +203,7 @@ $total_pages = ceil($total_results / $records_per_page);
         <div class="modal-content">
             <button class="close-btn" id="closeCreateModal">×</button>
             <h2>Create New Record</h2>
-            <form id="createRecordForm" action="process_biographies.php" method="POST">
+            <form id="createRecordForm" action="process_biographies.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="create">
                 <div class="form-group">
                     <label for="create_surname">Surname:</label>
@@ -225,14 +222,15 @@ $total_pages = ceil($total_results / $records_per_page);
                     <input type="text" id="create_service_no" name="service_no" required>
                 </div>
                 <div class="form-group">
-                    <label for="create_biography_link">Biography Link:</label>
-                    <input type="text" id="create_biography_link" name="biography_link" required>
+                    <label for="create_biography_file">Upload Biography (PDF):</label>
+                    <input type="file" id="create_biography_file" name="biography_file" accept=".pdf" required>
                 </div>
                 <div class="form-buttons">
-                    <button type="submit" class="submit-btn"   href="adminBiographies.php" >Create Record</button>
+                    <button type="submit" class="submit-btn">Create Record</button>
                 </div>
             </form>
         </div>
+    </div>
     </div>
     
     <!-- Edit Record Modal -->

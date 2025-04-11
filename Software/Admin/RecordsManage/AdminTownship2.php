@@ -1,6 +1,6 @@
 <?php
-// connect to the database
-require 'db_connect.php';
+require_once '../../Global/admin_auth_check.php';
+require '../db_connect.php';
 
 // Get used for search
 $surname = $_GET['surname'] ?? '';
@@ -78,20 +78,19 @@ $total_pages = ceil($total_results / $records_per_page);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Townships Database - Admin</title>
-    <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
     <link rel="stylesheet" href="AdminDatabase.css">
 </head>
 <body>
 <div class="navbar">
         <div class="logo">
-            <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
             WW1 Townships Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='AdminSection2.html'">Back to Sections</button>
-            <button type="button" onclick="location.href='AdminManageDatabase.html'">Admin Panel</button>
+            <button type="button" onclick="location.href='../AdminManageDatabase.php'">Back</button>
         </div>
     </div>
 
@@ -130,6 +129,7 @@ $total_pages = ceil($total_results / $records_per_page);
                 <div class="records-header">
                     <h3 id="resultsHeading">Records Display</h3>
                     <button id="createRecordBtn" class="create-record-btn">Create New Record</button>
+                    <button id="uploadCsvBtn" class="upload-csv-btn">Upload CSV</button>
                 </div>
                 
                 <div class="display">
@@ -218,6 +218,23 @@ $total_pages = ceil($total_results / $records_per_page);
         </div>
     <?php endif; ?>
 
+<!-- CSV Upload Modal -->
+<div class="modal" id="uploadCsvModal">
+    <div class="modal-content">
+        <button class="close-btn" id="closeCsvModal">×</button>
+        <h2>Upload CSV File</h2>
+        <form id="uploadCsvForm" action="process_townships.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="upload_csv">
+            <div class="form-group">
+                <label for="csv_file">Select CSV File:</label>
+                <input type="file" id="csv_file" name="csv_file" accept=".csv" required>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
 
     <!-- Create Record Modal -->
     <div class="modal" id="createRecordModal">
@@ -548,6 +565,27 @@ $total_pages = ceil($total_results / $records_per_page);
         // Handle search button click
         document.getElementById('searchButton').addEventListener('click', function() {
             document.getElementById('searchForm').submit();
+        });
+
+        const uploadCsvBtn = document.getElementById('uploadCsvBtn');
+        const uploadCsvModal = document.getElementById('uploadCsvModal');
+        const closeCsvModal = document.getElementById('closeCsvModal');
+
+        // Open CSV upload modal
+        uploadCsvBtn.addEventListener('click', () => {
+            uploadCsvModal.style.display = 'block';
+        });
+
+        // Close CSV upload modal
+        closeCsvModal.addEventListener('click', () => {
+            uploadCsvModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === uploadCsvModal) {
+                uploadCsvModal.style.display = 'none';
+            }
         });
     });
 </script>

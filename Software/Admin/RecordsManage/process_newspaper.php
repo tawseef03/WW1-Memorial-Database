@@ -1,7 +1,7 @@
 <!-- filepath: c:\Users\28341\Desktop\ww1code\WW1-Memorial-Database\Software\admin\process_burials.php -->
 <?php
 // Include the database connection
-require 'db_connect.php';
+require '../db_connect.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -150,6 +150,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Redirect back with error message
             header("Location: AdminNewspaper.php?error=Error deleting record: " . $stmt->error);
+            exit();
+        }
+    } else if ($action == 'upload_csv') {
+        if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['csv_file']['tmp_name'];
+    
+            // Open the CSV file
+            if (($handle = fopen($fileTmpPath, 'r')) !== false) {
+                // Skip the header row
+                fgetcsv($handle);
+    
+                // Process each row
+                while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+                    $surname = $mysqli->real_escape_string($data[0]);
+                    $forename = $mysqli->real_escape_string($data[1]);
+                    $rank = $mysqli->real_escape_string($data[2]);
+                    $address = $mysqli->real_escape_string($data[3]);
+                    $regiment = $mysqli->real_escape_string($data[4]);
+                    $unit = $mysqli->real_escape_string($data[5]);
+                    $article_description = $mysqli->real_escape_string($data[6]);
+                    $newspaper_name = $mysqli->real_escape_string($data[7]);
+                    $paper_date = $mysqli->real_escape_string($data[8]);
+                    $page_col = $mysqli->real_escape_string($data[9]);
+                    $photo_incl = $mysqli->real_escape_string($data[10]);
+    
+                    // Insert or update the record
+                    $query = "INSERT INTO newspapers (Surname, Forename, Rank, Address, Regiment, Unit, `Article Description`, `Newspaper Name`, `Paper Date`, `Page/Col`, `Photo incl.`)
+                              VALUES ('$surname', '$forename', '$rank', '$address', '$regiment', '$unit', '$article_description', '$newspaper_name', '$paper_date', '$page_col', '$photo_incl')
+                              ON DUPLICATE KEY UPDATE
+                              Surname = VALUES(Surname),
+                              Forename = VALUES(Forename),
+                              Rank = VALUES(Rank),
+                              Address = VALUES(Address),
+                              Regiment = VALUES(Regiment),
+                              Unit = VALUES(Unit),
+                              `Article Description` = VALUES(`Article Description`),
+                              `Newspaper Name` = VALUES(`Newspaper Name`),
+                              `Paper Date` = VALUES(`Paper Date`),
+                              `Page/Col` = VALUES(`Page/Col`),
+                              `Photo incl.` = VALUES(`Photo incl.`)";
+                    $mysqli->query($query);
+                }
+    
+                fclose($handle);
+    
+                // Redirect back with success message
+                header("Location: AdminNewspaper.php?msg=CSV file processed successfully");
+                exit();
+            } else {
+                // Redirect back with error message
+                header("Location: AdminNewspaper.php?error=Error opening CSV file.");
+                exit();
+            }
+        } else {
+            // Redirect back with error message
+            header("Location: AdminNewspaper.php?error=No file uploaded or file upload error.");
             exit();
         }
     }

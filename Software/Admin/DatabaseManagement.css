@@ -1,0 +1,136 @@
+/* databaseManagement.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #962222;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+    height: 100px;
+    position: relative;
+}
+
+.navbar .logo {
+    background-color: #ffffff;
+    height: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.navbar .logo img {
+    height: 80px;
+}
+
+.navbar .title {
+    color: black;
+    font-size: 35px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'Kameron';
+    font-weight: bold;
+}
+
+.navbar .navbuttons {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar .navbuttons button {
+    padding: 10px 20px;
+    background-color: #780909;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.navbar .navbuttons button:hover {
+    background-color: #d41d1d;
+}
+
+
+.button-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px; /* Increased gap for vertical spacing */
+    margin-top: 50px;
+}
+
+
+.button-row {
+    display: flex;
+    gap: 40px;
+}
+
+.top-row {
+    justify-content: center;
+}
+
+.bottom-row {
+    width: 830px; /* Matches total width of 3 buttons + gaps */
+    display: flex;
+    justify-content: space-between;
+    margin-top: -50px; /* Adjust this to position vertically */
+    padding: 0 50px; /* Positions buttons between top row buttons */
+    
+}
+
+
+/* ---------------------- Database Cards ---------------------- */
+.database-button {
+    width: 350px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.database-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: #f8f8f8;
+}
+
+.database-button h3 {
+    color: #923e3e;
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.database-button p {
+    color: #666;
+    font-size: 1.25em;
+    line-height: 1.5;
+    padding: 0 10px;
+}
+
+
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+    color: #aaa;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #666;
+}

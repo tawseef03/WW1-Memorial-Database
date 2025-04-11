@@ -1,6 +1,6 @@
 <?php
-require_once 'auth_check.php';
-require 'db_connect.php';
+require_once '../../Global/auth_check.php';
+require '../../Global/db_connect.php';
 
 // Get search parameters and current page
 $surname = $_GET['surname'] ?? '';
@@ -73,19 +73,19 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Records</title>
-    <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
-    <link rel="stylesheet" href="../css/database.css">
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
+    <link rel="stylesheet" href="database.css">
 </head>
 <body>
     <div class="navbar">
         <div class="logo">
-            <img src="../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.php'">Back to Sections</button>
+            <button type="button" onclick="location.href='../UserSection/userSection.php'">Back to Sections</button>
         </div>
     </div>
 

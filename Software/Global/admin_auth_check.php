@@ -7,7 +7,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 if (!isset($_SESSION['user_type']) || intval($_SESSION['user_type']) !== 1) {
-    header("Location: userSection.html");
+    header("Location: ../Guest/UserSection/userSection.php");
     exit;
 }
 ?>

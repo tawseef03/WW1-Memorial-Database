@@ -1,11 +1,11 @@
 <?php
 // connect to the database
-require 'db_connect.php';
+require '../../Global/db_connect.php';
 
 // Get used for search
 $username = $_GET['username'] ?? '';
 $page = $_GET['page'] ?? 1;
-$records_per_page = 10;
+$records_per_page = 5;
 
 $offset = ($page - 1) * $records_per_page;
 
@@ -60,19 +60,19 @@ $total_pages = ceil($total_results / $records_per_page);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Users - Admin</title>
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
     <link rel="stylesheet" href="AdminDatabase.css">
 </head>
 <body>
 <div class="navbar">
     <div class="logo">
-        <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
+        <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
     </div>
     <div class="title">
         WW1 Database Users
     </div>
     <div class="navbuttons">
-        <button type="button" onclick="location.href='AdminSection2.html'">Back to Sections</button>
-        <button type="button" onclick="location.href='AdminManageDatabase.html'">Admin Panel</button>
+        <button type="button" onclick="location.href='../AdminPage.php'">Back to Panel</button>
     </div>
 </div>
 
@@ -108,6 +108,7 @@ $total_pages = ceil($total_results / $records_per_page);
                         <th>UserID</th>
                         <th>Username</th>
                         <th>Password</th>
+                        <th>User Type</th>
                         <th>Actions</th>
                     </tr></thead><tbody>";
                     
@@ -116,9 +117,12 @@ $total_pages = ceil($total_results / $records_per_page);
                         echo "<td>" . htmlspecialchars($row['UserID']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['Username']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['Password']) . "</td>";
+                        echo "<td>" . ($row['User Type'] == 1 ? 'Admin' : 'Guest') . "</td>";
                         echo "<td class='action-buttons'>
-                            <button class='edit-btn' data-id='" . $row['UserID'] . "' 
-                            data-username='" . htmlspecialchars($row['Username']) . "'>Edit</button>
+                            <button class='edit-btn' 
+                                data-id='" . $row['UserID'] . "' 
+                                data-username='" . htmlspecialchars($row['Username']) . "' 
+                                data-usertype='" . $row['User Type'] . "'>Edit</button>
                             <button class='delete-btn' data-id='" . $row['UserID'] . "'>Delete</button>
                         </td>";
                         echo "</tr>";
@@ -160,6 +164,13 @@ $total_pages = ceil($total_results / $records_per_page);
                 <label for="create_password">Password:</label>
                 <input type="password" id="create_password" name="password" required>
             </div>
+            <div class="form-group">
+                <label for="create_usertype">User Type:</label>
+                <select id="create_usertype" name="usertype" required>
+                    <option value="1">Admin</option>
+                    <option value="2">Guest</option>
+                </select>
+            </div>
             <div class="form-buttons">
                 <button type="submit" class="submit-btn">Create User</button>
             </div>
@@ -182,6 +193,13 @@ $total_pages = ceil($total_results / $records_per_page);
             <div class="form-group">
                 <label for="edit_password">Password:</label>
                 <input type="password" id="edit_password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_usertype">User Type:</label>
+                <select id="edit_usertype" name="usertype" required>
+                    <option value="1">Admin</option>
+                    <option value="2">Guest</option>
+                </select>
             </div>
             <div class="form-buttons">
                 <button type="submit" class="submit-btn">Update User</button>
@@ -233,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             document.getElementById('edit_record_id').value = this.getAttribute('data-id');
             document.getElementById('edit_username').value = this.getAttribute('data-username');
+            document.getElementById('edit_usertype').value = this.getAttribute('data-usertype'); // Set UserType
             editRecordModal.style.display = 'block';
         });
     });

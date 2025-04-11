@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2025 at 03:02 PM
+-- Generation Time: Apr 11, 2025 at 03:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,11 +38,11 @@ CREATE TABLE `about` (
 --
 
 INSERT INTO `about` (`aboutID`, `fileName`, `filePath`) VALUES
-(1, 'township.pdf', '../files/about/township.pdf'),
-(2, 'memorial.pdf', '../files/about/memorial.pdf'),
-(3, 'buried.pdf', '../files/about/buried.pdf'),
-(4, 'newspaper.pdf', '../files/about/newspaper.pdf'),
-(5, 'biography.pdf', '../files/about/biography.pdf');
+(1, 'township.pdf', '../../Files/about/township.pdf'),
+(2, 'memorial.pdf', '../../Files/about/memorial.pdf'),
+(3, 'buried.pdf', '../../Files/about/buried.pdf'),
+(4, 'newspaper.pdf', '../../Files/about/newspaper.pdf'),
+(5, 'biography.pdf', '../../Files/about/biography.pdf');
 
 -- --------------------------------------------------------
 
@@ -64,10 +64,11 @@ CREATE TABLE `biographyinfo` (
 --
 
 INSERT INTO `biographyinfo` (`BiographyID`, `Surname`, `Forename`, `Regiment`, `Service No`, `Biography`) VALUES
-(1, 'Allan-Black', 'Hugh McAllister', 'Royal Fusiliers', '77570', '../files/biographies/Allan Black Pte Hugh McAllister.pdf'),
-(2, 'Griffiths', 'Alfred ', 'Army Service Corps', 'M2/113717', '../files/biographies/Griffiths Pte Alfred.pdf'),
-(3, 'Loben', 'John William', 'West Yorkshire Regiment', '45034', '../files/biographies/Loben Pte John William 16th WYR.pdf'),
-(4, 'Griffiths', 'Frank', 'Royal Navy', '347550', '../files/biographies/Griffiths Frank.pdf');
+(1, 'Allan-Black', 'Hugh McAllister', 'Royal Fusiliers', '77570', '../../Files/biographies/Allan Black Pte Hugh McAllister.pdf'),
+(2, 'Griffiths', 'Alfred ', 'Army Service Corps', 'M2/113717', '../../Files/biographies/Griffiths Pte Alfred.pdf'),
+(3, 'Loben', 'John William', 'West Yorkshire Regiment', '45034', '../../Files/biographies/Loben Pte John William 16th WYR.pdf'),
+(4, 'Griffiths', 'Frank', 'Royal Navy', '347550', '../../Files/biographies/Griffiths Frank.pdf'),
+(5, 'Test', 'Test', 'Test', 'Test', '../../Files/biographies/Lecture - Testing.pdf');
 
 -- --------------------------------------------------------
 
@@ -594,7 +595,7 @@ CREATE TABLE `memorials` (
 --
 
 INSERT INTO `memorials` (`MemorialID`, `Surname`, `Forename`, `Regiment`, `Unit`, `Cemetery/Memorial`, `Cemetery/Grave Ref.`, `Cemetery / Memorial Country`, `Memorial`, `Memorial Location`, `Memorial Info`, `Memorial Postcode`, `District`, `Photo available`) VALUES
-(1, 'Airey', 'Harry', 'West Yorkshire Regiment', 'Not recorded', '', '', '', 'All Saints Church, Little Horton', 'Little Horton Green, Little Horton', 'Inside Memorial Chapel', 'BD5 0NG', 'Little Horton', 'No'),
+(1, 'Test123', 'Harry', 'West Yorkshire Regiment', 'Not recorded', '', '', '', 'All Saints Church, Little Horton', 'Little Horton Green, Little Horton', 'Inside Memorial Chapel', 'BD5 0NG', 'Little Horton', '0'),
 (2, 'Airey', 'Henry W S', 'Not recorded', 'Not recorded', '', '', '', 'All Saints Church, Little Horton', 'Little Horton Green, Little Horton', 'Large Plaque inside church', 'BD5 0NG', 'Little Horton', 'No'),
 (3, 'Allen', 'John W', 'Not recorded', 'Not recorded', '', '', '', 'All Saints Church, Little Horton', 'Little Horton Green, Little Horton', 'Large Plaque inside church', 'BD5 0NG', 'Little Horton', 'No'),
 (4, 'Baines', 'Arthur', 'Not recorded', 'Not recorded', '', '', '', 'All Saints Church, Little Horton', 'Little Horton Green, Little Horton', 'Large Plaque inside church', 'BD5 0NG', 'Little Horton', 'No'),
@@ -11091,8 +11092,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `Username`, `Password`, `User Type`) VALUES
-(1, 'guest', '42f749ade7f9e195bf475f37a44cafcb', 0),
-(2, 'admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 1);
+(3, 'guest', '$2y$10$nWL0pkIG87tv6cq6MrNPveYjTCCkGqBCdu6TY5QbkN0A6LjU6QoTK', 2),
+(4, 'admin', '$2y$10$lBEvGCIG0bu5t0y40p/6PeRg22J50XIGuD2YUG0I2JTcsIsTY7Wva', 1);
 
 --
 -- Indexes for dumped tables
@@ -11154,7 +11155,7 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT for table `biographyinfo`
 --
 ALTER TABLE `biographyinfo`
-  MODIFY `BiographyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `BiographyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `buried`
@@ -11184,7 +11185,7 @@ ALTER TABLE `township`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

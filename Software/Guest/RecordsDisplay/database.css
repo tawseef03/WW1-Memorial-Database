@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'Kameron';
-    src: url(../fonts/Kameron.ttf)
+    src: url(../../Resource/Fonts/Kameron.ttf)
 }
 @font-face {
     font-family: 'Raleway';
-    src: url(../fonts/Raleway.ttf);
+    src: url(../../Resource/Fonts/Raleway.ttf);
 }
 @font-face {
     font-family: 'Winsel';
-    src: url(../fonts/Winsel-Bold.otf);
+    src: url(../../Resource/Fonts/Winsel-Bold.otf);
 }
 
 html, body {
@@ -207,7 +207,7 @@ html, body {
 }
 
 .display {
-    height: 436px; 
+    height: 446px; 
     width: 970px;
     background-color: #ffffff;
     padding: 0px 10px;
@@ -216,6 +216,57 @@ html, body {
     border-color: #d41d1d;
     border-radius: 10px;
     font-family: 'Raleway';
+}
+
+.modal {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.innermodal {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.innermodal iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #780909;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.close-modal:hover {
+    background-color: #d41d1d;
 }
 
 .pagination {

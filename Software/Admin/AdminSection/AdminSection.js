@@ -1,19 +1,19 @@
 function openPage(n) {
     switch (n) {
         case 1:
-            window.location.href = '../RecordsDisplay/township.php';
+            window.location.href = '../../Guest/RecordsDisplay/township.php';
             break;
         case 2:
-            window.location.href = '../RecordsDisplay/memorial.php';
+            window.location.href = '../../Guest/RecordsDisplay/memorial.php';
             break;
         case 3:
-            window.location.href = '../RecordsDisplay/buried.php';
+            window.location.href = '../../Guest/RecordsDisplay/buried.php';
             break;
         case 4:
-            window.location.href = '../RecordsDisplay/newspaper.php';
+            window.location.href = '../../Guest/RecordsDisplay/newspaper.php';
             break;
         case 5:
-            window.location.href = '../RecordsDisplay/biographies.php';
+            window.location.href = '../../Guest/RecordsDisplay/biographies.php';
             break;
         default:
             return;

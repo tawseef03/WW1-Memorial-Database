@@ -1,6 +1,6 @@
 <?php
-require_once 'auth_check.php';
-require 'db_connect.php';
+require_once '../../Global/auth_check.php';
+require '../../Global/db_connect.php';
 
 // Get search parameters and current page
 $surname = $_GET['surname'] ?? '';
@@ -73,19 +73,19 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Records</title>
-    <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
-    <link rel="stylesheet" href="../css/database.css">
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
+    <link rel="stylesheet" href="database.css">
 </head>
 <body>
     <div class="navbar">
         <div class="logo">
-            <img src="../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.php   '">Back to Sections</button>
+            <button type="button" onclick="location.href='../UserSection/userSection.php'">Back to Sections</button>
         </div>
     </div>
 
@@ -131,20 +131,21 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                         foreach ($results as $row) {
                             echo "<div class='record'>";
                             echo "<div class='col1'>";
+                            echo "<p><strong>Buried ID:</strong> " . htmlspecialchars($row['BuriedID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
                             echo "<p><strong>Age:</strong> " . htmlspecialchars($row['Age']) . "</p>";
                             echo "<p><strong>Medals:</strong> " . htmlspecialchars($row['Medals']) . "</p>";
                             echo "<p><strong>Date of Death:</strong> " . htmlspecialchars($row['Date of Death']) . "</p>";
                             echo "<p><strong>Rank:</strong> " . htmlspecialchars($row['Rank']) . "</p>";
-                            echo "<p><strong>Service Number:</strong> " . htmlspecialchars($row['Service Number']) . "</p>";
+                            echo "<p><strong>Service Number:</strong> " . htmlspecialchars($row['Service No']) . "</p>";
                             echo "</div>";
                             echo "<div class='col2'>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
-                            echo "<p><strong>Unit:</strong> " . htmlspecialchars($row['Unit']) . "</p>";
-                            echo "<p><strong>Cemetery:</strong> " . htmlspecialchars($row['Cemetery']) . "</p>";
-                            echo "<p><strong>Grave Reference:</strong> " . htmlspecialchars($row['Grave Reference']) . "</p>";
-                            echo "<p><strong>Information:</strong> " . htmlspecialchars($row['Information']) . "</p>";
+                            echo "<p><strong>Battalion:</strong> " . htmlspecialchars($row['Battalion']) . "</p>";
+                            echo "<p><strong>Cemetary:</strong> " . htmlspecialchars($row['Cemetary']) . "</p>";
+                            echo "<p><strong>Grave Reference:</strong> " . htmlspecialchars($row['Grave Ref']) . "</p>";
+                            echo "<p><strong>Information:</strong> " . htmlspecialchars($row['Info']) . "</p>";
                             echo "</div>";
                             echo "</div>";
                         }

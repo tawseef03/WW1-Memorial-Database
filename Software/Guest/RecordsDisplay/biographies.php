@@ -1,6 +1,6 @@
 <?php
-require_once 'auth_check.php';
-require 'db_connect.php';
+require_once '../../Global/auth_check.php';
+require '../../Global/db_connect.php';
 
 // Get search parameters and current page
 $surname = $_GET['surname'] ?? '';
@@ -73,19 +73,19 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Records</title>
-    <link rel="icon" type="image/x-icon" href="../rsc/WebLogo.png">
-    <link rel="stylesheet" href="../css/database.css">
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
+    <link rel="stylesheet" href="database.css">
 </head>
 <body>
     <div class="navbar">
         <div class="logo">
-            <img src="../rsc/GroupLogo.png" alt="WW1 Group">
+            <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
             WW1 Database Records
         </div>
         <div class="navbuttons">
-            <button type="button" onclick="location.href='userSection.html'">Back to Sections</button>
+            <button type="button" onclick="location.href='../UserSection/userSection.php'">Back to Sections</button>
         </div>
     </div>
 
@@ -131,13 +131,14 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                         foreach ($results as $row) {
                             echo "<div class='record'>";
                             echo "<div class='col1'>";
+                            echo "<p><strong>Biography ID:</strong> " . htmlspecialchars($row['BiographyID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
                             echo "<p><strong>Service No:</strong> " . htmlspecialchars($row['Service No']) . "</p>";
                             // Biography link is currently from db and in this directory (php_html, can be changed to point to intended directory)
                             // Assumes a PDF file, which will open in a new tab - a DOCX file would need a different approach
-                            echo "<p><strong>Biography:</strong> <a target='_blank' href='" . htmlspecialchars($row['Biography']) . "'>Link</a></p>";
+                            echo "<p><strong>Biography:</strong> <a href='#' onclick=\"openModal('" . htmlspecialchars($row['Biography']) . "')\">View</a></p>";
                             echo "</div>";
                             echo "</div>";
                         }
@@ -156,10 +157,38 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
             </div>
         </div>
     </div>
+    <!-- Modal Structure -->
+    <div id="pdfModal" class="modal">
+        <div class="innermodal">
+            <button class="close-modal" onclick="closeModal()">X</button>
+            <iframe id="pdfViewer" src="" frameborder="0"></iframe>
+        </div>
+    </div>
     <script>
         // When the search button is clicked, trigger the form submission
         document.getElementById("searchButton").onclick = function() {
             document.getElementById("searchForm").submit();
+        };
+
+        function openModal(pdfPath) {
+        const modal = document.getElementById("pdfModal");
+        const pdfViewer = document.getElementById("pdfViewer");
+        pdfViewer.src = pdfPath + "#toolbar=0&zoom=100";
+        modal.classList.add("open");
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("pdfModal");
+            const pdfViewer = document.getElementById("pdfViewer");
+            pdfViewer.src = "";
+            modal.classList.remove("open");
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("pdfModal");
+            if (event.target === modal) {
+                closeModal();
+            }
         };
     </script>
 </body>
