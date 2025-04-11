@@ -1,5 +1,5 @@
 <?php
-require_once '../../Global/auth_check.php';
+require_once '../../Global/admin_auth_check.php';
 require '../../Global/db_connect.php';
 
 function getCount($mysqli, $table) {
@@ -50,9 +50,9 @@ if ($result) {
     <!-- Set page favicon -->
     <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
     <!-- Link to external stylesheet -->
-    <link rel="stylesheet" href="userSection.css">
+    <link rel="stylesheet" href="AdminSection.css">
     <!-- Link to external JavaScript file -->
-    <script src="userSection.js"></script>
+    <script src="AdminSection.js"></script>
 </head>
 <body>
     <!-- Navigation bar -->
@@ -67,6 +67,7 @@ if ($result) {
         </div>
         <!-- Navigation buttons -->
         <div class="navbuttons">
+        <button class="admin-button" onclick="location.href='../AdminPage.php'">Admin Page</button>
             <button type="button" onclick="logout()">Exit</button>
         </div>
     </div>

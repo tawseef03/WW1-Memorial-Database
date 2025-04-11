@@ -1,11 +1,11 @@
 <?php
 // connect to the database
-require 'db_connect.php';
+require '../../Global/db_connect.php';
 
 // Get used for search
 $username = $_GET['username'] ?? '';
 $page = $_GET['page'] ?? 1;
-$records_per_page = 10;
+$records_per_page = 5;
 
 $offset = ($page - 1) * $records_per_page;
 
@@ -60,19 +60,19 @@ $total_pages = ceil($total_results / $records_per_page);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Database Users - Admin</title>
+    <link rel="icon" type="image/x-icon" href="../../Resource/Images/WebLogo.png">
     <link rel="stylesheet" href="AdminDatabase.css">
 </head>
 <body>
 <div class="navbar">
     <div class="logo">
-        <img src="../../rsc/GroupLogo.png" alt="WW1 Group">
+        <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
     </div>
     <div class="title">
         WW1 Database Users
     </div>
     <div class="navbuttons">
-        <button type="button" onclick="location.href='AdminSection2.html'">Back to Sections</button>
-        <button type="button" onclick="location.href='AdminManageDatabase.html'">Admin Panel</button>
+        <button type="button" onclick="location.href='../AdminPage.php'">Back to Panel</button>
     </div>
 </div>
 

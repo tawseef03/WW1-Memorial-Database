@@ -79,7 +79,7 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
 <body>
     <div class="navbar">
         <div class="logo">
-            <img src="../Resource/Images/GroupLogo.png" alt="WW1 Group">
+            <img src="../../Resource/Images/GroupLogo.png" alt="WW1 Group">
         </div>
         <div class="title">
             WW1 Database Records

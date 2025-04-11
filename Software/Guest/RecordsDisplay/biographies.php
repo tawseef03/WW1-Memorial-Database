@@ -131,13 +131,14 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
                         foreach ($results as $row) {
                             echo "<div class='record'>";
                             echo "<div class='col1'>";
+                            echo "<p><strong>Biography ID:</strong> " . htmlspecialchars($row['BiographyID']) . "</p>";
                             echo "<p><strong>Surname:</strong> " . htmlspecialchars($row['Surname']) . "</p>";
                             echo "<p><strong>Forename:</strong> " . htmlspecialchars($row['Forename']) . "</p>";
                             echo "<p><strong>Regiment:</strong> " . htmlspecialchars($row['Regiment']) . "</p>";
                             echo "<p><strong>Service No:</strong> " . htmlspecialchars($row['Service No']) . "</p>";
                             // Biography link is currently from db and in this directory (php_html, can be changed to point to intended directory)
                             // Assumes a PDF file, which will open in a new tab - a DOCX file would need a different approach
-                            echo "<p><strong>Biography:</strong> <a target='_blank' href='" . htmlspecialchars($row['Biography']) . "'>Link</a></p>";
+                            echo "<p><strong>Biography:</strong> <a href='#' onclick=\"openModal('" . htmlspecialchars($row['Biography']) . "')\">View</a></p>";
                             echo "</div>";
                             echo "</div>";
                         }
@@ -156,10 +157,38 @@ $total_pages = $total_stmt->get_result()->fetch_row()[0];
             </div>
         </div>
     </div>
+    <!-- Modal Structure -->
+    <div id="pdfModal" class="modal">
+        <div class="innermodal">
+            <button class="close-modal" onclick="closeModal()">X</button>
+            <iframe id="pdfViewer" src="" frameborder="0"></iframe>
+        </div>
+    </div>
     <script>
         // When the search button is clicked, trigger the form submission
         document.getElementById("searchButton").onclick = function() {
             document.getElementById("searchForm").submit();
+        };
+
+        function openModal(pdfPath) {
+        const modal = document.getElementById("pdfModal");
+        const pdfViewer = document.getElementById("pdfViewer");
+        pdfViewer.src = pdfPath + "#toolbar=0&zoom=100";
+        modal.classList.add("open");
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("pdfModal");
+            const pdfViewer = document.getElementById("pdfViewer");
+            pdfViewer.src = "";
+            modal.classList.remove("open");
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("pdfModal");
+            if (event.target === modal) {
+                closeModal();
+            }
         };
     </script>
 </body>

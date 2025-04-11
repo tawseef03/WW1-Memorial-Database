@@ -1,6 +1,6 @@
 <?php
 // connect to the database
-require 'db_connect.php';
+require '../db_connect.php';
 
 // check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,20 +12,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $forename = $_POST['forename'] ?? '';
         $regiment = $_POST['regiment'] ?? '';
         $service_no = $_POST['service_no'] ?? '';
-        $biography_link = $_POST['biography_link'] ?? '';
-        
-        // Create query
-        $query = "INSERT INTO biographyinfo (Surname, Forename, Regiment, `Service No`, Biography) 
-                 VALUES ('$surname', '$forename', '$regiment', '$service_no', '$biography_link')";
-        
-        // Execute query
-        if ($mysqli->query($query)) {
-            // Redirect back to the page with success message
-            header("Location: AdminBiographies.php?msg=Record created successfully");
-            exit();
+
+        // Handle file upload
+        if (isset($_FILES['biography_file']) && $_FILES['biography_file']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../../Files/biographies/';
+            $fileName = basename($_FILES['biography_file']['name']);
+            $filePath = $uploadDir . $fileName;
+
+            // Ensure the upload directory exists
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            // Move the uploaded file to the target directory
+            if (move_uploaded_file($_FILES['biography_file']['tmp_name'], $filePath)) {
+                // Save the relative file path to the database
+                $relativePath = '../../Files/biographies/' . $fileName;
+
+                // Create query
+                $query = "INSERT INTO biographyinfo (Surname, Forename, Regiment, `Service No`, Biography) 
+                        VALUES ('$surname', '$forename', '$regiment', '$service_no', '$relativePath')";
+
+                // Execute query
+                if ($mysqli->query($query)) {
+                    // Redirect back to the page with success message
+                    header("Location: AdminBiographies.php?msg=Record created successfully");
+                    exit();
+                } else {
+                    // Redirect back with error message
+                    header("Location: AdminBiographies.php?error=Error creating record: " . $mysqli->error);
+                    exit();
+                }
+            } else {
+                // Redirect back with error message if file upload fails
+                header("Location: AdminBiographies.php?error=Error uploading file.");
+                exit();
+            }
         } else {
-            // Redirect back with error message
-            header("Location: AdminBiographies.php?error=Error creating record: " . $mysqli->error);
+            // Redirect back with error message if no file is uploaded
+            header("Location: AdminBiographies.php?error=No file uploaded or file upload error.");
             exit();
         }
     }

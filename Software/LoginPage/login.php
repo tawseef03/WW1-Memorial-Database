@@ -5,7 +5,18 @@ require_once '../Global/db_connect.php';
 $error_message = '';
 $debug_info = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (!isset($_SESSION['failed_attempts'])) {
+    $_SESSION['failed_attempts'] = 0;
+}
+if (!isset($_SESSION['lockout_time'])) {
+    $_SESSION['lockout_time'] = 0;
+}
+$lockout_duration = 5 * 60;
+
+if ($_SESSION['failed_attempts'] >= 5 && time() < $_SESSION['lockout_time']) {
+    $remaining_time = $_SESSION['lockout_time'] - time();
+    $error_message = "Too many failed login attempts. Please try again in " . ceil($remaining_time / 60) . " minutes.";
+} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -28,21 +39,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
 
         // Use existing password verification logic
-        if ($user && $password === $user["Password"]) {
+        if ($user && (md5($password) === $user["Password"] || password_verify($password, $user["Password"]))) {
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['user_type'] = $user["User Type"];
             $_SESSION['user_id'] = $user["UserID"];
+
+            $_SESSION['failed_attempts'] = 0;
+            $_SESSION['lockout_time'] = 0;
             
             // Redirect based on user type
             if (intval($user["User Type"]) === 1) {
-                header("Location: ../AdminPage/adminpage.html");
+                header("Location: ../Admin/AdminSection/AdminSection.php");
             } else {
                 header("Location: ../Guest/UserSection/userSection.php");
             }
             exit;
         } else {
-            $error_message = "Invalid username or password";
+            $_SESSION['failed_attempts']++;
+            if ($_SESSION['failed_attempts'] >= 5) {
+                $_SESSION['lockout_time'] = time() + $lockout_duration;
+                $error_message = "Too many failed login attempts. Please try again in 5 minutes.";
+            } else {
+                $remaining_attempts = 5 - $_SESSION['failed_attempts'];
+                $error_message = "Invalid username or password. You have $remaining_attempts attempt(s) remaining.";
+            }
         }
         
     } catch (Exception $e) {
@@ -64,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WW1 Bradford Group</title>
+    <link rel="icon" type="image/x-icon" href="../Resource/Images/WebLogo.png">
     <link rel="stylesheet" href="login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -84,10 +106,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="wrapper">
-        <?php if (!empty($error_message)): ?>
-            <div class="error-message"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-        
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <h1>Log-in</h1>
 
@@ -107,6 +125,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <button type="submit" class="button">Log-in</button>
         </form>
+        <?php if (!empty($error_message)): ?>
+            <div class="error-message"><?php echo $error_message; ?></div>
+        <?php endif; ?>
     </div>
     <script>
         // Toggle password visibility

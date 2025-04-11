@@ -24,7 +24,6 @@ body {
 }
 
 /* Navbar Styling */
-/* 导航栏样式 */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -81,11 +80,10 @@ body {
 /* Login Wrapper */
 /* 登录包装 */
 .wrapper {
-    display: flex;
     justify-content: center;
     align-items: center;
     margin: 50px auto;
-    max-width: 450px;
+    max-width: 300px;
 }
 
 .wrapper form {
